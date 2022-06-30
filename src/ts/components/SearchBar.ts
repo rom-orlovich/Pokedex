@@ -34,15 +34,14 @@ export class SearchBar {
     updatePokemonsList: TUpdatePokemonsList
   ) {
     const input = select(".search_field");
-
     input.addEventListener("input", (e) => {
       const inputEl = e.currentTarget as HTMLInputElement;
       if (!inputEl) return;
-
-      updatePokemonsList(
-        DataPokemons.filterPokemonsByQuery("name", inputEl.value),
-        "#pokemons_list_section"
+      const filterPokemons = DataPokemons.filterPokemonsByQuery(
+        "name",
+        inputEl.value
       );
+      updatePokemonsList(filterPokemons, "#pokemons_list_section");
     });
   }
 }

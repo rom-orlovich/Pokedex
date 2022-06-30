@@ -14,7 +14,7 @@ export class PokemonsData {
       promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
     await Promise.all(promiseArr).then((data) => {
       this.pokemonsDataArr.push(
-        ...data.map((pokemon) => PokemonsData.createPokemonObj(pokemon))
+        ...data.map((pokemon) => PokemonsData.formatPokemonObj(pokemon))
       );
     });
   }
@@ -25,7 +25,7 @@ export class PokemonsData {
     return data;
   }
 
-  static createPokemonObj(pokemon: IPokemonApi) {
+  static formatPokemonObj(pokemon: IPokemonApi) {
     const pokemonDetails = {
       id: String(pokemon.id),
       name: pokemon.name,
