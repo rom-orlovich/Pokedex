@@ -1,0 +1,6 @@
+@use "../utilities/utilities.scss" as *;
+
+#pokemons_list {
+  display: flex;
+  flex-flow: row wrap;
+}

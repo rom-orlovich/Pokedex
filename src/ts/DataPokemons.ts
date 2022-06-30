@@ -26,13 +26,15 @@ export class DataPokemons {
   }
 
   static createPokemonObj(pokemon: IPokemonApi) {
+    console.log(pokemon);
+
     const pokemonDetails = {
       id: String(pokemon.id),
       name: pokemon.name,
       height: pokemon.height,
       weight: pokemon.weight,
       img: pokemon.sprites.front_default,
-      type: pokemon.type,
+      type: pokemon.types.map((type) => type.type.name),
     };
     return pokemonDetails;
   }

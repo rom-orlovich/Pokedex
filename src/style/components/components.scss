@@ -1,1 +1,2 @@
-@use "../utilities/utilities.scss" as *;
+@forward "./pokemonDetails";
+@forward "./pokemonsList";

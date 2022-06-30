@@ -8,7 +8,11 @@ export interface IPokemonApi {
   sprites: {
     front_default: string;
   };
-  type: string[];
+  types: {
+    type: {
+      name: string;
+    };
+  }[];
 }
 export interface IPokemon {
   id: string;
