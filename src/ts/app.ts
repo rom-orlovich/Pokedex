@@ -18,4 +18,6 @@ export async function initApp() {
   const dataPokemons = new DataPokemons();
 
   await dataPokemons.fetchPokemonsDetails();
+
+  console.log(dataPokemons.dataPokemons);
 }
