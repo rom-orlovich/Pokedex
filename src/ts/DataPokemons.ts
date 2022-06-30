@@ -1,4 +1,3 @@
-import { platform } from "os";
 import { fetchData } from "./utlites/helpers";
 
 export class DataPokemons {
@@ -8,24 +7,24 @@ export class DataPokemons {
     this.dataPokemons = [];
   }
 
-  async fetchPokemonByIDOrURl(id: string, url?: string) {
-    const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const data = await fetchData(url ? url : urlPokemon);
+  static async fetchPokemonByQuery(query: string) {
+    const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${query}`;
+    const data = await fetchData(urlPokemon);
     return data;
   }
 
-  async fetchPokemonsURLS(limit = 20, offset = 20) {
-    const urlPokemons = `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`;
-    const dataPokemons = await fetchData(urlPokemons);
+  // static async fetchPokemonsURLS(limit = 20, offset = 20) {
+  //   const urlPokemons = `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`;
+  //   const dataPokemons = await fetchData(urlPokemons);
 
-    return dataPokemons;
-  }
+  //   return dataPokemons;
+  // }
 
-  async fetchPokemonsDetails(limit = 20, offset = 20) {
-    const details = await this.fetchPokemonsURLS(limit, offset);
-    const promiseArr = details.results.map((pok: any) =>
-      this.fetchPokemonByIDOrURl("", pok.url)
-    );
+  async fetchPokemonsDetails(start = 0, end = 50) {
+    const promiseArr: Promise<any>[] = [];
+    for (let i = start; i < end; i++) {
+      promiseArr.push(DataPokemons.fetchPokemonByQuery(String(i)));
+    }
 
     await Promise.all(promiseArr).then((data) =>
       this.dataPokemons.push(...data)
