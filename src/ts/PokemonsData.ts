@@ -1,20 +1,20 @@
 import { IPokemon, IPokemonApi } from "./types";
 import { fetchData } from "./utlites/helpers";
 
-export class DataPokemons {
-  dataPokemons: IPokemon[];
+export class PokemonsData {
+  pokemonsDataArr: IPokemon[];
 
   constructor() {
-    this.dataPokemons = [];
+    this.pokemonsDataArr = [];
   }
 
   async fetchPokemonsListDetails(start = 1, end = 51) {
     const promiseArr: Promise<IPokemonApi>[] = [];
     for (let i = start; i < end; i++)
-      promiseArr.push(DataPokemons.fetchPokemonByQuery(String(i)));
+      promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
     await Promise.all(promiseArr).then((data) => {
-      this.dataPokemons.push(
-        ...data.map((pokemon) => DataPokemons.createPokemonObj(pokemon))
+      this.pokemonsDataArr.push(
+        ...data.map((pokemon) => PokemonsData.createPokemonObj(pokemon))
       );
     });
   }
@@ -38,7 +38,11 @@ export class DataPokemons {
   }
 
   filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
-    this.dataPokemons.filter((pokemon) =>
+    this.pokemonsDataArr.filter((pokemon) =>
       pokemon[query].toString().startsWith(value)
     );
+
+  setItems(pokemonsDataArr: IPokemon[]) {
+    this.pokemonsDataArr = pokemonsDataArr;
+  }
 }

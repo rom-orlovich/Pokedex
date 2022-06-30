@@ -1,6 +1,6 @@
-import { IPokemon, TDataPokemons } from "../types";
+import { TPokemonsData, TUpdatePokemonsList } from "../types";
 import { createElement, createImg, select } from "../utlites/domsHelpers";
-type update = (pokemonsData: IPokemon[], parentEl: string) => void;
+
 export class SearchBar {
   static render() {
     return this.createUI();
@@ -22,19 +22,24 @@ export class SearchBar {
     return section;
   }
 
-  static initEvents(DataPokemons: TDataPokemons, update: update) {
-    this.onInputChangeEvent(DataPokemons, update);
+  static initEvents(
+    DataPokemons: TPokemonsData,
+    updatePokemonsList: TUpdatePokemonsList
+  ) {
+    this.onInputChangeEvent(DataPokemons, updatePokemonsList);
   }
 
-  static onInputChangeEvent(DataPokemons: TDataPokemons, update: update) {
+  static onInputChangeEvent(
+    DataPokemons: TPokemonsData,
+    updatePokemonsList: TUpdatePokemonsList
+  ) {
     const input = select(".search_field");
 
     input.addEventListener("input", (e) => {
       const inputEl = e.currentTarget as HTMLInputElement;
       if (!inputEl) return;
 
-      console.log();
-      update(
+      updatePokemonsList(
         DataPokemons.filterPokemonsByQuery("name", inputEl.value),
         "#pokemons_list_section"
       );

@@ -1,4 +1,5 @@
-import { DataPokemons } from "./DataPokemons";
+/* eslint-disable no-unused-vars */
+import { PokemonsData } from "./PokemonsData";
 
 export interface IPokemonApi {
   id: number;
@@ -23,4 +24,8 @@ export interface IPokemon {
   img: string;
 }
 
-export type TDataPokemons = InstanceType<typeof DataPokemons>;
+export type TPokemonsData = InstanceType<typeof PokemonsData>;
+export type TUpdatePokemonsList = (
+  pokemonsData: IPokemon[],
+  parentEl: string
+) => void;

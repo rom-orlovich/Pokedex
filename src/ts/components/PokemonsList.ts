@@ -16,12 +16,13 @@ export class PokemonsList {
     parentEl.appendChild(PokemonsList.createUI(pokemonsData));
   }
 
-  static createUI(pokemonsData: IPokemon[]) {
+  static createUI(pokemonsData: IPokemon[], start = 0, end = 20) {
     const section = createElement(
       `<section id="pokemons_list_section"></section>`
     );
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
-    pokemonsData.forEach((pokemonData) => {
+
+    pokemonsData.slice(start, end).forEach((pokemonData) => {
       ul.appendChild(PokemonsDetails.render(pokemonData));
     });
 

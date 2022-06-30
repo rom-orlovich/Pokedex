@@ -1,16 +1,16 @@
 import { PokemonsList } from "../components/PokemonsList";
 import { SearchBar } from "../components/SearchBar";
-import { IPokemon, TDataPokemons } from "../types";
+import { IPokemon, TPokemonsData } from "../types";
 import { createElement } from "../utlites/domsHelpers";
 
 export class HomePage {
-  dataPokemons: TDataPokemons;
-  constructor(dataPokemons: TDataPokemons) {
-    this.dataPokemons = dataPokemons;
+  pokemonsData: TPokemonsData;
+  constructor(PokemonsData: TPokemonsData) {
+    this.pokemonsData = PokemonsData;
   }
 
   render() {
-    return HomePage.createUI(this.dataPokemons.dataPokemons);
+    return HomePage.createUI(this.pokemonsData.pokemonsDataArr);
   }
 
   static createUI(pokemonsData: IPokemon[]) {
@@ -20,6 +20,6 @@ export class HomePage {
   }
 
   initEvents() {
-    SearchBar.initEvents(this.dataPokemons, PokemonsList.update);
+    SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
   }
 }
