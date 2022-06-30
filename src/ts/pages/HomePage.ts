@@ -1,4 +1,5 @@
 import { PokemonsList } from "../components/PokemonsList";
+import { SearchBar } from "../components/SearchBar";
 import { IPokemon, TDataPokemons } from "../types";
 import { createElement } from "../utlites/domsHelpers";
 
@@ -15,7 +16,7 @@ export class HomePage {
   static createUI(pokemonsData: IPokemon[]) {
     const main = createElement(`<main id="main_section"></main>`);
 
-    main.appendChild(PokemonsList.render(pokemonsData));
+    main.append(SearchBar.render(), PokemonsList.render(pokemonsData));
 
     return main;
   }

@@ -26,8 +26,6 @@ export class DataPokemons {
   }
 
   static createPokemonObj(pokemon: IPokemonApi) {
-    console.log(pokemon);
-
     const pokemonDetails = {
       id: String(pokemon.id),
       name: pokemon.name,
