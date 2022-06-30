@@ -11,12 +11,9 @@ export class PokemonsList {
   static update(pokemonsData: IPokemon[], parentQuery: string) {
     const parentEl = select(parentQuery);
     if (!parentEl) return;
-    console.log(po);
-
-    const curEl = selectByID(this.idList);
+    const curEl = selectByID(PokemonsList.idList);
     if (curEl) curEl.remove();
-
-    parentEl.appendChild(this.createUI(pokemonsData));
+    parentEl.appendChild(PokemonsList.createUI(pokemonsData));
   }
 
   static createUI(pokemonsData: IPokemon[]) {
