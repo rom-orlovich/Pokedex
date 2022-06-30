@@ -15,11 +15,11 @@ export class HomePage {
 
   static createUI(pokemonsData: IPokemon[]) {
     const main = createElement(`<main id="main_section"></main>`);
-
     main.append(SearchBar.render(), PokemonsList.render(pokemonsData));
-
     return main;
   }
 
-  static initEvents() {}
+  initEvents() {
+    SearchBar.initEvents(this.dataPokemons, PokemonsList.update);
+  }
 }

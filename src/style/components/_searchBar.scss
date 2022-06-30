@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: row;
 }
-.search-field {
+.search_field {
   width: 100%;
   padding: 10px 35px 10px 15px;
   border: none;
@@ -21,14 +21,14 @@
   outline: none;
 }
 
-.search-button {
+.search_button {
   background: transparent;
   border: none;
   outline: none;
   margin-left: -33px;
 }
 
-.search-button img {
+.search_button img {
   width: 20px;
   height: 20px;
   object-fit: cover;

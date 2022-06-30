@@ -7,4 +7,5 @@ export async function initApp() {
   console.log(dataPokemons.dataPokemons);
   const homePage = new HomePage(dataPokemons);
   document.body.appendChild(homePage.render());
+  homePage.initEvents();
 }
