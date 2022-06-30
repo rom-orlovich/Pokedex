@@ -1,19 +1,9 @@
 import { DataPokemons } from "./DataPokemons";
-import { createElement, createImg } from "./utlites/domsHelpers";
+import { HomePage } from "./pages/HomePage";
 
 export async function initApp() {
   const dataPokemons = new DataPokemons();
-  await dataPokemons.fetchPokemonsListDetails(1, 905);
+  await dataPokemons.fetchPokemonsListDetails(1, 200);
   console.log(dataPokemons.dataPokemons);
-  const div = createElement(`<div id="example">
-<ul class="example2">
-<li>naor</li>
-<li>rom</li>
-<li>gvarim</li>
-</ul>
-</div>`);
-
-  const img = createElement(createImg());
-
-  document.body.append(div, img);
+  const homePage = new HomePage(dataPokemons);
 }

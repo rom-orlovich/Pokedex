@@ -1,3 +1,5 @@
+import { DataPokemons } from "./DataPokemons";
+
 export interface IPokemonApi {
   id: number;
   name: string;
@@ -16,3 +18,5 @@ export interface IPokemon {
   height: string;
   img: string;
 }
+
+export type TDataPokemons = InstanceType<typeof DataPokemons>;
