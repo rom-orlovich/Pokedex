@@ -9,7 +9,6 @@ export class DataStorage {
 
   static async loadDataEvent(pokemonData: TPokemonsData) {
     const localStorageData = DataStorage.checkLocalStorageExist();
-
     if (localStorageData) {
       pokemonData.setItems(JSON.parse(localStorageData));
       DataStorage.removeLocalStorage();
