@@ -1,7 +1,7 @@
 @use "../utilities/utilities.scss" as *;
 
 #pokemons_list {
-  @include flex-dir(null, null);
+  @include flex-dir(center, null);
   flex-flow: row wrap;
   padding: 2rem;
   gap: 1rem;
