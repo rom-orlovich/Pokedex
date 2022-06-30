@@ -1,11 +1,22 @@
-import { IPokemonApi } from "./types";
+import { IPokemon, IPokemonApi } from "./types";
 import { fetchData } from "./utlites/helpers";
 
 export class DataPokemons {
-  dataPokemons: any[];
+  dataPokemons: IPokemon[];
 
   constructor() {
     this.dataPokemons = [];
+  }
+
+  async fetchPokemonsListDetails(start = 1, end = 51) {
+    const promiseArr: Promise<IPokemonApi>[] = [];
+    for (let i = start; i < end; i++)
+      promiseArr.push(DataPokemons.fetchPokemonByQuery(String(i)));
+    await Promise.all(promiseArr).then((data) => {
+      this.dataPokemons.push(
+        ...data.map((pokemon) => DataPokemons.createPokemonObj(pokemon))
+      );
+    });
   }
 
   static async fetchPokemonByQuery(query: string) {
@@ -13,13 +24,6 @@ export class DataPokemons {
     const data = await fetchData(urlPokemon);
     return data;
   }
-
-  // static async fetchPokemonsURLS(limit = 20, offset = 20) {
-  //   const urlPokemons = `https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`;
-  //   const dataPokemons = await fetchData(urlPokemons);
-
-  //   return dataPokemons;
-  // }
 
   static createPokemonObj(pokemon: IPokemonApi) {
     const pokemonDetails = {
@@ -33,18 +37,8 @@ export class DataPokemons {
     return pokemonDetails;
   }
 
-  async fetchPokemonsDetails(start = 1, end = 51) {
-    const promiseArr: Promise<IPokemonApi>[] = [];
-    for (let i = start; i < end; i++) {
-      promiseArr.push(DataPokemons.fetchPokemonByQuery(String(i)));
-    }
-
-    await Promise.all(promiseArr).then((data) =>
-      this.dataPokemons.push(
-        ...data.map((pokemon) => DataPokemons.createPokemonObj(pokemon))
-      )
+  filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
+    this.dataPokemons.filter((pokemon) =>
+      pokemon[query].toString().startsWith(value)
     );
-
-    return this.dataPokemons;
-  }
 }

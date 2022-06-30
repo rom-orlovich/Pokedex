@@ -8,7 +8,6 @@ export async function initApp() {
 <li>rom</li>
 <li>gvarim</li>
 </ul>
-
 </div>`);
 
   const img = createElement(createImg());
@@ -17,7 +16,5 @@ export async function initApp() {
 
   const dataPokemons = new DataPokemons();
 
-  await dataPokemons.fetchPokemonsDetails();
-
-  console.log(dataPokemons.dataPokemons);
+  await dataPokemons.fetchPokemonsListDetails();
 }

@@ -6,7 +6,7 @@ export interface IPokemonApi {
   sprites: {
     front_default: string;
   };
-  type: string;
+  type: string[];
 }
 export interface IPokemon {
   id: string;
