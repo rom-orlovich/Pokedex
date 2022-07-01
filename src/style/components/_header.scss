@@ -1,16 +1,13 @@
 @use "../utilities/utilities.scss" as *;
 
-.heading_pokedex{
-    @include flex-dir(center, null);
-    text-align: center;
-    margin-bottom: 1rem;
-   
-    img {
-        
-   
-    mix-blend-mode:normal;
-   
+.heading_pokedex {
+  @include flex-dir(center, null);
+  text-align: center;
+  margin: 1rem 0;
+
+  img {
+    mix-blend-mode: normal;
+
     max-width: 40%;
-   
-    }
+  }
 }
