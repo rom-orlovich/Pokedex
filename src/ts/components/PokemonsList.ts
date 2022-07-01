@@ -23,12 +23,11 @@ export class PokemonsList {
   ) {
     const parentEl = select(parentQuery);
     if (!parentEl) return;
-    // const spinner = select(".spinner");
+
     const curEl = selectByID(PokemonsList.idList);
     if (curEl) {
       curEl.remove();
     }
-    // if (spinner) spinner.remove();
 
     parentEl.appendChild(
       PokemonsList.createListPokemons(pokemonsData, options)
@@ -64,11 +63,6 @@ export class PokemonsList {
     return ul;
   }
 
-  static createSpinner() {
-    const loader = `<div class="spinner"></div>`;
-    return createElement(loader);
-  }
-
   static addPokemonsToList(
     parentEl: HTMLElement,
     pokemonsData: IPokemon[],
@@ -78,6 +72,11 @@ export class PokemonsList {
     pokemonsData.slice(start, end).forEach((pokemonData) => {
       parentEl.appendChild(PokemonsDetails.render(pokemonData));
     });
+  }
+
+  static createSpinner() {
+    const loader = `<div class="spinner"></div>`;
+    return createElement(loader);
   }
 
   static setNoResultsFoundMessage(query: string) {

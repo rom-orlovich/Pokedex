@@ -1,4 +1,4 @@
-import { createElement, select, selectByID } from "../utlites/domsHelpers";
+import { createElement, select } from "../utlites/domsHelpers";
 
 export class FloatMenu {
   static folatMenuButtonID = ".scroll_up";
