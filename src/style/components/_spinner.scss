@@ -1,10 +1,10 @@
 @use "../utilities/utilities.scss" as *;
 .spinner {
   @include posAbs(null, 50%, null, 0%);
-  transform: translate(-50%, 0%) rotate(0deg);
 
   @include heightWidth(2.5rem, 2.5rem);
-
+  transform: translate(-50%, 0%) rotate(0deg);
+  opacity: 0;
   background: url("../assets/pb.png") no-repeat center;
   background-size: cover;
 }
@@ -15,10 +15,12 @@
 
 @keyframes rotateSpinner {
   0% {
+    opacity: 1;
     transform: translate(-50%, 0%) rotate(0deg);
   }
 
   100% {
+    opacity: 1;
     transform: translate(-50%, 0%) rotate(360deg);
   }
 }

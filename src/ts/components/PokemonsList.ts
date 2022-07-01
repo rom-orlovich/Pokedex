@@ -1,16 +1,10 @@
-import { IPokemon, IPokemonsListRenderOptions, TPokemonsData } from "../types";
+import { IPokemon, IPokemonsListRenderOptions } from "../types";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import { delayFunction } from "../utlites/helpers";
 import { PokemonsDetails } from "./PokemonDetails";
 
 export class PokemonsList {
   static idList = "pokemons_list";
-  start: number;
-  end: number;
-  constructor() {
-    this.start = 0;
-    this.end = 1;
-  }
 
   static render(pokemonsData: IPokemon[]) {
     return PokemonsList.createUI(pokemonsData);
@@ -32,6 +26,7 @@ export class PokemonsList {
     parentEl.appendChild(
       PokemonsList.createListPokemons(pokemonsData, options)
     );
+    PokemonsList.initEvents(pokemonsData);
   }
 
   static createUI(
@@ -86,10 +81,10 @@ export class PokemonsList {
     return h2;
   }
 
-  static initEvents(pokemonsData: TPokemonsData) {
+  static initEvents(pokemonsDataArr: IPokemon[]) {
     const start = 0;
     const end = 1;
-    PokemonsList.infinteScrollEvent(start, end, pokemonsData.pokemonsDataArr);
+    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
   }
 
   static infinteScrollEvent(

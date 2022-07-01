@@ -29,7 +29,7 @@ export class HomePage {
 
   initEvents() {
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
-    PokemonsList.initEvents(this.pokemonsData);
+    PokemonsList.initEvents(this.pokemonsData.pokemonsDataArr);
     FloatMenu.initEvents();
   }
 }
