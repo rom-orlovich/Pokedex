@@ -25,7 +25,13 @@ export interface IPokemon {
 }
 
 export type TPokemonsData = InstanceType<typeof PokemonsData>;
+export interface IPokemonsListRenderOptions {
+  query?: string;
+  start?: 0;
+  end?: 20;
+}
 export type TUpdatePokemonsList = (
   pokemonsData: IPokemon[],
-  parentEl: string
+  parentEl: string,
+  options?: IPokemonsListRenderOptions
 ) => void;

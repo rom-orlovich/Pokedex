@@ -40,7 +40,10 @@ export class PokemonsData {
 
   filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
     this.pokemonsDataArr.filter((pokemon) =>
-      pokemon[query].toString().startsWith(value)
+      pokemon[query]
+        .toString()
+        .toLocaleLowerCase()
+        .startsWith(value.toLocaleLowerCase())
     );
 
   setItems(pokemonsDataArr: IPokemon[]) {
