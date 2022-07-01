@@ -10,6 +10,29 @@ export class PokemonsList {
     return PokemonsList.createUI(pokemonsData);
   }
 
+  static createUI(
+    pokemonsData: IPokemon[],
+    options?: IPokemonsListRenderOptions
+  ) {
+    const section = createElement(
+      `<section id="pokemons_list_section"></section>`
+    );
+
+    section.append(this.createListPokemons(pokemonsData, options));
+    return section;
+  }
+
+  static addPokemonsToList(
+    parentEl: HTMLElement,
+    pokemonsData: IPokemon[],
+    start = 0,
+    end = this.numResult
+  ) {
+    pokemonsData.slice(start, end).forEach((pokemonData) => {
+      parentEl.appendChild(PokemonsDetails.render(pokemonData));
+    });
+  }
+
   static update(
     pokemonsData: IPokemon[],
     parentQuery: string,
@@ -29,44 +52,19 @@ export class PokemonsList {
     PokemonsList.initEvents(pokemonsData);
   }
 
-  static createUI(
-    pokemonsData: IPokemon[],
-    options?: IPokemonsListRenderOptions
-  ) {
-    const section = createElement(
-      `<section id="pokemons_list_section"></section>`
-    );
-
-    section.append(this.createListPokemons(pokemonsData, options));
-    return section;
-  }
-
   static createListPokemons(
     pokemonsData: IPokemon[],
     options?: IPokemonsListRenderOptions
   ) {
-    const start = options ? options.start || 0 : 0;
-    const end = options ? options.end || this.numResult : this.numResult;
     const query = options ? options.query || "Pokemon" : "Pokemon";
 
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
 
     if (pokemonsData.length > 0) {
       ul.append(this.createSpinner());
-      this.addPokemonsToList(ul, pokemonsData, start, end);
+      this.addPokemonsToList(ul, pokemonsData);
     } else ul.appendChild(this.setNoResultsFoundMessage(query));
     return ul;
-  }
-
-  static addPokemonsToList(
-    parentEl: HTMLElement,
-    pokemonsData: IPokemon[],
-    start = 0,
-    end = this.numResult
-  ) {
-    pokemonsData.slice(start, end).forEach((pokemonData) => {
-      parentEl.appendChild(PokemonsDetails.render(pokemonData));
-    });
   }
 
   static createSpinner() {
