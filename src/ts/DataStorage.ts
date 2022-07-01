@@ -12,7 +12,7 @@ export class DataStorage {
     if (localStorageData) {
       pokemonData.setItems(JSON.parse(localStorageData));
       DataStorage.removeLocalStorage();
-    } else await pokemonData.fetchPokemonsListDetails(1, 905);
+    } else await pokemonData.fetchPokemonsListDetails(1, 10250);
   }
 
   static saveDataEvent(pokemonData: TPokemonsData) {

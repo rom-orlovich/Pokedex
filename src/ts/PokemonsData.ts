@@ -11,8 +11,10 @@ export class PokemonsData {
 
   async fetchPokemonsListDetails(start = 1, end = 51) {
     const promiseArr: Promise<IPokemonApi>[] = [];
-    for (let i = start; i < end; i++)
-      promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
+    for (let i = start; i < end; i++) {
+      if (i < 906 || i > 10000)
+        promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
+    }
     await Promise.all(promiseArr).then((data) => {
       this.pokemonsDataArr.push(
         ...data.map((pokemon) => PokemonsData.formatPokemonObj(pokemon))

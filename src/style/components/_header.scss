@@ -1,5 +1,4 @@
 @use "../utilities/utilities.scss" as *;
-
 .heading_pokedex {
   @include flex-dir(center, null);
   text-align: center;
