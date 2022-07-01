@@ -5,7 +5,7 @@ import { PokemonsDetails } from "./PokemonDetails";
 
 export class PokemonsList {
   static idList = "pokemons_list";
-
+  static numResult = 12;
   static render(pokemonsData: IPokemon[]) {
     return PokemonsList.createUI(pokemonsData);
   }
@@ -46,7 +46,7 @@ export class PokemonsList {
     options?: IPokemonsListRenderOptions
   ) {
     const start = options ? options.start || 0 : 0;
-    const end = options ? options.end || 20 : 20;
+    const end = options ? options.end || this.numResult : this.numResult;
     const query = options ? options.query || "Pokemon" : "Pokemon";
 
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
@@ -62,7 +62,7 @@ export class PokemonsList {
     parentEl: HTMLElement,
     pokemonsData: IPokemon[],
     start = 0,
-    end = 20
+    end = this.numResult
   ) {
     pokemonsData.slice(start, end).forEach((pokemonData) => {
       parentEl.appendChild(PokemonsDetails.render(pokemonData));
@@ -111,8 +111,8 @@ export class PokemonsList {
           PokemonsList.addPokemonsToList(
             ul,
             pokemonDataArr,
-            startLocal * 20,
-            endLocal * 20
+            startLocal * this.numResult,
+            endLocal * this.numResult
           );
 
           startLocal++;
