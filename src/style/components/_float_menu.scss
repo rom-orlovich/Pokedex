@@ -2,6 +2,7 @@
 #float_menu {
   @include posAbs(null, null, 2%, 2.5%);
   position: fixed;
+  z-index: 100;
   button {
     background-color: white;
     border-radius: 100%;
