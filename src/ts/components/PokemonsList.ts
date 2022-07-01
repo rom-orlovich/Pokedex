@@ -1,11 +1,19 @@
-import { IPokemon, IPokemonsListRenderOptions } from "../types";
+import { IPokemon, IPokemonsListRenderOptions, TPokemonsData } from "../types";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
+import { delayFunction } from "../utlites/helpers";
 import { PokemonsDetails } from "./PokemonDetails";
 
 export class PokemonsList {
   static idList = "pokemons_list";
+  start: number;
+  end: number;
+  constructor() {
+    this.start = 0;
+    this.end = 1;
+  }
+
   static render(pokemonsData: IPokemon[]) {
-    return this.createUI(pokemonsData);
+    return PokemonsList.createUI(pokemonsData);
   }
 
   static update(
@@ -35,22 +43,76 @@ export class PokemonsList {
     );
 
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
+    if (pokemonsData.length > 0) {
+      this.addPokemonsToList(ul, pokemonsData, start, end);
+    } else ul.appendChild(this.setNoResultsFoundMessage(query));
 
-    if (pokemonsData.length > 0)
-      pokemonsData.slice(start, end).forEach((pokemonData) => {
-        ul.appendChild(PokemonsDetails.render(pokemonData));
-      });
-    else ul.appendChild(this.setNoResultsFoundMessage(query));
-
-    section.appendChild(ul);
+    section.append(ul, this.createSpinner());
     return section;
+  }
+
+  static createSpinner() {
+    const loader = `<div class="spinner"></div>`;
+    return createElement(loader);
+  }
+
+  static addPokemonsToList(
+    parentEl: HTMLElement,
+    pokemonsData: IPokemon[],
+    start = 0,
+    end = 20
+  ) {
+    pokemonsData.slice(start, end).forEach((pokemonData) => {
+      parentEl.appendChild(PokemonsDetails.render(pokemonData));
+    });
   }
 
   static setNoResultsFoundMessage(query: string) {
     const h2 = createElement(
       `<h2 class="not_result_found"> The pokémon "${query}" has not discoverd yet...</h2>`
     );
-
     return h2;
+  }
+
+  static initEvents(pokemonsData: TPokemonsData) {
+    const start = 0;
+    const end = 1;
+    PokemonsList.infinteScrollEvent(start, end, pokemonsData.pokemonsDataArr);
+  }
+
+  static infinteScrollEvent(
+    start: number,
+    end: number,
+    pokemonDataArr: IPokemon[]
+  ) {
+    let startLocal = start;
+    let endLocal = end;
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((enteries) => {
+      if (enteries[0].isIntersecting) {
+        const ul = select("#pokemons_list");
+
+        const addNewPokemonsTolist = () => {
+          PokemonsList.addPokemonsToList(
+            ul,
+            pokemonDataArr,
+            startLocal * 20,
+            endLocal * 20
+          );
+          startLocal++;
+          endLocal++;
+        };
+        delayFunction(addNewPokemonsTolist, 5000);
+      }
+    }, options);
+
+    const lastChild = select(".spinner");
+
+    observer.observe(lastChild);
   }
 }

@@ -5,6 +5,23 @@ export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
 export const createEnteries = (obj: object) => Object.entries(obj);
 
+export const delayFunction = (
+  // eslint-disable-next-line no-unused-vars
+  func: (...args: any[]) => any,
+  timeDelay: number
+) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("finish");
+    }, timeDelay);
+  }).then(() => func());
+
+export const convertWeight = (weightInPound: number): number =>
+  Number((weightInPound * 0.1).toFixed(2));
+
+export const convertHeight = (heightInMeters: number): number =>
+  Number((heightInMeters * 0.1).toFixed(2));
+
 export const fetchData = async (
   url: string,
   method?: string,

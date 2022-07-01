@@ -1,6 +1,5 @@
 import { IPokemon, IPokemonApi } from "./types";
-import { convertHeight, convertWeight } from "./utlites/domsHelpers";
-import { fetchData } from "./utlites/helpers";
+import { convertHeight, convertWeight, fetchData } from "./utlites/helpers";
 
 export class PokemonsData {
   pokemonsDataArr: IPokemon[];

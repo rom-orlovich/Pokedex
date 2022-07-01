@@ -16,6 +16,7 @@ export class HomePage {
 
   static createUI(pokemonsData: IPokemon[]) {
     const main = createElement(`<main id="main_section"></main>`);
+
     main.append(
       Header.render(),
       SearchBar.render(),
@@ -25,6 +26,7 @@ export class HomePage {
   }
 
   initEvents() {
+    PokemonsList.initEvents(this.pokemonsData);
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
   }
 }
