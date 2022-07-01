@@ -82,8 +82,9 @@ export class PokemonsList {
   }
 
   static initEvents(pokemonsDataArr: IPokemon[]) {
-    const start = 0;
-    const end = 1;
+    const start = 1;
+    const end = 2;
+
     PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
   }
 
@@ -95,6 +96,7 @@ export class PokemonsList {
     const spinner = select(".spinner");
     let startLocal = start;
     let endLocal = end;
+
     const options = {
       root: null,
       rootMargin: "0px",
@@ -112,14 +114,16 @@ export class PokemonsList {
             startLocal * 20,
             endLocal * 20
           );
+
           startLocal++;
           endLocal++;
+
           spinner.classList.toggle("addRoateSpinner");
         };
         delayFunction(addNewPokemonsTolist, 1000);
       }
     }, options);
 
-    observer.observe(spinner);
+    if (spinner) observer.observe(spinner);
   }
 }
