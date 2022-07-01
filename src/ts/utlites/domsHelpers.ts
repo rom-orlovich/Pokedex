@@ -16,7 +16,7 @@ export const select = (
 ) => scope.querySelector(query) as HTMLElement;
 
 export const selectByID = (queryID: string, scope = document) =>
-  scope.getElementById(queryID);
+  scope.getElementById(queryID) as HTMLElement;
 
 export const createLabel = (textLabel: string, name: string) =>
   `<label for=${name}> ${capatialFirstLetter(textLabel)}:</label>`;

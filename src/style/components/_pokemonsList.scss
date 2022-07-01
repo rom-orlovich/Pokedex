@@ -1,4 +1,7 @@
 @use "../utilities/utilities.scss" as *;
+#pokemons_list_section {
+  position: relative;
+}
 
 #pokemons_list {
   @include flex-dir(center, null);

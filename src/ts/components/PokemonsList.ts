@@ -23,14 +23,31 @@ export class PokemonsList {
   ) {
     const parentEl = select(parentQuery);
     if (!parentEl) return;
-
+    // const spinner = select(".spinner");
     const curEl = selectByID(PokemonsList.idList);
-    if (curEl) curEl.remove();
+    if (curEl) {
+      curEl.remove();
+    }
+    // if (spinner) spinner.remove();
 
-    parentEl.appendChild(PokemonsList.createUI(pokemonsData, options));
+    parentEl.appendChild(
+      PokemonsList.createListPokemons(pokemonsData, options)
+    );
   }
 
   static createUI(
+    pokemonsData: IPokemon[],
+    options?: IPokemonsListRenderOptions
+  ) {
+    const section = createElement(
+      `<section id="pokemons_list_section"></section>`
+    );
+
+    section.append(this.createListPokemons(pokemonsData, options));
+    return section;
+  }
+
+  static createListPokemons(
     pokemonsData: IPokemon[],
     options?: IPokemonsListRenderOptions
   ) {
@@ -38,17 +55,13 @@ export class PokemonsList {
     const end = options ? options.end || 20 : 20;
     const query = options ? options.query || "Pokemon" : "Pokemon";
 
-    const section = createElement(
-      `<section id="pokemons_list_section"></section>`
-    );
-
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
+
     if (pokemonsData.length > 0) {
+      ul.append(this.createSpinner());
       this.addPokemonsToList(ul, pokemonsData, start, end);
     } else ul.appendChild(this.setNoResultsFoundMessage(query));
-
-    section.append(ul, this.createSpinner());
-    return section;
+    return ul;
   }
 
   static createSpinner() {
@@ -85,6 +98,7 @@ export class PokemonsList {
     end: number,
     pokemonDataArr: IPokemon[]
   ) {
+    const spinner = select(".spinner");
     let startLocal = start;
     let endLocal = end;
     const options = {
@@ -96,7 +110,7 @@ export class PokemonsList {
     const observer = new IntersectionObserver((enteries) => {
       if (enteries[0].isIntersecting) {
         const ul = select("#pokemons_list");
-
+        spinner.classList.toggle("addRoateSpinner");
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
@@ -106,13 +120,12 @@ export class PokemonsList {
           );
           startLocal++;
           endLocal++;
+          spinner.classList.toggle("addRoateSpinner");
         };
-        delayFunction(addNewPokemonsTolist, 5000);
+        delayFunction(addNewPokemonsTolist, 1000);
       }
     }, options);
 
-    const lastChild = select(".spinner");
-
-    observer.observe(lastChild);
+    observer.observe(spinner);
   }
 }

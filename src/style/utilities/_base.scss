@@ -22,9 +22,6 @@ img {
   mix-blend-mode: multiply;
 }
 
-.display-flex {
-  display: flex !important;
-}
 ::-webkit-scrollbar {
   border-radius: 5px;
 }
@@ -32,4 +29,10 @@ img {
   background: rgb(243, 108, 81);
   width: 2rem;
   border-radius: 10px;
+}
+.display-flex {
+  display: flex !important;
+}
+.display-block {
+  display: block;
 }
