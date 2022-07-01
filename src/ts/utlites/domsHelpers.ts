@@ -36,3 +36,11 @@ export const createImg = (
   src = "https://www.freeiconspng.com/uploads/no-image-icon-6.png",
   alt = "Image Not Found"
 ) => `<img  src="${src}" alt="${alt}" />`;
+
+export const convertWeight = (weightInPound: number): number => {
+  return Number((weightInPound * 0.1).toFixed(2));
+};
+
+export const convertHeight = (heightInMeters: number): number => {
+  return Number((heightInMeters * 0.1).toFixed(2));
+};

@@ -25,11 +25,11 @@ export class PokemonsDetails {
       <div class="physical_details">
         <span class="height">
           <span>Height:</span>
-          <span>${pokemonData.height}</span>
+          <span>${pokemonData.height}M</span>
         </span>
         <span class="weight">
           <span>Weight:</span>
-          <span>${pokemonData.weight}</span>
+          <span>${pokemonData.weight}KG</span>
         </span>
       </div>
     </div>

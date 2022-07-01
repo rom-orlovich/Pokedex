@@ -2,6 +2,7 @@ import { PokemonsList } from "../components/PokemonsList";
 import { SearchBar } from "../components/SearchBar";
 import { IPokemon, TPokemonsData } from "../types";
 import { createElement } from "../utlites/domsHelpers";
+import { Header } from "../components/Heading";
 
 export class HomePage {
   pokemonsData: TPokemonsData;
@@ -15,7 +16,11 @@ export class HomePage {
 
   static createUI(pokemonsData: IPokemon[]) {
     const main = createElement(`<main id="main_section"></main>`);
-    main.append(SearchBar.render(), PokemonsList.render(pokemonsData));
+    main.append(
+      Header.render(),
+      SearchBar.render(),
+      PokemonsList.render(pokemonsData)
+    );
     return main;
   }
 

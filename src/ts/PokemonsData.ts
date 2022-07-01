@@ -1,4 +1,5 @@
 import { IPokemon, IPokemonApi } from "./types";
+import { convertHeight, convertWeight } from "./utlites/domsHelpers";
 import { fetchData } from "./utlites/helpers";
 
 export class PokemonsData {
@@ -28,15 +29,14 @@ export class PokemonsData {
   static formatPokemonObj(pokemon: IPokemonApi) {
     const pokemonDetails = {
       id: String(pokemon.id),
-      name: pokemon.name,
-      height: pokemon.height,
-      weight: pokemon.weight,
       img: pokemon.sprites.front_default,
+      name: pokemon.name,
       type: pokemon.types.map((type) => type.type.name),
+      height: convertHeight(pokemon.height),
+      weight: convertWeight(pokemon.weight),
     };
     return pokemonDetails;
   }
-
   filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
     this.pokemonsDataArr.filter((pokemon) =>
       pokemon[query].toString().startsWith(value)

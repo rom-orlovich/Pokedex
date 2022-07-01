@@ -4,8 +4,8 @@ import { PokemonsData } from "./PokemonsData";
 export interface IPokemonApi {
   id: number;
   name: string;
-  height: string;
-  weight: string;
+  height: number;
+  weight: number;
   sprites: {
     front_default: string;
   };
@@ -19,8 +19,8 @@ export interface IPokemon {
   id: string;
   name: string;
   type: string[];
-  weight: string;
-  height: string;
+  weight: number;
+  height: number;
   img: string;
 }
 
