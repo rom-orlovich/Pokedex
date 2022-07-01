@@ -37,6 +37,7 @@ export class PokemonsData {
     };
     return pokemonDetails;
   }
+
   filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
     this.pokemonsDataArr.filter((pokemon) =>
       pokemon[query].toString().startsWith(value)
