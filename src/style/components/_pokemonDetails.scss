@@ -5,7 +5,7 @@
 
   list-style: none;
   text-align: center;
-  @include flex-dir("center,center", column);
+  @include flex-dir(center, center, column);
   box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
   outline: 2px black;
   flex: 25%;

@@ -41,7 +41,9 @@ export class SearchBar {
         "name",
         inputEl.value
       );
-      updatePokemonsList(filterPokemons, "#pokemons_list_section");
+      updatePokemonsList(filterPokemons, "#pokemons_list_section", {
+        query: inputEl.value,
+      });
     });
   }
 }
