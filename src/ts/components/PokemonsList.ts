@@ -2,6 +2,7 @@ import { IPokemon, IPokemonsListRenderOptions } from "../types";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import { delayFunction } from "../utlites/helpers";
 import { PokemonsDetails } from "./PokemonDetails";
+import { Spinner } from "./Spinner";
 
 export class PokemonsList {
   static idList = "pokemons_list";
@@ -61,15 +62,10 @@ export class PokemonsList {
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
 
     if (pokemonsData.length > 0) {
-      ul.append(this.createSpinner());
+      ul.append(Spinner.render());
       this.addPokemonsToList(ul, pokemonsData);
     } else ul.appendChild(this.setNoResultsFoundMessage(query));
     return ul;
-  }
-
-  static createSpinner() {
-    const loader = `<div class="spinner"></div>`;
-    return createElement(loader);
   }
 
   static setNoResultsFoundMessage(query: string) {
@@ -104,7 +100,9 @@ export class PokemonsList {
     const observer = new IntersectionObserver((enteries) => {
       if (enteries[0].isIntersecting) {
         const ul = select("#pokemons_list");
-        spinner.classList.toggle("addRoateSpinner");
+
+        spinner.classList.add("addRoateSpinner");
+
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
@@ -116,9 +114,9 @@ export class PokemonsList {
           startLocal++;
           endLocal++;
 
-          spinner.classList.toggle("addRoateSpinner");
+          spinner.classList.remove("addRoateSpinner");
         };
-        delayFunction(addNewPokemonsTolist, 1000);
+        delayFunction(addNewPokemonsTolist, 2000);
       }
     }, options);
 

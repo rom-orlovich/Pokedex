@@ -36,3 +36,6 @@ img {
 .display-block {
   display: block;
 }
+.center-abs {
+  @include centerAbs();
+}

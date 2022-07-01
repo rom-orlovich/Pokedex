@@ -1,7 +1,6 @@
 @use "../utilities/utilities.scss" as *;
 .spinner {
   @include posAbs(null, 50%, null, 0%);
-
   @include heightWidth(2.5rem, 2.5rem);
   transform: translate(-50%, 0%) rotate(0deg);
   opacity: 0;
