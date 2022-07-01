@@ -48,7 +48,7 @@ export class PokemonsList {
 
   static setNoResultsFoundMessage(query: string) {
     const h2 = createElement(
-      `<h2 class="not_result_found"> The ${query} is not found</h2>`
+      `<h2 class="not_result_found"> The pokémon "${query}" has not discoverd yet...</h2>`
     );
 
     return h2;

@@ -25,3 +25,11 @@ img {
 .display-flex {
   display: flex !important;
 }
+::-webkit-scrollbar {
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(243, 108, 81);
+  width: 2rem;
+  border-radius: 10px;
+}
