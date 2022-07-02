@@ -104,7 +104,7 @@ export class PokemonsList {
 
     const options = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: "200px",
       threshold: 0,
     };
 
@@ -134,7 +134,7 @@ export class PokemonsList {
           spinner.classList.remove("addRoateSpinner");
         };
         // Delay the addNewPokemonsTolist by 2 seconds.
-        delayFunction(addNewPokemonsTolist, 2000);
+        delayFunction(addNewPokemonsTolist, 1000);
       }
     }, options);
 
