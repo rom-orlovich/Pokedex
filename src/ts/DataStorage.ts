@@ -1,30 +1,35 @@
 import { TPokemonsData } from "./types";
 import { POKEMONS_LIST_KEY } from "./utlites/constantVariables";
 
+// Deals with the local storage data.
 export class DataStorage {
-  static async initEvent(pokemonData: TPokemonsData) {
-    await DataStorage.loadDataEvent(pokemonData);
-    DataStorage.saveDataEvent(pokemonData);
+  // Inits the load event  and the saved event of the pokemons data.
+  static async initEvent(pokemonsData: TPokemonsData) {
+    await DataStorage.loadDataEvent(pokemonsData);
+    DataStorage.saveDataEvent(pokemonsData);
   }
 
-  static async loadDataEvent(pokemonData: TPokemonsData) {
+  // Checkes if the local storage exist, if not, the method fetches the data from the API.
+  static async loadDataEvent(pokemonsData: TPokemonsData) {
     const localStorageData = DataStorage.checkLocalStorageExist();
     if (localStorageData) {
-      pokemonData.setItems(JSON.parse(localStorageData));
+      pokemonsData.setItems(JSON.parse(localStorageData));
       DataStorage.removeLocalStorage();
-    } else await pokemonData.fetchPokemonsListDetails(1, 10250);
+    } else await pokemonsData.fetchPokemonsListDetails(1, 10250);
   }
 
-  static saveDataEvent(pokemonData: TPokemonsData) {
+  // On unload the page, the method save the data of the pokemons into the local storage.
+  static saveDataEvent(pokemonsData: TPokemonsData) {
     window.addEventListener("unload", () => {
       if (
         !DataStorage.checkLocalStorageExist() &&
-        pokemonData.pokemonsDataArr.length > 0
+        pokemonsData.pokemonsDataArr.length > 0
       )
         localStorage.setItem(
           POKEMONS_LIST_KEY,
-          JSON.stringify(pokemonData.pokemonsDataArr)
+          JSON.stringify(pokemonsData.pokemonsDataArr)
         );
+      // NOTE: uncomment next line will remove the current local storage data.
       // DataStorage.removeLocalStorage();
     });
   }

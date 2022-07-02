@@ -23,6 +23,8 @@ export class PokemonsList {
     return section;
   }
 
+  // Takes start and end position of pokemons data array,
+  // and for each data, append new pokemon details to the parent element
   static addPokemonsToList(
     parentEl: HTMLElement,
     pokemonsData: IPokemon[],
@@ -34,22 +36,27 @@ export class PokemonsList {
     });
   }
 
+  //
   static update(
     pokemonsData: IPokemon[],
     parentQuery: string,
     options?: IPokemonsListRenderOptions
   ) {
+    // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
     if (!parentEl) return;
 
+    // Searches the list and if exist, remove.
     const curEl = selectByID(PokemonsList.idList);
     if (curEl) {
       curEl.remove();
     }
 
+    // Appends the new list with new pokemons data.
     parentEl.appendChild(
       PokemonsList.createListPokemons(pokemonsData, options)
     );
+    // Inits the events of the pokemons list - infinate scrolling.
     PokemonsList.initEvents(pokemonsData);
   }
 
@@ -57,10 +64,12 @@ export class PokemonsList {
     pokemonsData: IPokemon[],
     options?: IPokemonsListRenderOptions
   ) {
+    // The options has props of query if, is not exist it will be "Pokemons"
     const query = options ? options.query || "Pokemon" : "Pokemon";
 
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
-
+    // If the pokemons data length is bigger than 0 , append spinner and load the pokemons list.
+    // Else display not found message.
     if (pokemonsData.length > 0) {
       ul.append(Spinner.render());
       this.addPokemonsToList(ul, pokemonsData);
@@ -68,9 +77,10 @@ export class PokemonsList {
     return ul;
   }
 
+  // Displays "result not found" massage.
   static setNoResultsFoundMessage(query: string) {
     const h2 = createElement(
-      `<h2 class="not_result_found"> The pokémon "${query}" has not discoverd yet...</h2>`
+      `<h2 class="result_not_found"> The pokémon "${query}" has not discoverd yet...</h2>`
     );
     return h2;
   }

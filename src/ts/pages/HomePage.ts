@@ -9,6 +9,7 @@ import { Spinner } from "../components/Spinner";
 
 export class HomePage {
   pokemonsData: TPokemonsData;
+
   constructor(PokemonsData: TPokemonsData) {
     this.pokemonsData = PokemonsData;
   }
@@ -29,6 +30,7 @@ export class HomePage {
     return main;
   }
 
+  // Init the events of the homePage.
   async initEvents() {
     await this.initData();
     PokemonsList.update(
@@ -40,6 +42,7 @@ export class HomePage {
     FloatMenu.initEvents();
   }
 
+  // Fetches the data of the pokemons while display spinner until the data is done fetching.
   async initData() {
     if (this.pokemonsData.pokemonsDataArr.length === 0) {
       const spinner = Spinner.addSpinnerToElement("#pokemons_list_section");
