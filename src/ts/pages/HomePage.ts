@@ -1,7 +1,7 @@
 import { PokemonsList } from "../components/PokemonsList";
 import { SearchBar } from "../components/SearchBar";
 import { IPokemon, TPokemonsData } from "../types";
-import { createElement } from "../utlites/domsHelpers";
+import { createElement, select } from "../utlites/domsHelpers";
 import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
 import { DataStorage } from "../DataStorage";
@@ -32,6 +32,7 @@ export class HomePage {
 
   // Init the events of the homePage.
   async initEvents() {
+    HomePage.audioActive();
     await this.initData();
     PokemonsList.update(
       this.pokemonsData.pokemonsDataArr,
@@ -49,5 +50,16 @@ export class HomePage {
       await DataStorage.initEvent(this.pokemonsData);
       spinner.remove();
     }
+  }
+
+  // Active the opening theme of pokemon!
+  static audioActive() {
+    const header = select(".heading_pokedex");
+    if (!header) return;
+    header.addEventListener("click", () => {
+      const audio = select("audio") as HTMLAudioElement;
+      if (audio.paused) audio.play();
+      else audio.pause();
+    });
   }
 }
