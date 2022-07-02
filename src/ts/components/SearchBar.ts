@@ -33,14 +33,20 @@ export class SearchBar {
     DataPokemons: TPokemonsData,
     updatePokemonsList: TUpdatePokemonsList
   ) {
+    // Searchs the input element.
     const input = select(".search_field");
     input.addEventListener("input", (e) => {
+      // If the input is not exist , return .
       const inputEl = e.currentTarget as HTMLInputElement;
       if (!inputEl) return;
+
+      // Filters by name parmater and by the value of the input.
+      // and return  new array.
       const filterPokemons = DataPokemons.filterPokemonsByQuery(
         "name",
         inputEl.value
       );
+      // Updates the list of pokemons with the new array.
       updatePokemonsList(filterPokemons, "#pokemons_list_section", {
         query: inputEl.value,
       });

@@ -5,6 +5,7 @@ export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
 export const createEnteries = (obj: object) => Object.entries(obj);
 
+// Get function and time to delay. and active the function after the time is passed.
 export const delayFunction = (
   // eslint-disable-next-line no-unused-vars
   func: (...args: any[]) => any,

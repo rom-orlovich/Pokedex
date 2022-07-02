@@ -17,6 +17,7 @@ export class FloatMenu {
     this.scrollUpEvent();
   }
 
+  // Scrolls smoothly to the top of the page by click the float menu button.
   static scrollUpEvent() {
     const folatMenuButton = select(this.folatMenuButtonID);
     folatMenuButton.addEventListener("click", () => {

@@ -38,7 +38,6 @@ export class HomePage {
       "#pokemons_list_section"
     );
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
-    // PokemonsList.initEvents(this.pokemonsData.pokemonsDataArr);
     FloatMenu.initEvents();
   }
 

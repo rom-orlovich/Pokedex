@@ -90,12 +90,14 @@ export class PokemonsList {
     const end = 2;
     PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
   }
+  // Get start and the end index of the array and the pokemons array data.
 
   static infinteScrollEvent(
     start: number,
     end: number,
     pokemonDataArr: IPokemon[]
   ) {
+    // Search the spinner element in order to observe him.
     const spinner = select(".spinner");
     let startLocal = start;
     let endLocal = end;
@@ -107,11 +109,15 @@ export class PokemonsList {
     };
 
     const observer = new IntersectionObserver((enteries) => {
+      // Check if the root is intersect with the spinner.
       if (enteries[0].isIntersecting) {
         const ul = select("#pokemons_list");
 
+        // Adds the rotated spinner to the loading spinner
         spinner.classList.add("addRoateSpinner");
 
+        // Add new item to the pokemons list.
+        // Takes the start and end postions and multiply by the defined numResults (12).
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
@@ -120,15 +126,19 @@ export class PokemonsList {
             endLocal * this.numResults
           );
 
+          // Increase the start and end local by one.
           startLocal++;
           endLocal++;
 
+          // After loading the list, removes the spinner.
           spinner.classList.remove("addRoateSpinner");
         };
+        // Delay the addNewPokemonsTolist by 2 seconds.
         delayFunction(addNewPokemonsTolist, 2000);
       }
     }, options);
 
+    // Activate the observition of the spinner element.
     if (spinner) observer.observe(spinner);
   }
 }
