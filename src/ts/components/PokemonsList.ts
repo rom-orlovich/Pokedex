@@ -6,7 +6,7 @@ import { Spinner } from "./Spinner";
 
 export class PokemonsList {
   static idList = "pokemons_list";
-  static numResult = 12;
+  static numResults = 12;
   static render(pokemonsData: IPokemon[]) {
     return PokemonsList.createUI(pokemonsData);
   }
@@ -27,7 +27,7 @@ export class PokemonsList {
     parentEl: HTMLElement,
     pokemonsData: IPokemon[],
     start = 0,
-    end = this.numResult
+    end = this.numResults
   ) {
     pokemonsData.slice(start, end).forEach((pokemonData) => {
       parentEl.appendChild(PokemonsDetails.render(pokemonData));
@@ -76,10 +76,7 @@ export class PokemonsList {
   }
 
   static initEvents(pokemonsDataArr: IPokemon[]) {
-    const start = 1;
-    const end = 2;
-
-    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
+    PokemonsList.infinteScrollEvent(1, 2, pokemonsDataArr);
   }
 
   static infinteScrollEvent(
@@ -107,8 +104,8 @@ export class PokemonsList {
           PokemonsList.addPokemonsToList(
             ul,
             pokemonDataArr,
-            startLocal * this.numResult,
-            endLocal * this.numResult
+            startLocal * this.numResults,
+            endLocal * this.numResults
           );
 
           startLocal++;
