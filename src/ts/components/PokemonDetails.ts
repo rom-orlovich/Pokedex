@@ -18,7 +18,9 @@ export class PokemonsDetails {
         </span>
         <span class="type">
           <span>Type:</span>
-          <span>${capatialFirstLetter(pokemonData.type[0])}</span>
+          <span class="${pokemonData.type[0]}">${capatialFirstLetter(
+      pokemonData.type[0]
+    )}</span>
         </span>
       </div>
 
