@@ -151,13 +151,14 @@
 
 @media screen and (max-width: $TABLET) {
   .pokemon_details {
+    flex: 50%;
     font-size: 1rem;
+    max-width: 45%;
   }
 }
 
 @media screen and (max-width: $SMARTPHONE) {
   .pokemon_details {
     max-width: 85%;
-    flex: 50%;
   }
 } ;

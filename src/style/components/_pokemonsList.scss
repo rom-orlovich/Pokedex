@@ -11,6 +11,13 @@
 }
 
 .result_not_found {
+  text-align: center;
   color: white;
   font-size: 2rem;
+}
+
+@media screen and (max-width: $SMARTPHONE) {
+  .result_not_found {
+    font-size: 1.5rem;
+  }
 }

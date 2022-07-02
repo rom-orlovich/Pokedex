@@ -2,17 +2,25 @@
 .heading_pokedex {
   @include flex-dir(center, null);
   text-align: center;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   img {
     mix-blend-mode: normal;
-    max-width: 40%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: $TABLET) {
+  .heading_pokedex {
+    img {
+      max-width: 85%;
+    }
   }
 }
 
 @media screen and (max-width: $SMARTPHONE) {
   .heading_pokedex {
     img {
-      max-width: 60%;
+      max-width: 85%;
     }
   }
 }
