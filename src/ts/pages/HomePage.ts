@@ -58,6 +58,7 @@ export class HomePage {
     if (!header) return;
     header.addEventListener("click", () => {
       const audio = select("audio") as HTMLAudioElement;
+      audio.playbackRate = 0.95;
       if (audio.paused) audio.play();
       else audio.pause();
     });
