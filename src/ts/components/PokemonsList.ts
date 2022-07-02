@@ -50,7 +50,6 @@ export class PokemonsList {
     parentEl.appendChild(
       PokemonsList.createListPokemons(pokemonsData, options)
     );
-    console.log("update");
     PokemonsList.initEvents(pokemonsData);
   }
 

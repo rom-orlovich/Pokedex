@@ -17,12 +17,8 @@ export class PokemonsDetails {
     </div>
     <div>
       <div class="name">
-        <span class="name">
           <span>Name:</span>
           <span>${capatialFirstLetter(pokemonData.name)}</span>
-        </span>
-        <span class="type">
-        </span>
       </div>
 
       <div class="physical_details">

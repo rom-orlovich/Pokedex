@@ -3,6 +3,7 @@
 .pokemon_details {
   cursor: url("../assets/pb.png"), auto;
 
+  font-size: 1.25rem;
   list-style: none;
   text-align: center;
   @include flex-dir(center, center, column);
@@ -26,7 +27,7 @@
   .type,
   .weight,
   .height {
-    :first-child {
+    > :first-child {
       font-weight: 500;
     }
   }
@@ -142,92 +143,21 @@
 
 @media screen and (max-width: $LAPTOP) {
   .pokemon_details {
-    cursor: url("../assets/pb.png"), auto;
-
-    list-style: none;
-    text-align: center;
-    @include flex-dir(center, center, column);
-    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
-    outline: 2px black;
-    flex: 25%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1rem;
-    max-width: 25%;
-    &:hover {
-      transform: translateY(-5px);
-      transition: transform 0.5s ease-in-out;
-    }
     .physical_details > span {
       display: block;
-    }
-    .name,
-    .type,
-    .weight,
-    .height {
-      :first-child {
-        font-weight: 500;
-      }
     }
   }
 }
 
 @media screen and (max-width: $TABLET) {
   .pokemon_details {
-    cursor: url("../assets/pb.png"), auto;
-
-    list-style: none;
-    text-align: center;
-    @include flex-dir(center, center, column);
-    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
-    outline: 2px black;
-    flex: 25%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1rem;
-    max-width: 25%;
-    &:hover {
-      transform: translateY(-5px);
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .name,
-    .type,
-    .weight,
-    .height {
-      :first-child {
-        font-weight: 500;
-      }
-    }
+    font-size: 1rem;
   }
 }
 
 @media screen and (max-width: $SMARTPHONE) {
   .pokemon_details {
     max-width: 85%;
-    cursor: url("../assets/pb.png"), auto;
-
-    list-style: none;
-    text-align: center;
-    @include flex-dir(center, center, column);
-    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
-    outline: 2px black;
     flex: 50%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1rem;
-    &:hover {
-      transform: translateY(-5px);
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .name,
-    .type,
-    .weight,
-    .height {
-      :first-child {
-        font-weight: 500;
-      }
-    }
   }
 } ;
