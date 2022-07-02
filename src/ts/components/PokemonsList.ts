@@ -50,6 +50,7 @@ export class PokemonsList {
     parentEl.appendChild(
       PokemonsList.createListPokemons(pokemonsData, options)
     );
+    console.log("update");
     PokemonsList.initEvents(pokemonsData);
   }
 
@@ -76,7 +77,9 @@ export class PokemonsList {
   }
 
   static initEvents(pokemonsDataArr: IPokemon[]) {
-    PokemonsList.infinteScrollEvent(1, 2, pokemonsDataArr);
+    const start = 1;
+    const end = 2;
+    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
   }
 
   static infinteScrollEvent(

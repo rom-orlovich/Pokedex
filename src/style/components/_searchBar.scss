@@ -34,3 +34,40 @@
     }
   }
 }
+
+@media screen and (max-width: $SMARTPHONE) {
+  #search_bar {
+    margin-top: 1rem;
+    @include flex-dir(center, null);
+    .input_container {
+      width: 80%;
+
+      .form {
+        @include flex-dir(null, null);
+      }
+
+      .search_field {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.3rem;
+        border-radius: 5rem;
+        border: none;
+        outline: none;
+      }
+
+      .search_button {
+        background: transparent;
+        border: none;
+        outline: none;
+
+        margin-left: -2rem;
+        margin-top: 0.3rem;
+      }
+
+      .search_button img {
+        @include heightWidth(1.2rem, 1.2rem);
+        object-fit: cover;
+      }
+    }
+  }
+}

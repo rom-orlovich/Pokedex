@@ -18,6 +18,10 @@
     transition: transform 0.5s ease-in-out;
   }
 
+  img {
+    display: block;
+  }
+
   .name,
   .type,
   .weight,
@@ -29,78 +33,201 @@
 }
 
 // Pokemon Types Color by PokeWiki
-.grass {
-  color: #78c850;
+
+%tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  color: white;
+}
+.type_span {
+  padding: 0.75rem 1.25rem;
+
+  .grass,
+  .fire,
+  .water,
+  .bug,
+  .psychic,
+  .ground,
+  .poison,
+  .normal,
+  .fighting,
+  .flying,
+  .electric,
+  .rock,
+  .ice,
+  .dragon,
+  .ghost,
+  .dark,
+  .steel,
+  .fairy,
+  .unknown {
+    @extend %tag;
+  }
+  .grass {
+    background-color: #78c850;
+  }
+
+  .fire {
+    background-color: #f08030;
+  }
+
+  .water {
+    background-color: #6890f0;
+  }
+
+  .bug {
+    background-color: #a8b820;
+  }
+
+  .psychic {
+    background-color: #f85888;
+  }
+
+  .ground {
+    background-color: #e0c068;
+  }
+
+  .poison {
+    background-color: #a040a0;
+  }
+
+  .normal {
+    background-color: #a8a878;
+  }
+
+  .fighting {
+    background-color: #c03028;
+  }
+
+  .flying {
+    background-color: #a890f0;
+  }
+
+  .electric {
+    background-color: #f8d030;
+  }
+
+  .rock {
+    background-color: #b8a038;
+  }
+
+  .ice {
+    background-color: #98d8d8;
+  }
+
+  .dragon {
+    background-color: #7038f8;
+  }
+
+  .ghost {
+    background-color: #705898;
+  }
+
+  .dark {
+    background-color: #705848;
+  }
+
+  .steel {
+    background-color: #b8b8d0;
+  }
+
+  .fairy {
+    background-color: #ee99ac;
+  }
+
+  .unknown {
+    background-color: #68a090;
+  }
 }
 
-.fire {
-  color: #f08030;
+@media screen and (max-width: $LAPTOP) {
+  .pokemon_details {
+    cursor: url("../assets/pb.png"), auto;
+
+    list-style: none;
+    text-align: center;
+    @include flex-dir(center, center, column);
+    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
+    outline: 2px black;
+    flex: 25%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    max-width: 25%;
+    &:hover {
+      transform: translateY(-5px);
+      transition: transform 0.5s ease-in-out;
+    }
+    .physical_details > span {
+      display: block;
+    }
+    .name,
+    .type,
+    .weight,
+    .height {
+      :first-child {
+        font-weight: 500;
+      }
+    }
+  }
 }
 
-.water {
-  color: #6890f0;
+@media screen and (max-width: $TABLET) {
+  .pokemon_details {
+    cursor: url("../assets/pb.png"), auto;
+
+    list-style: none;
+    text-align: center;
+    @include flex-dir(center, center, column);
+    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
+    outline: 2px black;
+    flex: 25%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    max-width: 25%;
+    &:hover {
+      transform: translateY(-5px);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .name,
+    .type,
+    .weight,
+    .height {
+      :first-child {
+        font-weight: 500;
+      }
+    }
+  }
 }
 
-.bug {
-  color: #a8b820;
-}
+@media screen and (max-width: $SMARTPHONE) {
+  .pokemon_details {
+    max-width: 85%;
+    cursor: url("../assets/pb.png"), auto;
 
-.psychic {
-  color: #f85888;
-}
+    list-style: none;
+    text-align: center;
+    @include flex-dir(center, center, column);
+    box-shadow: 0px 4px 4px 4px rgb(0, 0, 0, 0.05);
+    outline: 2px black;
+    flex: 50%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    &:hover {
+      transform: translateY(-5px);
+      transition: transform 0.5s ease-in-out;
+    }
 
-.ground {
-  color: #e0c068;
-}
-
-.poison {
-  color: #a040a0;
-}
-
-.normal {
-  color: #a8a878;
-}
-
-.fighting {
-  color: #c03028;
-}
-
-.flying {
-  color: #a890f0;
-}
-
-.electric {
-  color: #f8d030;
-}
-
-.rock {
-  color: #b8a038;
-}
-
-.ice {
-  color: #98d8d8;
-}
-
-.dragon {
-  color: #7038f8;
-}
-
-.ghost {
-  color: #705898;
-}
-
-.dark {
-  color: #705848;
-}
-
-.steel {
-  color: #b8b8d0;
-}
-
-.fairy {
-  color: #ee99ac;
-}
-
-.unknown {
-  color: #68a090;
-}
+    .name,
+    .type,
+    .weight,
+    .height {
+      :first-child {
+        font-weight: 500;
+      }
+    }
+  }
+} ;

@@ -8,3 +8,11 @@
     max-width: 40%;
   }
 }
+
+@media screen and (max-width: $SMARTPHONE) {
+  .heading_pokedex {
+    img {
+      max-width: 60%;
+    }
+  }
+}

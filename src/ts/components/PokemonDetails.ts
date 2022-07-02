@@ -10,17 +10,18 @@ export class PokemonsDetails {
   static createUI(pokemonData: IPokemon) {
     const li = createElement(`<li class="pokemon_details">
      <div class="pokemon_img">${createImg(pokemonData.img)}</div>
+     <div class="type_span">
+     <span class="${pokemonData.type[0]}">${capatialFirstLetter(
+      pokemonData.type[0]
+    )}</span>
+    </div>
     <div>
-      <div class="name_type">
+      <div class="name">
         <span class="name">
           <span>Name:</span>
           <span>${capatialFirstLetter(pokemonData.name)}</span>
         </span>
         <span class="type">
-          <span>Type:</span>
-          <span class="${pokemonData.type[0]}">${capatialFirstLetter(
-      pokemonData.type[0]
-    )}</span>
         </span>
       </div>
 
