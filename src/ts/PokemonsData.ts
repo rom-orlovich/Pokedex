@@ -15,7 +15,9 @@ export class PokemonsData {
     for (let i = start; i < end; i++) {
       if (i < 906 || i > 10000)
         promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
+      else i = 10000;
     }
+
     await Promise.all(promiseArr).then((data) => {
       this.pokemonsDataArr.push(
         ...data.map((pokemon) => PokemonsData.formatPokemonObj(pokemon))
