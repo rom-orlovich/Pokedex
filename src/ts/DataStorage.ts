@@ -30,7 +30,7 @@ export class DataStorage {
           JSON.stringify(pokemonsData.pokemonsDataArr)
         );
       // NOTE: uncomment next line will remove the current local storage data.
-      DataStorage.removeLocalStorage();
+      // DataStorage.removeLocalStorage();
     });
   }
 

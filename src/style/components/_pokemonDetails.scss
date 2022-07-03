@@ -2,7 +2,6 @@
 
 .pokemon_details {
   cursor: url("../assets/pb.png"), auto;
-
   font-size: 1.25rem;
   list-style: none;
   text-align: center;
@@ -19,8 +18,8 @@
     transition: transform 0.5s ease-in-out;
   }
   .pokemon_img {
-    display: flex;
-    justify-content: center;
+    @include flex-dir(center, null, row);
+
     img {
       display: block;
       max-width: 60%;
