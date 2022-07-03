@@ -18,9 +18,13 @@
     transform: translateY(-5px);
     transition: transform 0.5s ease-in-out;
   }
-
-  img {
-    display: block;
+  .pokemon_img {
+    display: flex;
+    justify-content: center;
+    img {
+      display: block;
+      max-width: 60%;
+    }
   }
 
   .name,

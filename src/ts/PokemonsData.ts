@@ -34,7 +34,7 @@ export class PokemonsData {
   static formatPokemonObj(pokemon: IPokemonApi) {
     const pokemonDetails = {
       id: String(pokemon.id),
-      img: pokemon.sprites.front_default,
+      img: pokemon.sprites.other["official-artwork"].front_default,
       name: pokemon.name,
       type: pokemon.types.map((type) => type.type.name),
       height: convertHeight(pokemon.height),

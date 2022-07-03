@@ -7,7 +7,12 @@ export interface IPokemonApi {
   height: number;
   weight: number;
   sprites: {
-    front_default: string;
+    //  front_default: string;
+    other: {
+      "official-artwork": {
+        front_default: string;
+      };
+    };
   };
   types: {
     type: {
