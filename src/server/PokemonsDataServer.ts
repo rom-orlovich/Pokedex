@@ -29,8 +29,8 @@ export class PokemonsDataServer {
   static async fetchPokemonByQuery(query: string) {
     const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${query}`;
     const response = await axios(urlPokemon);
-    const { data, statusText } = response;
-    console.log(statusText);
+    const { data } = response;
+
     return data as IPokemonApi;
   }
 
