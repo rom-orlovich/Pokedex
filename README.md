@@ -2,9 +2,13 @@
 
 **Install** - npm ci
 
-**Run live** - npm run dev
+**Run live** - npm run start
 
-**Run production** -npm run build
+**Run server** - npm run server
+
+**Run production-client** -npm run build-client
+
+**Run production-server** -npm run build-server
 
 **Run tests** -npm run test
 

@@ -12,7 +12,7 @@ const config: webpack.Configuration = {
   devtool: mode === "development" ? "inline-source-map" : false,
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "public"),
+      directory: path.resolve(__dirname, "../..", "public/client"),
     },
     port: "3000",
     client: {
@@ -25,11 +25,11 @@ const config: webpack.Configuration = {
     open: true,
   },
   entry: {
-    build: path.resolve(__dirname, "src/ts/index.ts"),
+    build: path.resolve(__dirname, "./ts/index.ts"),
   },
   output: {
     filename: "[name][contenthash].js",
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "../..", "public/client"),
     clean: true,
   },
   module: {
@@ -38,17 +38,17 @@ const config: webpack.Configuration = {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: ["ts-loader"],
-        include: [path.resolve(__dirname, "src/ts")],
+        include: [path.resolve(__dirname, "./ts")],
       },
 
       {
         test: /\.scss$/,
         use: [Minicss.loader, "css-loader", "sass-loader"],
-        include: [path.resolve(__dirname, "src/style")],
+        include: [path.resolve(__dirname, "./style")],
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
     ],
@@ -62,10 +62,10 @@ const config: webpack.Configuration = {
     new ESLintPlugin(),
     new Minicss(),
     new Htmlp({
-      template: "./src/index.html",
-      title: "Pokedex",
+      template: "./src/client/index.html",
+      title: "Login",
       filename: "index.html",
-      favicon: "./src/favicon.ico",
+      favicon: "./src/client/favicon.ico",
     }),
   ],
 };

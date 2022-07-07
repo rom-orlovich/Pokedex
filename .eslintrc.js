@@ -27,7 +27,6 @@ module.exports = {
       "always",
       { exceptAfterSingleLine: true },
     ],
-    "no-plusplus": ["off"],
     "no-unused-expressions": ["error", { allowShortCircuit: true }],
     "import/prefer-default-export": ["off"],
     "import/extensions": ["error", "never"],

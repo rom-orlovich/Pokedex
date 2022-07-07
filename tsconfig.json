@@ -8,8 +8,9 @@
     "downlevelIteration": true,
     "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "build/**/*", "src/tests"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "build/**/*", "./src/tests"]
 }
