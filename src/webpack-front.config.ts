@@ -38,17 +38,17 @@ const config: webpack.Configuration = {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: ["ts-loader"],
-        include: [path.resolve(__dirname, "./ts")],
+        include: [path.resolve(__dirname, "./client/ts")],
       },
 
       {
         test: /\.scss$/,
         use: [Minicss.loader, "css-loader", "sass-loader"],
-        include: [path.resolve(__dirname, "./style")],
+        include: [path.resolve(__dirname, "./client/style")],
       },
 
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
         type: "asset/resource",
       },
     ],
@@ -63,7 +63,7 @@ const config: webpack.Configuration = {
     new Minicss(),
     new Htmlp({
       template: "./src/client/index.html",
-      title: "Login",
+      title: "Pokedex",
       filename: "index.html",
       favicon: "./src/client/favicon.ico",
     }),
