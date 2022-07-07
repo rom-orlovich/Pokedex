@@ -1,8 +1,8 @@
+import axios from "axios";
 import { IPokemon, IPokemonApi } from "../client/ts/types";
 import { convertHeight, convertWeight } from "./utlites/helpers";
-
 // Class PokemonsData deals with the data of the pokemons
-export class PokemonsData {
+export class PokemonsDataServer {
   pokemonsDataArr: IPokemon[];
 
   constructor() {
@@ -14,13 +14,13 @@ export class PokemonsData {
     const promiseArr: Promise<IPokemonApi>[] = [];
     for (let i = start; i < end; i++) {
       if (i < 906 || i > 10000)
-        promiseArr.push(PokemonsData.fetchPokemonByQuery(String(i)));
+        promiseArr.push(PokemonsDataServer.fetchPokemonByQuery(String(i)));
       else i = 10000;
     }
 
     await Promise.all(promiseArr).then((data) => {
       this.pokemonsDataArr.push(
-        ...data.map((pokemon) => PokemonsData.formatPokemonObj(pokemon))
+        ...data.map((pokemon) => PokemonsDataServer.formatPokemonObj(pokemon))
       );
     });
   }
@@ -28,8 +28,10 @@ export class PokemonsData {
   // Fetch the data of one pokemon from the API by query of name or ID.
   static async fetchPokemonByQuery(query: string) {
     const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${query}`;
-    const data = await fetchData(urlPokemon);
-    return data;
+    const response = await axios(urlPokemon);
+    const { data, statusText } = response;
+    console.log(statusText);
+    return data as IPokemonApi;
   }
 
   // Format the data of pokemon from the API.
