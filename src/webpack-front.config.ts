@@ -14,11 +14,6 @@ const config: webpack.Configuration = {
     static: {
       directory: path.resolve(__dirname, "../", "public/client"),
     },
-    // headers: {
-    //   "Access-Control-Allow-Origin": "*",
-    //   "Access-Control-Allow-Headers":
-    //     "Origin, X-Requested-With, Content-Type, Accept",
-    // },
 
     port: "3000",
     client: {

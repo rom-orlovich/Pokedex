@@ -9,14 +9,14 @@ export class PokemonsDataClient {
     this.pokemonsDataArr = [];
   }
 
-  // Fetching the pokemons data from the  Express server
+  // Fetches the pokemons data from the Express server
   async fetchPokemonsListDetails() {
     this.pokemonsDataArr.push(
       ...(await PokemonsDataClient.fetchPokemonByQuery())
     );
   }
 
-  // Fetch the data of one pokemon from the API by query of name or ID.
+  // Fetches the data of one pokemon from the API by query of name or ID.
   static async fetchPokemonByQuery() {
     try {
       const urlPokemon = EXPRESS_SERVER_URL;
@@ -27,7 +27,7 @@ export class PokemonsDataClient {
     }
   }
 
-  // Filter all the pokemons that stand the condtion of given query and value.
+  // Filters all the pokemons that stand the condtion of given query and value.
   filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
     this.pokemonsDataArr.filter((pokemon) =>
       pokemon[query]
@@ -36,7 +36,7 @@ export class PokemonsDataClient {
         .startsWith(value.toLocaleLowerCase())
     );
 
-  // Set new array of pokemon.
+  // Sets new array of pokemon.
   setItems(pokemonsDataArr: IPokemon[]) {
     this.pokemonsDataArr = pokemonsDataArr;
   }
