@@ -11,18 +11,23 @@ export class PokemonsDataServer {
 
   // Fetching the pokemons data from the API and format the data into array
   async fetchPokemonsListDetails(start = 1, end = 51) {
-    const promiseArr: Promise<IPokemonApi>[] = [];
-    for (let i = start; i < end; i++) {
-      if (i < 906 || i > 10000)
-        promiseArr.push(PokemonsDataServer.fetchPokemonByQuery(String(i)));
-      else i = 10000;
-    }
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const promiseArr: Promise<IPokemonApi>[] = [];
+      for (let i = start; i < end; i++) {
+        if (i < 906 || i > 10000)
+          promiseArr.push(PokemonsDataServer.fetchPokemonByQuery(String(i)));
+        else i = 10000;
+      }
 
-    await Promise.all(promiseArr).then((data) => {
-      this.pokemonsDataArr.push(
-        ...data.map((pokemon) => PokemonsDataServer.formatPokemonObj(pokemon))
-      );
-    });
+      await Promise.all(promiseArr).then((data) => {
+        this.pokemonsDataArr.push(
+          ...data.map((pokemon) => PokemonsDataServer.formatPokemonObj(pokemon))
+        );
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // Fetch the data of one pokemon from the API by query of name or ID.

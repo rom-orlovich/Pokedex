@@ -1,37 +1,32 @@
 import express, { Request, Response } from "express";
-import fs from "node:fs";
-// import crypto from "crypto";
-import path from "path";
-import cors from "cors";
-import { PokemonsDataServer } from "./PokemonsDataServer";
 
+// import crypto from "crypto";
+import fs from "fs";
+import cors from "cors";
+import { createDB, filePath } from "./createDB";
+import { IPokemon } from "../client/ts/types";
+
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-const pokemonsDataServer = new PokemonsDataServer();
 
-const filePath = path.join(__dirname, "db/pokemons.json");
+const pokemonsDataExist = fs.existsSync(filePath);
+const pokemonsData: IPokemon[] = [];
 
-console.log(fs.existsSync(filePath));
-if (!fs.existsSync(filePath))
-  pokemonsDataServer.fetchPokemonsListDetails(1, 400).then(() => {
-    // console.log(pokemonsDataServer.pokemonsDataArr);
-    fs.writeFile(
-      filePath,
-      JSON.stringify(pokemonsDataServer.pokemonsDataArr),
-      { encoding: "utf8" },
-      (err) => {
-        console.log(err);
-      }
-    );
+if (pokemonsDataExist)
+  fs.readFile(filePath, "utf8", (err, data) => {
+    pokemonsData.push(...JSON.parse(data));
   });
 
 app.get("/getAllPokemons", (req: Request, res: Response) => {
-  res.status(200).send("ok");
+  res.status(200).json(pokemonsData);
 });
 
-app.listen(5000, () => {
-  console.log("listen port 5000");
+createDB().then(() => {
+  app.listen(5000, () => {
+    console.log(`listen port ${port}`);
+  });
 });

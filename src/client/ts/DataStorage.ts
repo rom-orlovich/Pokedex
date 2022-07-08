@@ -15,7 +15,9 @@ export class DataStorage {
     if (localStorageData) {
       pokemonsData.setItems(JSON.parse(localStorageData));
       DataStorage.removeLocalStorage();
-    } else await pokemonsData.fetchPokemonsListDetails(1, 10250);
+    } else {
+      await pokemonsData.fetchPokemonsListDetails();
+    }
   }
 
   // On unload the page, the method save the data of the pokemons into the local storage.
@@ -30,7 +32,7 @@ export class DataStorage {
           JSON.stringify(pokemonsData.pokemonsDataArr)
         );
       // NOTE: uncomment next line will remove the current local storage data.
-      // DataStorage.removeLocalStorage();
+      DataStorage.removeLocalStorage();
     });
   }
 

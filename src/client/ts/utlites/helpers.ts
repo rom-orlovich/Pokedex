@@ -38,11 +38,14 @@ export const fetchData = async (
       }
     : {};
 
+  // eslint-disable-next-line no-useless-catch
   try {
+    console.log(url, options);
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
   } catch (error) {
-    return null;
+    console.log(error);
+    throw error;
   }
 };
