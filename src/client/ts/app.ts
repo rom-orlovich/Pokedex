@@ -1,4 +1,4 @@
-import { PokemonsData } from "./PokemonsData";
+import { PokemonsData } from "./PokemonsDataClient";
 import { HomePage } from "./pages/HomePage";
 
 // Init the app - click the logo "Pokemons" to play the music!

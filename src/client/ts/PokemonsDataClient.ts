@@ -1,8 +1,9 @@
 import { IPokemon } from "./types";
+import { EXPRESS_SERVER_URL } from "./utlites/constantVariables";
 import { fetchData } from "./utlites/helpers";
 
 // Class PokemonsData deals with the data of the pokemons
-export class PokemonsData {
+export class PokemonsDataClient {
   pokemonsDataArr: IPokemon[];
 
   constructor() {
@@ -11,13 +12,15 @@ export class PokemonsData {
 
   // Fetching the pokemons data from the  Express server
   async fetchPokemonsListDetails() {
-    this.pokemonsDataArr.push(...(await PokemonsData.fetchPokemonByQuery()));
+    this.pokemonsDataArr.push(
+      ...(await PokemonsDataClient.fetchPokemonByQuery())
+    );
   }
 
   // Fetch the data of one pokemon from the API by query of name or ID.
   static async fetchPokemonByQuery() {
     try {
-      const urlPokemon = `http://localhost:5000/getAllPokemons`;
+      const urlPokemon = EXPRESS_SERVER_URL;
       const data = await fetchData(urlPokemon);
       return data;
     } catch (error) {

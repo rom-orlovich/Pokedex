@@ -1,6 +1,6 @@
 import { PokemonsList } from "../components/PokemonsList";
 import { SearchBar } from "../components/SearchBar";
-import { IPokemon, TPokemonsData } from "../types";
+import { IPokemon, TPokemonsDataClient } from "../types";
 import { createElement, select } from "../utlites/domsHelpers";
 import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
@@ -8,9 +8,9 @@ import { DataStorage } from "../DataStorage";
 import { Spinner } from "../components/Spinner";
 
 export class HomePage {
-  pokemonsData: TPokemonsData;
+  pokemonsData: TPokemonsDataClient;
 
-  constructor(PokemonsData: TPokemonsData) {
+  constructor(PokemonsData: TPokemonsDataClient) {
     this.pokemonsData = PokemonsData;
   }
 

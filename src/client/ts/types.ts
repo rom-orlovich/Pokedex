@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { PokemonsData } from "./PokemonsData";
+import { PokemonsDataClient } from "./PokemonsDataClient";
 
 export interface IPokemonApi {
   id: number;
@@ -29,7 +29,7 @@ export interface IPokemon {
   img: string;
 }
 
-export type TPokemonsData = InstanceType<typeof PokemonsData>;
+export type TPokemonsDataClient = InstanceType<typeof PokemonsDataClient>;
 export interface IPokemonsListRenderOptions {
   query?: string;
   start?: 0;

@@ -20,13 +20,12 @@ if (pokemonsDataExist)
   fs.readFile(filePath, "utf8", (err, data) => {
     pokemonsData.push(...JSON.parse(data));
   });
+else createDB();
 
 app.get("/getAllPokemons", (req: Request, res: Response) => {
   res.status(200).json(pokemonsData);
 });
 
-createDB().then(() => {
-  app.listen(5000, () => {
-    console.log(`listen port ${port}`);
-  });
+app.listen(5000, () => {
+  console.log(`listen port ${port}`);
 });

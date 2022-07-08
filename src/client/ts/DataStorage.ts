@@ -1,16 +1,16 @@
-import { TPokemonsData } from "./types";
+import { TPokemonsDataClient } from "./types";
 import { POKEMONS_LIST_KEY } from "./utlites/constantVariables";
 
 // Deals with the local storage data.
 export class DataStorage {
   // Inits the load event  and the saved event of the pokemons data.
-  static async initEvent(pokemonsData: TPokemonsData) {
+  static async initEvent(pokemonsData: TPokemonsDataClient) {
     await DataStorage.loadDataEvent(pokemonsData);
     DataStorage.saveDataEvent(pokemonsData);
   }
 
   // Checkes if the local storage exist, if not, the method fetches the data from the API.
-  static async loadDataEvent(pokemonsData: TPokemonsData) {
+  static async loadDataEvent(pokemonsData: TPokemonsDataClient) {
     const localStorageData = DataStorage.checkLocalStorageExist();
     if (localStorageData) {
       pokemonsData.setItems(JSON.parse(localStorageData));
@@ -21,7 +21,7 @@ export class DataStorage {
   }
 
   // On unload the page, the method save the data of the pokemons into the local storage.
-  static saveDataEvent(pokemonsData: TPokemonsData) {
+  static saveDataEvent(pokemonsData: TPokemonsDataClient) {
     window.addEventListener("unload", () => {
       if (
         !DataStorage.checkLocalStorageExist() &&

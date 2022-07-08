@@ -17,7 +17,7 @@ export class PokemonsDataServer {
       for (let i = start; i < end; i++) {
         if (i < 906 || i > 10000)
           promiseArr.push(PokemonsDataServer.fetchPokemonByQuery(String(i)));
-        else i = 10000;
+        else i = 10001;
       }
 
       await Promise.all(promiseArr).then((data) => {
@@ -50,19 +50,5 @@ export class PokemonsDataServer {
       weight: convertWeight(pokemon.weight),
     };
     return pokemonDetails;
-  }
-
-  // Filter all the pokemons that stand the condtion of given query and value.
-  filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
-    this.pokemonsDataArr.filter((pokemon) =>
-      pokemon[query]
-        .toString()
-        .toLocaleLowerCase()
-        .startsWith(value.toLocaleLowerCase())
-    );
-
-  // Set new array of pokemon.
-  setItems(pokemonsDataArr: IPokemon[]) {
-    this.pokemonsDataArr = pokemonsDataArr;
   }
 }
