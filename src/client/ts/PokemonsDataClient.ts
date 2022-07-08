@@ -36,6 +36,10 @@ export class PokemonsDataClient {
         .startsWith(value.toLocaleLowerCase())
     );
 
+  findPokemonById(id: string) {
+    return this.pokemonsDataArr.find((pokemon) => id === pokemon.id);
+  }
+
   // Sets new array of pokemon.
   setItems(pokemonsDataArr: IPokemon[]) {
     this.pokemonsDataArr = pokemonsDataArr;

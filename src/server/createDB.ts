@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import { writeFile } from "fs";
-import path from "path";
-import { TPokemonsDataServer } from "./types";
 
-const fileName = "pokemonsDB.json";
-export const filePath = path.join(__dirname, "db", fileName);
+import { TPokemonsDataServer } from "./types";
+import {
+  POKEMONSDB_FILENAME,
+  POKEMONS_DB_PATH,
+} from "./utlites/constansVariables";
 
 // Gets the data from the api and writes the pokemonsDB.json file.
 export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
@@ -24,15 +25,15 @@ export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
     await fetchByRange(800, 906);
     await fetchByRange(10000, 10250);
 
-    console.log(`The ${fileName} file is in writing...`);
+    console.log(`The ${POKEMONSDB_FILENAME} file is in writing...`);
 
     writeFile(
-      filePath,
+      POKEMONS_DB_PATH,
       JSON.stringify(pokemonsDataServer.pokemonsDataArr),
 
       (err) => {
         if (err) throw err;
-        console.log(`The creation of the ${fileName} is completed!`);
+        console.log(`The creation of the ${POKEMONSDB_FILENAME} is completed!`);
       }
     );
   } catch (error) {
