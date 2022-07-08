@@ -5,7 +5,6 @@ import { fetchData } from "./utlites/helpers";
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
   pokemonsDataArr: IPokemon[];
-
   constructor() {
     this.pokemonsDataArr = [];
   }

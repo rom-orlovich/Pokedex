@@ -2,13 +2,14 @@
 import { writeFile } from "fs";
 
 import path from "path";
-import { TPokemonsDataClient } from "../client/ts/types";
+
+import { TPokemonsDataServer } from "./types";
 
 const fileName = "pokemonsDB.json";
 
 export const filePath = path.join(__dirname, "db", fileName);
 
-export async function createDB(pokemonsDataServer: TPokemonsDataClient) {
+export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
   const fetchByRange = async (start: number, end: number) => {
     console.log(`Start fetching ${start}-${end} pokemons ...`);
     await pokemonsDataServer.fetchPokemonsListDetails(start, end);
@@ -22,13 +23,14 @@ export async function createDB(pokemonsDataServer: TPokemonsDataClient) {
     await fetchByRange(800, 906);
     await fetchByRange(10000, 10250);
 
-    console.log(`The ${fileName} file is writing`);
+    console.log(`The ${fileName} file is in writing`);
     writeFile(
       filePath,
       JSON.stringify(pokemonsDataServer.pokemonsDataArr),
 
       (err) => {
-        throw err;
+        if (err) throw err;
+        console.log(`The creation of the ${fileName} is complete`);
       }
     );
   } catch (error) {
