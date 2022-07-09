@@ -1,6 +1,6 @@
 @use "../utilities/utilities.scss" as *;
 
-.side_fav_pokemons_section {
+#side_fav_pokemons_section {
   width: 27vw;
   height: 100vh;
   background: white;
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
 
+  transition: transform 1s ease-out;
   .fav_pokemon_div {
     display: inline-block;
     vertical-align: middle;
@@ -29,6 +30,13 @@
     align-self: end;
   }
 
+  #side_fav_close_btn {
+    @include posAbs(2%, null, 4%, null);
+    background-color: white;
+    border: none;
+    font-size: 2rem;
+    color: red;
+  }
   img {
     padding-top: 0.69rem;
     max-width: 35%;

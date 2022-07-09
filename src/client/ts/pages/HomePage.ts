@@ -6,7 +6,7 @@ import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
 import { DataStorage } from "../DataStorage";
 import { Spinner } from "../components/Spinner";
-import { FavoritePokemonsList } from "../components/FavoritePokemonsList";
+
 import { SideFavoritePokemons } from "../components/SideFavoritePokemons";
 
 export class HomePage {
@@ -44,6 +44,7 @@ export class HomePage {
     );
 
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
+    SideFavoritePokemons.initEvents();
     FloatMenu.initEvents(this.pokemonsData);
   }
 
