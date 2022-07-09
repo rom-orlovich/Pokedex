@@ -1,23 +1,22 @@
 @use "../utilities/utilities.scss" as *;
 
-.fa-heart-o {
+%heart {
   color: red;
   cursor: pointer;
-  position: absolute;
+  @include posAbs(0%, null, 4%, null);
   padding-top: 0.5rem;
-  padding-left: 8rem;
+  padding-left: 7rem;
+  font-size: 1.69rem;
 }
 
+.fa-heart-o,
 .fa-heart {
-  color: red;
-  cursor: pointer;
-  position: absolute;
-  padding-top: 0.5rem;
-  padding-right: 5rem;
+  @extend %heart;
 }
 
 .pokemon_details {
   cursor: url("../assets/pb.png"), auto;
+  position: relative;
   font-size: 1.25rem;
   list-style: none;
   text-align: center;
