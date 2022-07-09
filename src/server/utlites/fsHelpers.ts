@@ -24,13 +24,9 @@ export function unLinkFile(path: string) {
 }
 
 export function createDirectory(path: string) {
-  access(path, (err) => {
-    if (err) {
-      mkdir(path, { recursive: true }, (error) => {
-        if (error) console.log(error);
-        console.log(`Direcotry in path ${path} is created successfully!`);
-      });
-    }
+  mkdir(path, { recursive: true }, (error) => {
+    if (error) console.log(error);
+    console.log(`Direcotry in path ${path} is created successfully!`);
   });
 }
 

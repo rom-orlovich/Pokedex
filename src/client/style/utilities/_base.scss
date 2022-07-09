@@ -36,6 +36,13 @@ img {
 .display-block {
   display: block;
 }
+.display-none {
+  display: none;
+}
 .center-abs {
   @include centerAbs();
+}
+
+.transform-left {
+  transform: translateX(-100%);
 }

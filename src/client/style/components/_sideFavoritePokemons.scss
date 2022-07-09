@@ -1,6 +1,6 @@
 @use "../utilities/utilities.scss" as *;
 
-.side_fav_pokemons_section {
+#side_fav_pokemons_section {
   width: 30vw;
   height: 100vh;
   background: white;
@@ -9,6 +9,14 @@
   top: 0%;
   left: 0%;
   color: red;
+  transition: transform 0.1s linear;
+  #side_fav_close_btn {
+    @include posAbs(2%, null, 4%, null);
+    background-color: white;
+    border: none;
+    font-size: 2rem;
+    color: red;
+  }
   img {
     max-width: 20%;
     max-height: 20%;
