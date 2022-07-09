@@ -1,0 +1,32 @@
+@use "../utilities/utilities.scss" as *;
+#fav_menu {
+  @include posAbs(null, null, 2%, 12.5%);
+  position: fixed;
+  z-index: 100;
+  button {
+    background-color: white;
+    border-radius: 100%;
+    border: none;
+    @include heightWidth(3.2rem, 3.2rem);
+    .fa {
+      color: rgb(243, 65, 65);
+      font-size: 2rem;
+    }
+  }
+  :hover {
+    animation: 1s scale-up forwards;
+    .fa {
+      animation: 1s scale-same forwards;
+    }
+  }
+  @keyframes scale-up {
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  @keyframes scale-same {
+    100% {
+      transform: scale(1);
+    }
+  }
+}
