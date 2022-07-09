@@ -176,17 +176,25 @@ export class PokemonsList {
 
       const heartSpan = targetEl.closest("#heart");
       if (!heartSpan) return;
+
       const heartIcon = heartSpan.firstElementChild;
       if (!heartIcon) return;
+      const numFavorite = select(".num_fav_pokemon");
       const li = targetEl.closest("li") as HTMLElement;
       if (heartIcon.classList.contains("fa-heart-o"))
         pokemonData.addPokemonToFavoriteList(li.id);
       else if (heartIcon.classList.contains("fa-heart"))
         pokemonData.removePokemonFromFavoriteList(li.id);
+
       heartIcon.classList.toggle("fa-heart-o");
       heartIcon.classList.toggle("fa-heart");
 
-      console.log(pokemonData.favoritePokemonsArr);
+      const numFavoriteClass = numFavorite.classList;
+
+      numFavoriteClass.add("scale-up-down");
+      delayFunction(() => numFavoriteClass.remove("scale-up-down"), 1200);
+
+      numFavorite.textContent = String(pokemonData.favoritePokemonsArr.length);
     });
   }
 }

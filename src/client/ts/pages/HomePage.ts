@@ -43,7 +43,7 @@ export class HomePage {
     );
 
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
-    FloatMenu.initEvents();
+    FloatMenu.initEvents(this.pokemonsData);
   }
 
   // Fetches the data of the pokemons while display spinner until the data is done fetching.

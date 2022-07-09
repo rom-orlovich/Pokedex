@@ -1,6 +1,5 @@
 @use "../utilities/utilities.scss" as *;
 #float_menu {
-
   button {
     background-color: white;
     border-radius: 100%;
@@ -27,4 +26,45 @@
       transform: scale(1);
     }
   }
+}
+
+.fav_button_container {
+  position: relative;
+
+  .num_fav_pokemon {
+    @include posAbs(-28%, null, -14%, null);
+    @include flex-dir(center, center);
+    @include heightWidth(2rem, 2rem);
+    border: 1px solid grey;
+
+    color: red;
+    background-color: white;
+    border-radius: 90%;
+    text-align: center;
+    font-size: 1.6rem;
+    z-index: 200;
+  }
+}
+@keyframes scale-up-down {
+  0% {
+    color: white;
+  }
+
+  50% {
+    transform: scale(1.5);
+    background-color: rgb(233, 36, 36);
+    color: white;
+  }
+
+  75% {
+    background-color: rgb(233, 36, 36);
+    color: white;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-up-down {
+  animation: 1.5s scale-up-down forwards;
 }
