@@ -5,6 +5,11 @@ export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
 export const createEnteries = (obj: object) => Object.entries(obj);
 
+export const findElById = <T extends { id: string; name: string }>(
+  id: string,
+  arr: T[]
+) => arr.find((el) => id === el.id);
+
 // Get function and time to delay. and active the function after the time is passed.
 export const delayFunction = (
   // eslint-disable-next-line no-unused-vars

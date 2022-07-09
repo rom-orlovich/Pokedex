@@ -3,7 +3,7 @@ import {
   GET_ALL_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
 } from "./utlites/constantVariables";
-import { fetchData } from "./utlites/helpers";
+import { fetchData, findElById } from "./utlites/helpers";
 
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
@@ -47,39 +47,19 @@ export class PokemonsDataClient {
         .startsWith(value.toLocaleLowerCase())
     );
 
-  static findPokemonById<T extends { id: string; name: string }>(
-    arr: T[],
-    id: string
-  ) {
-    return arr.find((pokemon) => id === pokemon.id);
-  }
-
-  // Sets new array of pokemon.
-  setPokemonsData(pokemonsDataArr: IPokemon[]) {
-    this.pokemonsDataArr = pokemonsDataArr;
-  }
-
-  setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
-    this.favoritePokemonsArr = favoritePokemonsArr;
-  }
-
   // Gets id of pokemon ,find his data from pokemonsDataArr
   // and add his relvant data to favoritePokemonArr.
   addPokemonToFavoriteList(id: string) {
-    const pokemonData = PokemonsDataClient.findPokemonById(
-      this.pokemonsDataArr,
-      id
-    );
-    if (
-      pokemonData &&
-      !PokemonsDataClient.findPokemonById(this.favoritePokemonsArr, id)
-    )
+    const pokemonData = findElById(id, this.pokemonsDataArr);
+
+    if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         id,
         name: pokemonData.name,
         img: pokemonData.img,
       });
   }
+  //
 
   // Gets id of pokemon ,find his data from favoritePokemonsArr
   // and remove him.
@@ -87,5 +67,15 @@ export class PokemonsDataClient {
     this.favoritePokemonsArr = this.favoritePokemonsArr.filter(
       (favoritePokemon) => id.trim() !== favoritePokemon.id.trim()
     );
+  }
+
+  // Sets a new array of pokemon.
+  setPokemonsData(pokemonsDataArr: IPokemon[]) {
+    this.pokemonsDataArr = pokemonsDataArr;
+  }
+
+  // Sets a new array of favorite pokemons.
+  setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
+    this.favoritePokemonsArr = favoritePokemonsArr;
   }
 }
