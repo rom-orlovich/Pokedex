@@ -26,6 +26,22 @@
   .name {
     font-weight: 500;
     border-bottom: 1px solid grey;
+
+    #bin {
+      border-radius: 1000px;
+      border-color: black;
+      background-color: black;
+      color: white;
+      padding-left: 2px;
+      padding-right: 2px;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      font-size: 1rem;
+    }
+
+    :hover {
+      text-decoration: line-through;
+    }
   }
 
   #side_fav_close_btn {
@@ -47,3 +63,7 @@
   //   font-size: 1.2rem;
   // }
 }
+
+// div {
+//   background-color: #f00;
+// }

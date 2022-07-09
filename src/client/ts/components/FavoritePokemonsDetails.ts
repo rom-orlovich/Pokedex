@@ -14,7 +14,10 @@ export class FavoritePokemonsDetails {
     
      <div class="name">
          <span>${capatialFirstLetter(favoritePokemon.name)}</span>
+         <i id="bin" class="fa fa-minus-circle"></i>  
      </div>
+
+
     </li> `;
     return createElement(li);
   }
