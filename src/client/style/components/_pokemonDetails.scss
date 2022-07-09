@@ -1,7 +1,22 @@
 @use "../utilities/utilities.scss" as *;
 
+%heart {
+  color: red;
+  cursor: pointer;
+  @include posAbs(0%, null, 4%, null);
+  padding-top: 0.5rem;
+  padding-left: 7rem;
+  font-size: 1.69rem;
+}
+
+.fa-heart-o,
+.fa-heart {
+  @extend %heart;
+}
+
 .pokemon_details {
   cursor: url("../assets/pb.png"), auto;
+  position: relative;
   font-size: 1.25rem;
   list-style: none;
   text-align: center;

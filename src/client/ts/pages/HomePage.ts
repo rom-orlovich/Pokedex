@@ -6,6 +6,7 @@ import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
 import { DataStorage } from "../DataStorage";
 import { Spinner } from "../components/Spinner";
+// import { FavMenu } from "../components/FavMenu";
 
 export class HomePage {
   pokemonsData: TPokemonsDataClient;
@@ -26,6 +27,7 @@ export class HomePage {
       SearchBar.render(),
       PokemonsList.render(pokemonsData),
       FloatMenu.render()
+      // FavMenu.render()
     );
     return main;
   }
