@@ -1,8 +1,6 @@
 @use "../utilities/utilities.scss" as *;
-#fav_menu {
-  @include posAbs(null, null, 2%, 12.5%);
-  position: fixed;
-  z-index: 100;
+#float_menu {
+
   button {
     background-color: white;
     border-radius: 100%;

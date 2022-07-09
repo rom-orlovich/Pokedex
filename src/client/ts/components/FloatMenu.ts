@@ -8,6 +8,7 @@ export class FloatMenu {
 
   static createUI() {
     const folatMenu = `<div id="float_menu">
+    <span> <button class="fav_pokemons"> <i class="fa fa-star"></i> </button></span>
     <span> <button class="scroll_up"> <i class="fa fa-arrow-up"></i> </button></span>
     </div>`;
     return folatMenu;
