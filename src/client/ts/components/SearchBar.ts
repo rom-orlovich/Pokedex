@@ -1,4 +1,4 @@
-import { TPokemonsData, TUpdatePokemonsList } from "../types";
+import { TPokemonsDataClient, TUpdatePokemonsList } from "../types";
 import { createElement, createImg, select } from "../utlites/domsHelpers";
 
 export class SearchBar {
@@ -23,14 +23,14 @@ export class SearchBar {
   }
 
   static initEvents(
-    DataPokemons: TPokemonsData,
+    DataPokemons: TPokemonsDataClient,
     updatePokemonsList: TUpdatePokemonsList
   ) {
     this.onInputChangeEvent(DataPokemons, updatePokemonsList);
   }
 
   static onInputChangeEvent(
-    DataPokemons: TPokemonsData,
+    DataPokemons: TPokemonsDataClient,
     updatePokemonsList: TUpdatePokemonsList
   ) {
     // Searchs the input element.

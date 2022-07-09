@@ -1,46 +1,41 @@
 /* eslint-disable no-console */
-import { existsSync, writeFile } from "fs";
+import { writeFile } from "fs";
 
-import path from "path";
+import { TPokemonsDataServer } from "./types";
+import {
+  POKEMONSDB_FILENAME,
+  POKEMONS_DB_PATH,
+} from "./utlites/constansVariables";
 
-import { PokemonsDataServer } from "./PokemonsDataServer";
-
-const pokemonsDataServer = new PokemonsDataServer();
-const fileName = "pokemonsDB.json";
-
-export const filePath = path.join(__dirname, "db", fileName);
-
-export async function createDB() {
+// Gets the data from the api and writes the pokemonsDB.json file.
+export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
+  // Fetches the data by defined start and end,
+  // and inform the user with the correct message.
+  const fetchByRange = async (start: number, end: number) => {
+    console.log(`Start fetching ${start}-${end} pokemons...`);
+    await pokemonsDataServer.fetchPokemonsDataFromServer(start, end);
+    console.log(`The fetching of ${start}-${end} pokemons is completed!`);
+  };
   try {
-    if (!existsSync(filePath)) {
-      console.log("The creation of the pokemons database is begining");
-      console.log("Start fetching 1-400 pokemons ...");
-      await pokemonsDataServer.fetchPokemonsListDetails(1, 400);
+    console.log("The creation of the pokemons database is begining");
+    await fetchByRange(1, 200);
+    await fetchByRange(200, 400);
+    await fetchByRange(400, 600);
+    await fetchByRange(600, 800);
+    await fetchByRange(800, 906);
+    await fetchByRange(10000, 10250);
 
-      console.log("The fetching of 1-400 pokemons is complete");
-      console.log("Start fetching 400-800 pokemons ...");
-      await pokemonsDataServer.fetchPokemonsListDetails(400, 800);
+    console.log(`The ${POKEMONSDB_FILENAME} file is in writing...`);
 
-      console.log("The fetching of 400-800 pokemons is complete");
-      console.log("Start fetching 800-905, 10000-10250 pokemons ...");
+    writeFile(
+      POKEMONS_DB_PATH,
+      JSON.stringify(pokemonsDataServer.pokemonsDataArr),
 
-      await pokemonsDataServer.fetchPokemonsListDetails(800, 10250);
-
-      console.log("The fetching of 800-905, 10000-10250 pokemons is complete");
-
-      console.log(`Beging write ${fileName}`);
-      writeFile(
-        filePath,
-        JSON.stringify(pokemonsDataServer.pokemonsDataArr),
-
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      console.log("Pokemon database is existing");
-      return;
-    }
+      (err) => {
+        if (err) throw err;
+        console.log(`The creation of the ${POKEMONSDB_FILENAME} is completed!`);
+      }
+    );
   } catch (error) {
     console.log(error);
   }

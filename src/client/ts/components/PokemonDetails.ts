@@ -8,7 +8,9 @@ export class PokemonsDetails {
   }
 
   static createUI(pokemonData: IPokemon) {
-    const li = createElement(`<li class="pokemon_details">
+    const li = createElement(`<li id="${
+      pokemonData.id
+    }" class="pokemon_details">
      <div class="pokemon_img">${createImg(pokemonData.img)}</div>
      <div class="type_span">
      <span class="${pokemonData.type[0]}">${capatialFirstLetter(

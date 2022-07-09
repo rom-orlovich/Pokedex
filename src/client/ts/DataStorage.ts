@@ -1,46 +1,71 @@
-import { TPokemonsData } from "./types";
-import { POKEMONS_LIST_KEY } from "./utlites/constantVariables";
+import { TPokemonsDataClient } from "./types";
+import {
+  POKEMONS_FAVORITE_LIST_KEY,
+  POKEMONS_LIST_KEY,
+} from "./utlites/constantVariables";
 
 // Deals with the local storage data.
 export class DataStorage {
   // Inits the load event  and the saved event of the pokemons data.
-  static async initEvent(pokemonsData: TPokemonsData) {
-    await DataStorage.loadDataEvent(pokemonsData);
+  static async initEvent(pokemonsData: TPokemonsDataClient) {
+    await DataStorage.loadDataEvent(
+      POKEMONS_LIST_KEY,
+      pokemonsData.setPokemonsData.bind(pokemonsData),
+      pokemonsData.fetchPokemonsDataFromServer.bind(pokemonsData)
+    );
+    await DataStorage.loadDataEvent(
+      POKEMONS_FAVORITE_LIST_KEY,
+      pokemonsData.setFavoritePokemonsData.bind(pokemonsData),
+      pokemonsData.fetchFavoritePokemonsDataFromServer.bind(pokemonsData)
+    );
+
     DataStorage.saveDataEvent(pokemonsData);
   }
 
   // Checkes if the local storage exist, if not, the method fetches the data from the API.
-  static async loadDataEvent(pokemonsData: TPokemonsData) {
-    const localStorageData = DataStorage.checkLocalStorageExist();
+  static async loadDataEvent(
+    key: string,
+    // eslint-disable-next-line no-unused-vars
+    setDataFun: (arr: any[]) => void,
+    fetchFun: () => Promise<void>
+  ) {
+    const localStorageData = DataStorage.checkLocalStorageExist(key);
+
     if (localStorageData) {
-      pokemonsData.setItems(JSON.parse(localStorageData));
-      DataStorage.removeLocalStorage();
+      setDataFun(JSON.parse(localStorageData));
+      DataStorage.removeLocalStorage(key);
     } else {
-      await pokemonsData.fetchPokemonsListDetails();
+      await fetchFun();
     }
   }
 
   // On unload the page, the method save the data of the pokemons into the local storage.
-  static saveDataEvent(pokemonsData: TPokemonsData) {
+  static saveDataEvent(pokemonsData: TPokemonsDataClient) {
     window.addEventListener("unload", () => {
-      if (
-        !DataStorage.checkLocalStorageExist() &&
-        pokemonsData.pokemonsDataArr.length > 0
-      )
-        localStorage.setItem(
-          POKEMONS_LIST_KEY,
-          JSON.stringify(pokemonsData.pokemonsDataArr)
-        );
-      // NOTE: uncomment next line will remove the current local storage data.
-      DataStorage.removeLocalStorage();
+      DataStorage.retrieveDataFromLocalStorage(
+        POKEMONS_LIST_KEY,
+        pokemonsData.pokemonsDataArr
+      );
+      DataStorage.retrieveDataFromLocalStorage(
+        POKEMONS_FAVORITE_LIST_KEY,
+        pokemonsData.favoritePokemonsArr
+      );
     });
   }
 
-  static checkLocalStorageExist() {
-    return localStorage.getItem(POKEMONS_LIST_KEY);
+  static retrieveDataFromLocalStorage(key: string, dataArr: unknown[]) {
+    if (!DataStorage.checkLocalStorageExist(key) && dataArr.length > 0)
+      localStorage.setItem(key, JSON.stringify(dataArr));
+    // NOTE: uncomment next line will remove the current local storage data.
+    // NOTE: comment new line will activeted the current local storage data.
+    DataStorage.removeLocalStorage(key);
   }
 
-  static removeLocalStorage() {
-    return localStorage.removeItem(POKEMONS_LIST_KEY);
+  static checkLocalStorageExist(key: string) {
+    return localStorage.getItem(key);
+  }
+
+  static removeLocalStorage(key: string) {
+    return localStorage.removeItem(key);
   }
 }

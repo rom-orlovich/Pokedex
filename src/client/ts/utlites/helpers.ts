@@ -17,11 +17,8 @@ export const delayFunction = (
     }, timeDelay);
   }).then(() => func());
 
-export const convertWeight = (weightInPound: number): number =>
-  Number((weightInPound * 0.1).toFixed(2));
-
-export const convertHeight = (heightInMeters: number): number =>
-  Number((heightInMeters * 0.1).toFixed(2));
+export const createApiEndPoint = (URL: string, endPoint: string) =>
+  `${URL}/${endPoint}`;
 
 export const fetchData = async (
   url: string,
@@ -40,12 +37,10 @@ export const fetchData = async (
 
   // eslint-disable-next-line no-useless-catch
   try {
-    console.log(url, options);
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
