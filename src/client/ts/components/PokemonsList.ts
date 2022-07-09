@@ -11,19 +11,25 @@ import { Spinner } from "./Spinner";
 export class PokemonsList {
   static idList = "pokemons_list";
   static numResults = 12;
-  static render(pokemonsData: IPokemon[]) {
+  static render(pokemonsData: TPokemonsDataClient) {
     return PokemonsList.createUI(pokemonsData);
   }
 
   static createUI(
-    pokemonsData: IPokemon[],
+    pokemonsData: TPokemonsDataClient,
     options?: IPokemonsListRenderOptions
   ) {
     const section = createElement(
       `<section id="pokemons_list_section"></section>`
     );
 
-    section.append(this.createListPokemons(pokemonsData, options));
+    section.append(
+      this.createListPokemons(
+        pokemonsData.pokemonsDataArr,
+        pokemonsData,
+        options
+      )
+    );
     return section;
   }
 
@@ -31,12 +37,18 @@ export class PokemonsList {
   // and for each data, append new pokemon details to the parent element
   static addPokemonsToList(
     parentEl: HTMLElement,
-    pokemonsData: IPokemon[],
+    pokemonsDataArr: IPokemon[],
+    pokemonsData: TPokemonsDataClient,
     start = 0,
     end = this.numResults
   ) {
-    pokemonsData.slice(start, end).forEach((pokemonData) => {
-      parentEl.appendChild(PokemonsDetails.render(pokemonData, true));
+    pokemonsDataArr.slice(start, end).forEach((pokemonData) => {
+      const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
+        (pokemon) => pokemon.id === pokemonData.id
+      );
+      parentEl.appendChild(
+        PokemonsDetails.render(pokemonData, !!isFavoritePokemon)
+      );
     });
   }
 
@@ -44,7 +56,7 @@ export class PokemonsList {
   static update(
     pokemonsDataArr: IPokemon[],
     parentQuery: string,
-    pokemonData: TPokemonsDataClient,
+    pokemonsData: TPokemonsDataClient,
     options?: IPokemonsListRenderOptions
   ) {
     // Searches the parent, if not exist, return.
@@ -59,14 +71,15 @@ export class PokemonsList {
 
     // Appends the new list with new pokemons data.
     parentEl.appendChild(
-      PokemonsList.createListPokemons(pokemonsDataArr, options)
+      PokemonsList.createListPokemons(pokemonsDataArr, pokemonsData, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
-    PokemonsList.initEvents(pokemonsDataArr, pokemonData);
+    PokemonsList.initEvents(pokemonsDataArr, pokemonsData);
   }
 
   static createListPokemons(
-    pokemonsData: IPokemon[],
+    pokemonsDataArr: IPokemon[],
+    pokemonsData: TPokemonsDataClient,
     options?: IPokemonsListRenderOptions
   ) {
     // The options has props of query if, is not exist it will be "Pokemons"
@@ -75,9 +88,9 @@ export class PokemonsList {
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
     // If the pokemons data length is bigger than 0 , append spinner and load the pokemons list.
     // Else display not found message.
-    if (pokemonsData.length > 0) {
+    if (pokemonsDataArr.length > 0) {
       ul.append(Spinner.render());
-      this.addPokemonsToList(ul, pokemonsData);
+      this.addPokemonsToList(ul, pokemonsDataArr, pokemonsData);
     } else ul.appendChild(this.setNoResultsFoundMessage(query));
     return ul;
   }
@@ -96,7 +109,7 @@ export class PokemonsList {
   ) {
     const start = 1;
     const end = 2;
-    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
+    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr, pokemonData);
     PokemonsList.addPokemonToFavoriteList(pokemonData);
   }
   // Get start and the end index of the array and the pokemons array data.
@@ -104,7 +117,8 @@ export class PokemonsList {
   static infinteScrollEvent(
     start: number,
     end: number,
-    pokemonDataArr: IPokemon[]
+    pokemonDataArr: IPokemon[],
+    pokemonData: TPokemonsDataClient
   ) {
     // Search the spinner element in order to observe him.
     const spinner = select(".spinner");
@@ -131,6 +145,7 @@ export class PokemonsList {
           PokemonsList.addPokemonsToList(
             ul,
             pokemonDataArr,
+            pokemonData,
             startLocal * this.numResults,
             endLocal * this.numResults
           );

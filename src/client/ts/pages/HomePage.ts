@@ -1,6 +1,6 @@
 import { PokemonsList } from "../components/PokemonsList";
 import { SearchBar } from "../components/SearchBar";
-import { IPokemon, TPokemonsDataClient } from "../types";
+import { TPokemonsDataClient } from "../types";
 import { createElement, select } from "../utlites/domsHelpers";
 import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
@@ -16,10 +16,10 @@ export class HomePage {
   }
 
   render() {
-    return HomePage.createUI(this.pokemonsData.pokemonsDataArr);
+    return HomePage.createUI(this.pokemonsData);
   }
 
-  static createUI(pokemonsData: IPokemon[]) {
+  static createUI(pokemonsData: TPokemonsDataClient) {
     const main = createElement(`<main id="home_page"></main>`);
 
     main.append(
@@ -39,7 +39,7 @@ export class HomePage {
     PokemonsList.update(
       this.pokemonsData.pokemonsDataArr,
       "#pokemons_list_section",
-      this.pokemonsData.pokemonsDataArr
+      this.pokemonsData
     );
 
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
