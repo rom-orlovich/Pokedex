@@ -1,4 +1,4 @@
 {
   "ignore": ["/src/client/*.ts"],
-  "watch": ["/src/server/*"]
+  "watch": ["/src/server/*.ts"]
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { appendFile, existsSync, mkdir, unlink, writeFile } from "fs";
+import { access, appendFile, mkdir, unlink, writeFile } from "fs";
 import { join } from "path";
 
 export function joinToDirname(...path: string[]) {
@@ -15,18 +15,26 @@ export const splitTheEndPath = (path: string) => {
   const directoryPath = arrayPath.slice(0, -1).join("/");
   return [directoryPath, fileName || ""];
 };
+export function unLinkFile(path: string) {
+  access(path, () => {
+    unlink(path, (err) => {
+      if (err) console.log(err);
+    });
+  });
+}
 
 export function createDirectory(path: string) {
-  const directoryExist = existsSync(path);
-  if (!directoryExist)
-    mkdir(path, { recursive: true }, (err) => {
-      if (err) console.log(err);
-      console.log(`Direcotry in path ${path} is created successfully!`);
-    });
+  access(path, (err) => {
+    if (err) {
+      mkdir(path, { recursive: true }, (error) => {
+        if (error) console.log(error);
+        console.log(`Direcotry in path ${path} is created successfully!`);
+      });
+    }
+  });
 }
 
 export function createFile(path: string, data: unknown) {
-  if (existsSync(path)) return;
   const [directoryPath, fileName] = splitTheEndPath(path);
   createDirectory(directoryPath);
   writeFile(path, JSONData(data), "utf8", (err) => {
@@ -41,13 +49,5 @@ export function addDataFile(path: string, data: unknown) {
   appendFile(path, JSONData(data), "utf8", (err) => {
     if (err) console.log(err);
     console.log(`The data is added successfully to ${fileName}!`);
-  });
-}
-
-export function unLinkFile(path: string) {
-  const fileExist = existsSync(path);
-  if (!fileExist) return;
-  unlink(path, (err) => {
-    if (err) console.log(err);
   });
 }

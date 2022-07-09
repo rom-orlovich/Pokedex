@@ -2,6 +2,7 @@ import { FavoritePokemon, IPokemon } from "./types";
 import {
   GET_ALL_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
+  SAVE_FAVORITE_POKEMONS_URL,
 } from "./utlites/constantVariables";
 import { fetchData, findElById } from "./utlites/helpers";
 
@@ -16,26 +17,23 @@ export class PokemonsDataClient {
 
   // Fetches the pokemons data from the Express server
   async fetchPokemonsDataFromServer() {
-    this.pokemonsDataArr.push(
-      ...(await PokemonsDataClient.fetchPokemonByURL(GET_ALL_POKEMONS_URL))
-    );
+    this.pokemonsDataArr.push(...(await fetchData(GET_ALL_POKEMONS_URL)));
   }
 
   // Fetches the favorite pokemons data from the Express server
   async fetchFavoritePokemonsDataFromServer() {
     this.favoritePokemonsArr.push(
-      ...(await PokemonsDataClient.fetchPokemonByURL(GET_FAVORITE_POKEMONS_URL))
+      ...(await fetchData(GET_FAVORITE_POKEMONS_URL))
     );
   }
 
-  // Fetches the data from the server API by url.
-  static async fetchPokemonByURL(URL: string) {
-    try {
-      const data = await fetchData(URL);
-      return data;
-    } catch (error) {
-      return [];
-    }
+  async saveFavoritePokemonsDataInServer() {
+    await fetchData(
+      SAVE_FAVORITE_POKEMONS_URL,
+      "POST",
+      this.favoritePokemonsArr,
+      { keepalive: true }
+    );
   }
 
   // Filters all the pokemons that stand the condtion of given query and value.

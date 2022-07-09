@@ -28,7 +28,8 @@ export const createApiEndPoint = (URL: string, endPoint: string) =>
 export const fetchData = async (
   url: string,
   method?: string,
-  body?: object
+  body?: object,
+  moreOptions?: Partial<Request>
 ) => {
   const options = body
     ? {
@@ -42,7 +43,8 @@ export const fetchData = async (
 
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, { ...options, ...moreOptions });
+
     const data = await response.json();
     return data;
   } catch (error) {
