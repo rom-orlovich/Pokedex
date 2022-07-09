@@ -29,7 +29,7 @@ export class SideFavoritePokemons {
       const sectionFavPokemons = targetEl.closest(
         `#${this.sectionID}`
       ) as HTMLElement;
-      sectionFavPokemons.classList.toggle("display-none");
+      sectionFavPokemons.classList.toggle("transform-left-right");
     });
   }
 }

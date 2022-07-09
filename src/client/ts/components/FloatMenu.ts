@@ -38,7 +38,7 @@ export class FloatMenu {
         "side_fav_pokemons_section"
       ) as HTMLElement;
 
-      favoritePokemonsList.classList.toggle("transform-left");
+      favoritePokemonsList.classList.toggle("transform-left-right");
     });
   }
 
