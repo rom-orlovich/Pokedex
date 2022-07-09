@@ -5,6 +5,11 @@ export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
 export const createEnteries = (obj: object) => Object.entries(obj);
 
+export const findElById = <T extends { id: string; name: string }>(
+  id: string,
+  arr: T[]
+) => arr.find((el) => id === el.id);
+
 // Get function and time to delay. and active the function after the time is passed.
 export const delayFunction = (
   // eslint-disable-next-line no-unused-vars
@@ -23,7 +28,8 @@ export const createApiEndPoint = (URL: string, endPoint: string) =>
 export const fetchData = async (
   url: string,
   method?: string,
-  body?: object
+  body?: object,
+  moreOptions?: Partial<Request>
 ) => {
   const options = body
     ? {
@@ -37,7 +43,8 @@ export const fetchData = async (
 
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, { ...options, ...moreOptions });
+
     const data = await response.json();
     return data;
   } catch (error) {

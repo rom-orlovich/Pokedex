@@ -8,7 +8,7 @@ import {
   POKEMONS_DB_PATH,
 } from "../utlites/constansVariables";
 import { Request, Response, router } from "../utlites/expressUtilites";
-import { addDataFile, joinToDirname } from "../utlites/fsHelpers";
+import { createFile, joinToDirname } from "../utlites/fsHelpers";
 
 const pokemonsDataServer = new PokemonsDataServer();
 const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
@@ -34,9 +34,9 @@ pokemonsDataRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
 
 // Add new favorite poekmon to database.
 pokemonsDataRoutes.post(
-  "/addFavoritePokemons",
+  "/saveFavoritePokemons",
   (req: Request, res: Response) => {
-    addDataFile(joinToDirname("../", "/db/favoritePokemons.json"), req.body);
+    createFile(joinToDirname("../", "/db/favoritePokemons.json"), req.body);
     res.status(200).send("Data is added successfully");
   }
 );
@@ -44,7 +44,7 @@ pokemonsDataRoutes.get(
   "/getFavoritePokemons",
   (req: Request, res: Response) => {
     readFile(FAVORITE_POKEMONS_PATH, "utf8", (err, data) => {
-      if (err) console.log(err);
+      if (err) res.status(201).json([]);
       res.status(200).send(data);
     });
   }

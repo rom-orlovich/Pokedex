@@ -39,21 +39,23 @@ export class DataStorage {
     }
   }
 
-  // On unload the page, the method save the data of the pokemons into the local storage.
+  // On unload the page, the method saves the data of the pokemons into the local storage.
   static saveDataEvent(pokemonsData: TPokemonsDataClient) {
     window.addEventListener("unload", () => {
-      DataStorage.retrieveDataFromLocalStorage(
+      DataStorage.setDataInLocalStorage(
         POKEMONS_LIST_KEY,
         pokemonsData.pokemonsDataArr
       );
-      DataStorage.retrieveDataFromLocalStorage(
+      DataStorage.setDataInLocalStorage(
         POKEMONS_FAVORITE_LIST_KEY,
         pokemonsData.favoritePokemonsArr
       );
+      pokemonsData.saveFavoritePokemonsDataInServer();
     });
   }
 
-  static retrieveDataFromLocalStorage(key: string, dataArr: unknown[]) {
+  // Sets the current data in the local storage by specific key.
+  static setDataInLocalStorage(key: string, dataArr: unknown[]) {
     if (!DataStorage.checkLocalStorageExist(key) && dataArr.length > 0)
       localStorage.setItem(key, JSON.stringify(dataArr));
     // NOTE: uncomment next line will remove the current local storage data.

@@ -2,8 +2,9 @@ import { FavoritePokemon, IPokemon } from "./types";
 import {
   GET_ALL_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
+  SAVE_FAVORITE_POKEMONS_URL,
 } from "./utlites/constantVariables";
-import { fetchData } from "./utlites/helpers";
+import { fetchData, findElById } from "./utlites/helpers";
 
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
@@ -16,26 +17,23 @@ export class PokemonsDataClient {
 
   // Fetches the pokemons data from the Express server
   async fetchPokemonsDataFromServer() {
-    this.pokemonsDataArr.push(
-      ...(await PokemonsDataClient.fetchPokemonByURL(GET_ALL_POKEMONS_URL))
-    );
+    this.pokemonsDataArr.push(...(await fetchData(GET_ALL_POKEMONS_URL)));
   }
 
   // Fetches the favorite pokemons data from the Express server
   async fetchFavoritePokemonsDataFromServer() {
     this.favoritePokemonsArr.push(
-      ...(await PokemonsDataClient.fetchPokemonByURL(GET_FAVORITE_POKEMONS_URL))
+      ...(await fetchData(GET_FAVORITE_POKEMONS_URL))
     );
   }
 
-  // Fetches the data from the server API by url.
-  static async fetchPokemonByURL(URL: string) {
-    try {
-      const data = await fetchData(URL);
-      return data;
-    } catch (error) {
-      return [];
-    }
+  async saveFavoritePokemonsDataInServer() {
+    await fetchData(
+      SAVE_FAVORITE_POKEMONS_URL,
+      "POST",
+      this.favoritePokemonsArr,
+      { keepalive: true }
+    );
   }
 
   // Filters all the pokemons that stand the condtion of given query and value.
@@ -47,39 +45,19 @@ export class PokemonsDataClient {
         .startsWith(value.toLocaleLowerCase())
     );
 
-  static findPokemonById<T extends { id: string; name: string }>(
-    arr: T[],
-    id: string
-  ) {
-    return arr.find((pokemon) => id === pokemon.id);
-  }
-
-  // Sets new array of pokemon.
-  setPokemonsData(pokemonsDataArr: IPokemon[]) {
-    this.pokemonsDataArr = pokemonsDataArr;
-  }
-
-  setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
-    this.favoritePokemonsArr = favoritePokemonsArr;
-  }
-
   // Gets id of pokemon ,find his data from pokemonsDataArr
   // and add his relvant data to favoritePokemonArr.
   addPokemonToFavoriteList(id: string) {
-    const pokemonData = PokemonsDataClient.findPokemonById(
-      this.pokemonsDataArr,
-      id
-    );
-    if (
-      pokemonData &&
-      !PokemonsDataClient.findPokemonById(this.favoritePokemonsArr, id)
-    )
+    const pokemonData = findElById(id, this.pokemonsDataArr);
+
+    if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         id,
         name: pokemonData.name,
         img: pokemonData.img,
       });
   }
+  //
 
   // Gets id of pokemon ,find his data from favoritePokemonsArr
   // and remove him.
@@ -87,5 +65,15 @@ export class PokemonsDataClient {
     this.favoritePokemonsArr = this.favoritePokemonsArr.filter(
       (favoritePokemon) => id.trim() !== favoritePokemon.id.trim()
     );
+  }
+
+  // Sets a new array of pokemon.
+  setPokemonsData(pokemonsDataArr: IPokemon[]) {
+    this.pokemonsDataArr = pokemonsDataArr;
+  }
+
+  // Sets a new array of favorite pokemons.
+  setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
+    this.favoritePokemonsArr = favoritePokemonsArr;
   }
 }
