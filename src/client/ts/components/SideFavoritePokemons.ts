@@ -9,7 +9,7 @@ export class SideFavoritePokemons {
     const favList = createElement(`<section class="side_fav_pokemons_section"> 
    
     </section>`);
-    favList.append(FavoritePokemonsList.render());
+    // favList.append(FavoritePokemonsList.render());
     return favList;
   }
 
