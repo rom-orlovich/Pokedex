@@ -8,7 +8,7 @@ export enum EndPointsAPI {
 
 export const POKEMONS_LIST_KEY = "pokemons_list";
 export const POKEMONS_FAVORITE_LIST_KEY = "pokemons_favorite_list";
-export const EXPRESS_SERVER_URL = "http://localhost:5000/";
+export const EXPRESS_SERVER_URL = "http://localhost:5000";
 
 export const GET_ALL_POKEMONS_URL = createApiEndPoint(
   EXPRESS_SERVER_URL,

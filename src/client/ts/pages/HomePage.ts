@@ -47,6 +47,7 @@ export class HomePage {
     if (this.pokemonsData.pokemonsDataArr.length === 0) {
       const spinner = Spinner.addSpinnerToElement("#pokemons_list_section");
       spinner.classList.add("center-abs");
+
       await DataStorage.initEvent(this.pokemonsData);
       spinner.remove();
     }

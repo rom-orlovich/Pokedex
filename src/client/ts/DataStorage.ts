@@ -10,15 +10,15 @@ export class DataStorage {
   static async initEvent(pokemonsData: TPokemonsDataClient) {
     await DataStorage.loadDataEvent(
       POKEMONS_LIST_KEY,
-      pokemonsData.setPokemonsData,
-      pokemonsData.fetchPokemonsDataFromServer
+      pokemonsData.setPokemonsData.bind(pokemonsData),
+      pokemonsData.fetchPokemonsDataFromServer.bind(pokemonsData)
     );
     await DataStorage.loadDataEvent(
       POKEMONS_FAVORITE_LIST_KEY,
-      pokemonsData.setFavoritePokemonsData,
-      pokemonsData.fetchFavoritePokemonsDataFromServer
+      pokemonsData.setFavoritePokemonsData.bind(pokemonsData),
+      pokemonsData.fetchFavoritePokemonsDataFromServer.bind(pokemonsData)
     );
-    // await DataStorage.loadDataEvent(pokemonsData);
+
     DataStorage.saveDataEvent(pokemonsData);
   }
 
@@ -30,6 +30,7 @@ export class DataStorage {
     fetchFun: () => Promise<void>
   ) {
     const localStorageData = DataStorage.checkLocalStorageExist(key);
+
     if (localStorageData) {
       setDataFun(JSON.parse(localStorageData));
       DataStorage.removeLocalStorage(key);
