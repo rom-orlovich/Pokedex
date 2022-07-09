@@ -5,15 +5,12 @@ export class SideFavoritePokemons {
   static render() {
     return this.createUI();
   }
+
   static createUI() {
     const favList = createElement(`<section class="side_fav_pokemons_section"> 
-    <i id="fa-fa-close" class="fa fa-close"></i>
-    <p>Favorite Pokemons List</p>
-   
+    <h2>Favorite Pokemons List</h2>
     </section>`);
     favList.append(FavoritePokemonsList.render());
     return favList;
   }
-
-  static initEvents() {}
 }
