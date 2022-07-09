@@ -1,0 +1,16 @@
+@use "../utilities/utilities.scss" as *;
+
+.side_fav_pokemons_section {
+  width: 30vw;
+  height: 100vh;
+  background: white;
+  position: fixed;
+  z-index: 1000;
+  top: 0%;
+  left: 0%;
+  color: red;
+  img {
+    max-width: 20%;
+    max-height: 20%;
+  }
+}
