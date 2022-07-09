@@ -1,4 +1,8 @@
-import { IPokemon, IPokemonsListRenderOptions } from "../types";
+import {
+  IPokemon,
+  IPokemonsListRenderOptions,
+  TPokemonsDataClient,
+} from "../types";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import { delayFunction } from "../utlites/helpers";
 import { PokemonsDetails } from "./PokemonDetails";
@@ -32,14 +36,15 @@ export class PokemonsList {
     end = this.numResults
   ) {
     pokemonsData.slice(start, end).forEach((pokemonData) => {
-      parentEl.appendChild(PokemonsDetails.render(pokemonData));
+      parentEl.appendChild(PokemonsDetails.render(pokemonData, true));
     });
   }
 
   //
   static update(
-    pokemonsData: IPokemon[],
+    pokemonsDataArr: IPokemon[],
     parentQuery: string,
+    pokemonData: TPokemonsDataClient,
     options?: IPokemonsListRenderOptions
   ) {
     // Searches the parent, if not exist, return.
@@ -54,10 +59,10 @@ export class PokemonsList {
 
     // Appends the new list with new pokemons data.
     parentEl.appendChild(
-      PokemonsList.createListPokemons(pokemonsData, options)
+      PokemonsList.createListPokemons(pokemonsDataArr, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
-    PokemonsList.initEvents(pokemonsData);
+    PokemonsList.initEvents(pokemonsDataArr, pokemonData);
   }
 
   static createListPokemons(
@@ -85,10 +90,14 @@ export class PokemonsList {
     return h2;
   }
 
-  static initEvents(pokemonsDataArr: IPokemon[]) {
+  static initEvents(
+    pokemonsDataArr: IPokemon[],
+    pokemonData: TPokemonsDataClient
+  ) {
     const start = 1;
     const end = 2;
     PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr);
+    PokemonsList.addPokemonToFavoriteList(pokemonData);
   }
   // Get start and the end index of the array and the pokemons array data.
 
@@ -140,5 +149,29 @@ export class PokemonsList {
 
     // Activate the observition of the spinner element.
     if (spinner) observer.observe(spinner);
+  }
+
+  static addPokemonToFavoriteList(pokemonData: TPokemonsDataClient) {
+    const pokemonList = selectByID(this.idList);
+
+    if (!pokemonList) return;
+
+    pokemonList.addEventListener("click", (e) => {
+      const targetEl = e.target as HTMLElement;
+
+      const heartSpan = targetEl.closest("#heart");
+      if (!heartSpan) return;
+      const heartIcon = heartSpan.firstElementChild;
+      if (!heartIcon) return;
+      const li = targetEl.closest("li") as HTMLElement;
+      if (heartIcon.classList.contains("fa-heart-o"))
+        pokemonData.addPokemonToFavoriteList(li.id);
+      else if (heartIcon.classList.contains("fa-heart"))
+        pokemonData.removePokemonFromFavoriteList(li.id);
+      heartIcon.classList.toggle("fa-heart-o");
+      heartIcon.classList.toggle("fa-heart");
+
+      console.log(pokemonData.favoritePokemonsArr);
+    });
   }
 }

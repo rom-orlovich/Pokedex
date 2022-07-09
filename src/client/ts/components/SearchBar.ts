@@ -47,9 +47,14 @@ export class SearchBar {
         inputEl.value
       );
       // Updates the list of pokemons with the new array.
-      updatePokemonsList(filterPokemons, "#pokemons_list_section", {
-        query: inputEl.value,
-      });
+      updatePokemonsList(
+        filterPokemons,
+        "#pokemons_list_section",
+        DataPokemons,
+        {
+          query: inputEl.value,
+        }
+      );
     });
   }
 }

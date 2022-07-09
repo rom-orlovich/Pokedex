@@ -47,8 +47,11 @@ export class PokemonsDataClient {
         .startsWith(value.toLocaleLowerCase())
     );
 
-  findPokemonById(id: string) {
-    return this.pokemonsDataArr.find((pokemon) => id === pokemon.id);
+  static findPokemonById<T extends { id: string; name: string }>(
+    arr: T[],
+    id: string
+  ) {
+    return arr.find((pokemon) => id === pokemon.id);
   }
 
   // Sets new array of pokemon.
@@ -58,5 +61,31 @@ export class PokemonsDataClient {
 
   setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
     this.favoritePokemonsArr = favoritePokemonsArr;
+  }
+
+  // Gets id of pokemon ,find his data from pokemonsDataArr
+  // and add his relvant data to favoritePokemonArr.
+  addPokemonToFavoriteList(id: string) {
+    const pokemonData = PokemonsDataClient.findPokemonById(
+      this.pokemonsDataArr,
+      id
+    );
+    if (
+      pokemonData &&
+      !PokemonsDataClient.findPokemonById(this.favoritePokemonsArr, id)
+    )
+      this.favoritePokemonsArr.push({
+        id,
+        name: pokemonData.name,
+        img: pokemonData.img,
+      });
+  }
+
+  // Gets id of pokemon ,find his data from favoritePokemonsArr
+  // and remove him.
+  removePokemonFromFavoriteList(id: string) {
+    this.favoritePokemonsArr = this.favoritePokemonsArr.filter(
+      (favoritePokemon) => id.trim() !== favoritePokemon.id.trim()
+    );
   }
 }

@@ -3,15 +3,17 @@ import { createElement, createImg } from "../utlites/domsHelpers";
 import { capatialFirstLetter } from "../utlites/helpers";
 
 export class PokemonsDetails {
-  static render(pokemonData: IPokemon) {
-    return this.createUI(pokemonData);
+  static render(pokemonData: IPokemon, favorite = false) {
+    return this.createUI(pokemonData, favorite);
   }
 
-  static createUI(pokemonData: IPokemon) {
+  static createUI(pokemonData: IPokemon, favorite = false) {
     const li = createElement(`<li id="${
       pokemonData.id
     }" class="pokemon_details">
-    <span id = heart><i class="fa fa-heart-o" aria-hidden="true" ></i> </span>
+    <span id = "heart"><i class="fa ${
+      favorite ? "fa-heart" : "fa-heart-o"
+    } aria-hidden="true" ></i> </span>
      <div class="pokemon_img">${createImg(pokemonData.img)}</div>
      <div class="type_span">
      <span class="${pokemonData.type[0]}">${capatialFirstLetter(

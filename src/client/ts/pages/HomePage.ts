@@ -38,8 +38,10 @@ export class HomePage {
     await this.initData();
     PokemonsList.update(
       this.pokemonsData.pokemonsDataArr,
-      "#pokemons_list_section"
+      "#pokemons_list_section",
+      this.pokemonsData.pokemonsDataArr
     );
+
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
     FloatMenu.initEvents();
   }

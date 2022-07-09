@@ -10,8 +10,9 @@ export interface IPokemonsListRenderOptions {
   end?: 20;
 }
 export type TUpdatePokemonsList = (
-  pokemonsData: IPokemon[],
+  pokemonsDataArr: IPokemon[],
   parentEl: string,
+  pokemonsData: TPokemonsDataClient,
   options?: IPokemonsListRenderOptions
 ) => void;
 export interface FavoritePokemon {
