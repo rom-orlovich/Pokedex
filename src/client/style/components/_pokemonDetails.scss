@@ -1,5 +1,21 @@
 @use "../utilities/utilities.scss" as *;
 
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+  position: absolute;
+  padding-top: 0.5rem;
+  padding-left: 5rem;
+}
+
+.fa-heart {
+  color: red;
+  cursor: pointer;
+  position: absolute;
+  padding-top: 0.5rem;
+  padding-right: 5rem;
+}
+
 .pokemon_details {
   cursor: url("../assets/pb.png"), auto;
   font-size: 1.25rem;
