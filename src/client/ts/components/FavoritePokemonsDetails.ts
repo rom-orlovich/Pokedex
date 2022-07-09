@@ -9,11 +9,10 @@ export class FavoritePokemonsDetails {
 
   static createUI(favoritePokemon: FavoritePokemon) {
     const li = `<li>
+    <div class="fav_pokemon_div">
     <div class="pokemon_img">${createImg(favoritePokemon.img)}</div>
     
-   <div>
      <div class="name">
-         <span>Name:</span>
          <span>${capatialFirstLetter(favoritePokemon.name)}</span>
      </div>
     </li> `;
@@ -24,7 +23,6 @@ export class FavoritePokemonsDetails {
 }
 
 // <div id="float_list_div">
-// <i class="fa-solid fa-circle-minus"></i>
 // <i class="fa fa-minus-circle" style="font-size:48px;"></i>
 //
 // <div>

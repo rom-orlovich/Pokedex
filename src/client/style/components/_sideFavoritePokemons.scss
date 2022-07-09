@@ -1,16 +1,39 @@
 @use "../utilities/utilities.scss" as *;
 
 .side_fav_pokemons_section {
-  width: 30vw;
+  border-radius: 10px;
+  box-shadow: 5px 10px;
+  width: 25vw;
   height: 100vh;
   background: white;
   position: fixed;
   z-index: 1000;
   top: 0%;
   left: 0%;
-  color: red;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  .fav_pokemon_div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .name {
+    font-weight: 500;
+    border-bottom: 1px solid grey;
+  }
+
+  #fa-fa-close {
+    font-size: 20px;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    align-self: end;
+  }
+
   img {
-    max-width: 20%;
+    padding-top: 0.69rem;
+    max-width: 35%;
     max-height: 20%;
   }
 }
