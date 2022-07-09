@@ -11,6 +11,7 @@ export class PokemonsDetails {
     const li = createElement(`<li id="${
       pokemonData.id
     }" class="pokemon_details">
+    <span id = heart><i class="fa fa-heart-o" aria-hidden="true" ></i> </span>
      <div class="pokemon_img">${createImg(pokemonData.img)}</div>
      <div class="type_span">
      <span class="${pokemonData.type[0]}">${capatialFirstLetter(
@@ -38,3 +39,16 @@ export class PokemonsDetails {
     return li;
   }
 }
+
+// $(document).ready(function () {
+// $("#heart").click(function () {
+// if ($("#heart").hasClass("liked")) {
+// $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+// $("#heart").removeClass("liked");
+// } else {
+// $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+// $("#heart").addClass("liked");
+// }
+// });
+// });
+//
