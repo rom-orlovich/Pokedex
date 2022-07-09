@@ -14,7 +14,7 @@ export type TUpdatePokemonsList = (
   parentEl: string,
   options?: IPokemonsListRenderOptions
 ) => void;
-export interface FavoritePokemonInterface {
+export interface FavoritePokemon {
   id: string;
   name: string;
   img: string;

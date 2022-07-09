@@ -13,7 +13,7 @@ export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
   // and inform the user with the correct message.
   const fetchByRange = async (start: number, end: number) => {
     console.log(`Start fetching ${start}-${end} pokemons...`);
-    await pokemonsDataServer.fetchPokemonsListDetails(start, end);
+    await pokemonsDataServer.fetchPokemonsDataFromServer(start, end);
     console.log(`The fetching of ${start}-${end} pokemons is completed!`);
   };
   try {

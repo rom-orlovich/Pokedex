@@ -1,26 +1,37 @@
-import { IPokemon } from "./types";
-import { EXPRESS_SERVER_URL } from "./utlites/constantVariables";
+import { FavoritePokemon, IPokemon } from "./types";
+import {
+  GET_ALL_POKEMONS_URL,
+  GET_FAVORITE_POKEMONS_URL,
+} from "./utlites/constantVariables";
 import { fetchData } from "./utlites/helpers";
 
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
   pokemonsDataArr: IPokemon[];
+  favoritePokemonsArr: FavoritePokemon[];
   constructor() {
     this.pokemonsDataArr = [];
+    this.favoritePokemonsArr = [];
   }
 
   // Fetches the pokemons data from the Express server
-  async fetchPokemonsListDetails() {
+  async fetchPokemonsDataFromServer() {
     this.pokemonsDataArr.push(
-      ...(await PokemonsDataClient.fetchPokemonByQuery())
+      ...(await PokemonsDataClient.fetchPokemonByURL(GET_ALL_POKEMONS_URL))
     );
   }
 
-  // Fetches the data of one pokemon from the API by query of name or ID.
-  static async fetchPokemonByQuery() {
+  // Fetches the favorite pokemons data from the Express server
+  async fetchFavoritePokemonsDataFromServer() {
+    this.favoritePokemonsArr.push(
+      ...(await PokemonsDataClient.fetchPokemonByURL(GET_FAVORITE_POKEMONS_URL))
+    );
+  }
+
+  // Fetches the data from the server API by url.
+  static async fetchPokemonByURL(URL: string) {
     try {
-      const urlPokemon = EXPRESS_SERVER_URL;
-      const data = await fetchData(urlPokemon);
+      const data = await fetchData(URL);
       return data;
     } catch (error) {
       return [];
@@ -41,7 +52,11 @@ export class PokemonsDataClient {
   }
 
   // Sets new array of pokemon.
-  setItems(pokemonsDataArr: IPokemon[]) {
+  setPokemonsData(pokemonsDataArr: IPokemon[]) {
     this.pokemonsDataArr = pokemonsDataArr;
+  }
+
+  setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
+    this.favoritePokemonsArr = favoritePokemonsArr;
   }
 }

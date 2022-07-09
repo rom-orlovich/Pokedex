@@ -11,7 +11,7 @@ export class PokemonsDataServer {
   }
 
   // Fetching the pokemons data from the API and format the data into array
-  async fetchPokemonsListDetails(start = 1, end = 51) {
+  async fetchPokemonsDataFromServer(start = 1, end = 51) {
     // eslint-disable-next-line no-useless-catch
     try {
       const promiseArr: Promise<IPokemonApi>[] = [];
