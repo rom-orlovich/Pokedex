@@ -2,19 +2,19 @@
 import { appendFile, existsSync, mkdir, unlink, writeFile } from "fs";
 import { join } from "path";
 
-export const splitEndPath = (path: string) => {
-  const arrayPath = path.split("/");
-  const fileName = arrayPath.pop();
-  const directoryPath = arrayPath.slice(0, -1).join("/");
-  return [directoryPath, fileName || ""];
-};
-
 export function joinToDirname(...path: string[]) {
   return join(__dirname, ...path);
 }
 
 export const JSONData = (data: unknown) =>
   typeof data !== "string" ? JSON.stringify(data) : data;
+
+export const splitTheEndPath = (path: string) => {
+  const arrayPath = path.split("/");
+  const fileName = arrayPath.pop();
+  const directoryPath = arrayPath.slice(0, -1).join("/");
+  return [directoryPath, fileName || ""];
+};
 
 export function createDirectory(path: string) {
   const directoryExist = existsSync(path);
@@ -27,7 +27,7 @@ export function createDirectory(path: string) {
 
 export function createFile(path: string, data: unknown) {
   if (existsSync(path)) return;
-  const [directoryPath, fileName] = splitEndPath(path);
+  const [directoryPath, fileName] = splitTheEndPath(path);
   createDirectory(directoryPath);
   writeFile(path, JSONData(data), "utf8", (err) => {
     if (err) console.log(err);
@@ -36,7 +36,7 @@ export function createFile(path: string, data: unknown) {
 }
 
 export function addDataFile(path: string, data: unknown) {
-  const [directoryPath, fileName] = splitEndPath(path);
+  const [directoryPath, fileName] = splitTheEndPath(path);
   createDirectory(directoryPath);
   appendFile(path, JSONData(data), "utf8", (err) => {
     if (err) console.log(err);
