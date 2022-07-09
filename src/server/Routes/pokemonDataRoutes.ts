@@ -32,7 +32,7 @@ pokemonsDataRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
   res.status(200).json(sendData);
 });
 
-// Add new favorite poekmon to database.
+// Creates new favorite poekmons list .
 pokemonsDataRoutes.post(
   "/saveFavoritePokemons",
   (req: Request, res: Response) => {
@@ -40,6 +40,7 @@ pokemonsDataRoutes.post(
     res.status(200).send("Data is added successfully");
   }
 );
+// Get the favorite poekmons list from the database.
 pokemonsDataRoutes.get(
   "/getFavoritePokemons",
   (req: Request, res: Response) => {

@@ -9,7 +9,7 @@
   top: 0%;
   left: 0%;
   color: red;
-  transition: transform 0.1s linear;
+  transition: transform 1s ease-out;
   #side_fav_close_btn {
     @include posAbs(2%, null, 4%, null);
     background-color: white;
