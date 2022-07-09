@@ -1,7 +1,9 @@
 @use "../utilities/utilities.scss" as *;
 
 #side_fav_pokemons_section {
-  width: 27vw;
+  overflow-y: scroll;
+  min-width: 22vw;
+  max-width: 40vw;
   height: 100vh;
   background: white;
   position: fixed;
@@ -11,7 +13,10 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-
+  #heading_favorite_pokemons {
+    margin-top: 1rem;
+    text-align: center;
+  }
   transition: transform 1s ease-out;
   .fav_pokemon_div {
     display: inline-block;
@@ -23,13 +28,6 @@
     border-bottom: 1px solid grey;
   }
 
-  #fa-fa-close {
-    font-size: 20px;
-    padding-top: 0.3rem;
-    padding-right: 0.3rem;
-    align-self: end;
-  }
-
   #side_fav_close_btn {
     @include posAbs(2%, null, 4%, null);
     background-color: white;
@@ -39,7 +37,13 @@
   }
   img {
     padding-top: 0.69rem;
-    max-width: 35%;
+    max-width: 40%;
     max-height: 20%;
   }
+}
+
+@media screen and (max-width: $LAPTOP) {
+  // #heading_favorite_pokemons {
+  //   font-size: 1.2rem;
+  // }
 }

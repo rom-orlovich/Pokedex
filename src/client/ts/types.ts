@@ -15,8 +15,14 @@ export type TUpdatePokemonsList = (
   pokemonsData: TPokemonsDataClient,
   options?: IPokemonsListRenderOptions
 ) => void;
+
 export interface FavoritePokemon {
   id: string;
   name: string;
   img: string;
 }
+
+export type UpdateFavoritePokemonListFun = (
+  favoritePokemonArr: FavoritePokemon[],
+  parentQuery: string
+) => void;

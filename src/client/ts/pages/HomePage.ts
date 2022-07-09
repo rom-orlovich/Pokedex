@@ -8,6 +8,7 @@ import { DataStorage } from "../DataStorage";
 import { Spinner } from "../components/Spinner";
 
 import { SideFavoritePokemons } from "../components/SideFavoritePokemons";
+import { FavoritePokemonsList } from "../components/FavoritePokemonsList";
 
 export class HomePage {
   pokemonsData: TPokemonsDataClient;
@@ -26,7 +27,7 @@ export class HomePage {
     main.append(
       Header.render(),
       SearchBar.render(),
-      SideFavoritePokemons.render(),
+      SideFavoritePokemons.render(pokemonsData),
       PokemonsList.render(pokemonsData),
       FloatMenu.render()
     );
@@ -41,6 +42,10 @@ export class HomePage {
       this.pokemonsData.pokemonsDataArr,
       "#pokemons_list_section",
       this.pokemonsData
+    );
+    FavoritePokemonsList.update(
+      this.pokemonsData.favoritePokemonsArr,
+      `#${SideFavoritePokemons.sectionID}`
     );
 
     SearchBar.initEvents(this.pokemonsData, PokemonsList.update);

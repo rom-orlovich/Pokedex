@@ -2,14 +2,18 @@ import {
   IPokemon,
   IPokemonsListRenderOptions,
   TPokemonsDataClient,
+  UpdateFavoritePokemonListFun,
 } from "../types";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import { delayFunction } from "../utlites/helpers";
+import { FavoritePokemonsList } from "./FavoritePokemonsList";
 import { PokemonsDetails } from "./PokemonDetails";
+import { SideFavoritePokemons } from "./SideFavoritePokemons";
 import { Spinner } from "./Spinner";
 
 export class PokemonsList {
-  static idList = "pokemons_list";
+  static listID = "pokemons_list";
+  static sectionID = "pokemons_list_section";
   static numResults = 12;
   static render(pokemonsData: TPokemonsDataClient) {
     return PokemonsList.createUI(pokemonsData);
@@ -52,7 +56,6 @@ export class PokemonsList {
     });
   }
 
-  //
   static update(
     pokemonsDataArr: IPokemon[],
     parentQuery: string,
@@ -64,7 +67,7 @@ export class PokemonsList {
     if (!parentEl) return;
 
     // Searches the list and if exist, remove.
-    const curEl = selectByID(PokemonsList.idList);
+    const curEl = selectByID(PokemonsList.listID);
     if (curEl) {
       curEl.remove();
     }
@@ -110,7 +113,10 @@ export class PokemonsList {
     const start = 1;
     const end = 2;
     PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr, pokemonData);
-    PokemonsList.addPokemonToFavoriteList(pokemonData);
+    PokemonsList.addPokemonToFavoriteList(
+      pokemonData,
+      FavoritePokemonsList.update
+    );
   }
   // Get start and the end index of the array and the pokemons array data.
 
@@ -166,8 +172,11 @@ export class PokemonsList {
     if (spinner) observer.observe(spinner);
   }
 
-  static addPokemonToFavoriteList(pokemonData: TPokemonsDataClient) {
-    const pokemonList = selectByID(this.idList);
+  static addPokemonToFavoriteList(
+    pokemonData: TPokemonsDataClient,
+    updateFavoritePokemon: UpdateFavoritePokemonListFun
+  ) {
+    const pokemonList = selectByID(this.listID);
 
     if (!pokemonList) return;
 
@@ -188,6 +197,11 @@ export class PokemonsList {
 
       heartIcon.classList.toggle("fa-heart-o");
       heartIcon.classList.toggle("fa-heart");
+
+      updateFavoritePokemon(
+        pokemonData.favoritePokemonsArr,
+        `#${SideFavoritePokemons.sectionID}`
+      );
 
       const numFavoriteClass = numFavorite.classList;
 
