@@ -10,7 +10,7 @@ export class SideFavoritePokemons {
 
   static createUI(pokemonsData: TPokemonsDataClient) {
     const favList =
-      createElement(`<section id="${this.sectionID}" class="transform-left"> 
+      createElement(`<section id="${this.sectionID}" class="transform-left-right"> 
     <div><button id="side_fav_close_btn">
    <i class="fa fa-close" ></i></button></div>
    <h2 id="heading_favorite_pokemons" >Favorite Pokemons List </h2>

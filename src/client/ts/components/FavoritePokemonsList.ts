@@ -38,7 +38,7 @@ export class FavoritePokemonsList {
     // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
     if (!parentEl) return;
-    console.log(parentQuery);
+
     // Searches the list and if exist, remove.
     const curEl = selectByID(FavoritePokemonsList.listID);
     if (curEl) {
