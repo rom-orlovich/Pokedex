@@ -1,1 +1,1 @@
-web:npm herkou-postbuild
+web:npm run herkou-postbuild
