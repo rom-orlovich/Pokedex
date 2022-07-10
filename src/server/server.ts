@@ -18,7 +18,5 @@ app.listen(port, () => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  console.log("production");
-
-  app.use(express.static("../client"));
+  app.use(express.static("public/client"));
 }
