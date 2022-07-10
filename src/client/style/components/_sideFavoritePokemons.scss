@@ -1,6 +1,7 @@
 @use "../utilities/utilities.scss" as *;
 
 #side_fav_pokemons_section {
+  transform: translateX(-100%);
   overflow-y: scroll;
   min-width: 22vw;
   max-width: 40vw;
@@ -17,7 +18,7 @@
     margin-top: 1rem;
     text-align: center;
   }
-  transition: transform 1s ease-out;
+
   .fav_pokemon_div {
     display: inline-block;
     vertical-align: middle;
