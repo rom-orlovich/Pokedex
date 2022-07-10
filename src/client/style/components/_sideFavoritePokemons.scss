@@ -59,9 +59,33 @@
 }
 
 @media screen and (max-width: $LAPTOP) {
-  // #heading_favorite_pokemons {
-  //   font-size: 1.2rem;
-  // }
+  #heading_favorite_pokemons {
+    font-size: 1.4rem;
+  }
+
+  #side_fav_pokemons_section {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: $TABLET) {
+  #heading_favorite_pokemons {
+    font-size: 1.9rem;
+    position: relative;
+  }
+  #side_fav_pokemons_section {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: $SMARTPHONE) {
+  #heading_favorite_pokemons {
+    font-size: 1rem;
+    position: relative;
+  }
+  #side_fav_pokemons_section {
+    font-size: 1rem;
+  }
 }
 
 // div {
