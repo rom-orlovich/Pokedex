@@ -9,7 +9,7 @@
     "server": "nodemon src/server/server.ts",
     "prod": "set NODE_ENV=production",
     "start": "webpack serve --config ./src/webpack-front.config.ts",
-    "build-server": "webpack --mode production --config ./src/webpack-back.config.ts",
+    "build-server": "set NODE_ENV=production && webpack --mode production --config ./src/webpack-back.config.ts",
     "build-client": "webpack --mode production --config ./src/webpack-front.config.ts"
   },
   "keywords": [],
