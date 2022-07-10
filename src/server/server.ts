@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use("/", pokemonsDataRoutes);
 createDirectory(join(__dirname, "db"));
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log(`listen port ${port}`);
 });
 
