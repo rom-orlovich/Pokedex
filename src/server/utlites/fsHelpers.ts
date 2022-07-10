@@ -1,18 +1,12 @@
 /* eslint-disable no-console */
 import { access, appendFile, mkdir, unlink, writeFile } from "fs";
-import { join } from "path";
+import { join, basename } from "path";
 
-export { join };
+export { join, basename };
 
 export const JSONData = (data: unknown) =>
   typeof data !== "string" ? JSON.stringify(data) : data;
 
-export const splitTheEndPath = (path: string) => {
-  const arrayPath = path.split("/");
-  const fileName = arrayPath.pop();
-  const directoryPath = arrayPath.join("/");
-  return [directoryPath, fileName || ""];
-};
 export function unLinkFile(path: string) {
   access(path, () => {
     unlink(path, (err) => {
