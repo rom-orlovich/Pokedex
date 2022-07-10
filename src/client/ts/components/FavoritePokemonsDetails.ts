@@ -24,12 +24,3 @@ export class FavoritePokemonsDetails {
 
   static initEvents() {}
 }
-
-// <div id="float_list_div">
-// <i class="fa fa-minus-circle" style="font-size:48px;"></i>
-//
-// <div>
-// <i class="fa fa-minus" style="font-size:30px;color:red"></i>
-// </div>
-//
-// </div>
