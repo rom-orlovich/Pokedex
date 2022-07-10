@@ -1,4 +1,4 @@
-import { TPokemonsDataClient } from "../types";
+import { TPokemonsDataClient, UpdateFavoritePokemonListFun } from "../types";
 import { createElement, selectByID } from "../utlites/domsHelpers";
 import { FavoritePokemonsList } from "./FavoritePokemonsList";
 

@@ -9,12 +9,14 @@ export class FavoritePokemonsDetails {
 
   static createUI(favoritePokemon: FavoritePokemon) {
     const li = `<li>
+    <span>
+    <i id="bin" class="fa fa-minus-circle"></i>  
+    </span>
     <div class="fav_pokemon_div">
     <div class="pokemon_img">${createImg(favoritePokemon.img)}</div>
     
-     <div class="name">
+     <div id="name">
          <span>${capatialFirstLetter(favoritePokemon.name)}</span>
-         <i id="bin" class="fa fa-minus-circle"></i>  
      </div>
 
 

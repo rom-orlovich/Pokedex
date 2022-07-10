@@ -23,21 +23,25 @@
     vertical-align: middle;
   }
 
-  .name {
+  li {
+    position: relative;
+  }
+
+  #bin {
+    border-radius: 1000px;
+    border-color: black;
+    background-color: black;
+    color: white;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 1rem;
+    @include posAbs(2%, null, 4%, null);
+  }
+  #name {
     font-weight: 500;
     border-bottom: 1px solid grey;
-
-    #bin {
-      border-radius: 1000px;
-      border-color: black;
-      background-color: black;
-      color: white;
-      padding-left: 2px;
-      padding-right: 2px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-      font-size: 1rem;
-    }
 
     :hover {
       text-decoration: line-through;
@@ -85,9 +89,8 @@
   }
   #side_fav_pokemons_section {
     font-size: 1rem;
+    #side_fav_close_btn {
+      @include posAbs(0.5%, null, -1%, null);
+    }
   }
 }
-
-// div {
-//   background-color: #f00;
-// }
