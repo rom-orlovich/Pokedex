@@ -13,7 +13,7 @@ export class PokemonsDetails {
     }" class="pokemon_details">
     <span id = "heart"><i class="fa ${
       favorite ? "fa-heart" : "fa-heart-o"
-    } aria-hidden="true" ></i> </span>
+    }" aria-hidden="true" ></i> </span>
      <div class="pokemon_img">${createImg(pokemonData.img)}</div>
      <div class="type_span">
      <span class="${pokemonData.type[0]}">${capatialFirstLetter(

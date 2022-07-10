@@ -111,23 +111,17 @@ export class FavoritePokemonsList {
       const bin = targetEl.closest(".bin");
       if (!bin) return;
 
-      // const pokemonName = divName.firstElementChild;
-      // if (!pokemonName) return;
       const numFavorite = select(".num_fav_pokemon");
 
       const liFavPokemon = targetEl.closest("li") as HTMLElement;
 
       const liPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
 
-      liPokemon.classList.toggle("fa-heart");
+      const heart = select(".fa", liPokemon);
+      heart.classList.toggle("fa-heart");
+      heart.classList.toggle("fa-heart-o");
       pokemonData.removePokemonFromFavoriteList(liFavPokemon.id);
-      // if (pokemonName.classList.contains("fa-heart-o"))
-      // pokemonData.handlePokemonFavoriteListEvent(li.id);
-      // else if (pokemonName.classList.contains("fa-heart"))
-      //   pokemonData.removePokemonFromFavoriteList(li.id);
 
-      // pokemonName.classList.toggle("fa-heart-o");
-      // pokemonName.classList.toggle("fa-heart");
       updateFavoritePokemon(
         pokemonData.favoritePokemonsArr,
         `#${SideFavoritePokemons.sectionID}`,
