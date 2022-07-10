@@ -9,24 +9,20 @@ export class FavoritePokemonsDetails {
 
   static createUI(favoritePokemon: FavoritePokemon) {
     const li = `<li>
+    <span>
+    <i id="bin" class="fa fa-minus-circle"></i>  
+    </span>
     <div class="fav_pokemon_div">
     <div class="pokemon_img">${createImg(favoritePokemon.img)}</div>
     
-     <div class="name">
+     <div id="name">
          <span>${capatialFirstLetter(favoritePokemon.name)}</span>
      </div>
+
+
     </li> `;
     return createElement(li);
   }
 
   static initEvents() {}
 }
-
-// <div id="float_list_div">
-// <i class="fa fa-minus-circle" style="font-size:48px;"></i>
-//
-// <div>
-// <i class="fa fa-minus" style="font-size:30px;color:red"></i>
-// </div>
-//
-// </div>

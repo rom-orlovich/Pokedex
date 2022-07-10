@@ -1,7 +1,12 @@
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import {} from "module";
 import { FavoritePokemonsDetails } from "./FavoritePokemonsDetails";
-import { FavoritePokemon, IPokemonsListRenderOptions } from "../types";
+import {
+  FavoritePokemon,
+  IPokemonsListRenderOptions,
+  TPokemonsDataClient,
+  UpdateFavoritePokemonListFun,
+} from "../types";
 import { Spinner } from "./Spinner";
 
 export class FavoritePokemonsList {
@@ -77,5 +82,43 @@ export class FavoritePokemonsList {
     return h2;
   }
 
-  // static initEvents() {}
+  // static addPokemonToFavoriteList(
+  //   pokemonData: TPokemonsDataClient,
+  //   updateFavoritePokemon: UpdateFavoritePokemonListFun
+  // ) {
+  //   const favPokemonsList = selectByID(this.listID);
+
+  //   if (!favPokemonsList) return;
+
+  //   favPokemonsList.addEventListener("click", (e) => {
+  //     const targetEl = e.target as HTMLElement;
+
+  //     const li = targetEl.closest("#name");
+  //     if (!divName) return;
+
+  //     const pokemonName = divName.firstElementChild;
+  //     if (!pokemonName) return;
+  //     const numFavorite = select(".num_fav_pokemon");
+  //     const li = targetEl.closest("li") as HTMLElement;
+  //     if (pokemonName.classList.contains("fa-heart-o"))
+  //       pokemonData.addPokemonToFavoriteList(li.id);
+  //     else if (pokemonName.classList.contains("fa-heart"))
+  //       pokemonData.removePokemonFromFavoriteList(li.id);
+
+  //     pokemonName.classList.toggle("fa-heart-o");
+  //     pokemonName.classList.toggle("fa-heart");
+
+  //     updateFavoritePokemon(
+  //       pokemonData.favoritePokemonsArr,
+  //       `#${SideFavoritePokemons.sectionID}`
+  //     );
+
+  //     const numFavoriteClass = numFavorite.classList;
+
+  //     numFavoriteClass.add("scale-up-down");
+  //     delayFunction(() => numFavoriteClass.remove("scale-up-down"), 1200);
+
+  //     numFavorite.textContent = String(pokemonData.favoritePokemonsArr.length);
+  //   });
+  // }
 }
