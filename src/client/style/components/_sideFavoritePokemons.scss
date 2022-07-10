@@ -56,6 +56,7 @@
     border: none;
     font-size: 2rem;
     color: red;
+    z-index: 200;
   }
   img {
     padding-top: 0.69rem;
@@ -91,6 +92,7 @@
   }
   #side_fav_pokemons_section {
     font-size: 1rem;
+
     #side_fav_close_btn {
       @include posAbs(0.5%, null, -1%, null);
     }
