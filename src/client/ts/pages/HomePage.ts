@@ -45,10 +45,11 @@ export class HomePage {
     );
     FavoritePokemonsList.update(
       this.pokemonsData.favoritePokemonsArr,
-      `#${SideFavoritePokemons.sectionID}`
+      `#${SideFavoritePokemons.sectionID}`,
+      this.pokemonsData
     );
-
-    SearchBar.initEvents(this.pokemonsData, PokemonsList.update);
+    FavoritePokemonsList.initEvents(this.pokemonsData);
+    SearchBar.initEvents(this.pokemonsData);
     SideFavoritePokemons.initEvents();
     FloatMenu.initEvents(this.pokemonsData);
   }
@@ -58,7 +59,6 @@ export class HomePage {
     if (this.pokemonsData.pokemonsDataArr.length === 0) {
       const spinner = Spinner.addSpinnerToElement("#pokemons_list_section");
       spinner.classList.add("center-abs");
-
       await DataStorage.initEvent(this.pokemonsData);
       spinner.remove();
     }

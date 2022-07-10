@@ -1,5 +1,6 @@
 import { TPokemonsDataClient, TUpdatePokemonsList } from "../types";
 import { createElement, createImg, select } from "../utlites/domsHelpers";
+import { PokemonsList } from "./PokemonsList";
 
 export class SearchBar {
   static render() {
@@ -22,11 +23,8 @@ export class SearchBar {
     return section;
   }
 
-  static initEvents(
-    DataPokemons: TPokemonsDataClient,
-    updatePokemonsList: TUpdatePokemonsList
-  ) {
-    this.onInputChangeEvent(DataPokemons, updatePokemonsList);
+  static initEvents(DataPokemons: TPokemonsDataClient) {
+    this.onInputChangeEvent(DataPokemons, PokemonsList.update);
   }
 
   static onInputChangeEvent(

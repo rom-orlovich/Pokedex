@@ -8,6 +8,8 @@ import {
   UpdateFavoritePokemonListFun,
 } from "../types";
 import { Spinner } from "./Spinner";
+import { SideFavoritePokemons } from "./SideFavoritePokemons";
+import { delayFunction } from "../utlites/helpers";
 
 export class FavoritePokemonsList {
   static listID = "fav_pokemons_list";
@@ -39,7 +41,12 @@ export class FavoritePokemonsList {
     });
   }
 
-  static update(favoritePokemonArr: FavoritePokemon[], parentQuery: string) {
+  static update(
+    favoritePokemonArr: FavoritePokemon[],
+
+    parentQuery: string,
+    pokemonsData: TPokemonsDataClient
+  ) {
     // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
     if (!parentEl) return;
@@ -54,6 +61,7 @@ export class FavoritePokemonsList {
     parentEl.appendChild(
       FavoritePokemonsList.createListPokemons(favoritePokemonArr)
     );
+    FavoritePokemonsList.initEvents(pokemonsData);
   }
 
   static createListPokemons(
@@ -82,43 +90,53 @@ export class FavoritePokemonsList {
     return h2;
   }
 
-  // static addPokemonToFavoriteList(
-  //   pokemonData: TPokemonsDataClient,
-  //   updateFavoritePokemon: UpdateFavoritePokemonListFun
-  // ) {
-  //   const favPokemonsList = selectByID(this.listID);
+  static initEvents(pokemonData: TPokemonsDataClient) {
+    this.handlePokemonFavoriteListEvent(
+      pokemonData,
+      FavoritePokemonsList.update
+    );
+  }
 
-  //   if (!favPokemonsList) return;
+  static handlePokemonFavoriteListEvent(
+    pokemonData: TPokemonsDataClient,
+    updateFavoritePokemon: UpdateFavoritePokemonListFun
+  ) {
+    const favPokemonsList = selectByID(this.listID);
 
-  //   favPokemonsList.addEventListener("click", (e) => {
-  //     const targetEl = e.target as HTMLElement;
+    if (!favPokemonsList) return;
 
-  //     const li = targetEl.closest("#name");
-  //     if (!divName) return;
+    favPokemonsList.addEventListener("click", (e) => {
+      const targetEl = e.target as HTMLElement;
 
-  //     const pokemonName = divName.firstElementChild;
-  //     if (!pokemonName) return;
-  //     const numFavorite = select(".num_fav_pokemon");
-  //     const li = targetEl.closest("li") as HTMLElement;
-  //     if (pokemonName.classList.contains("fa-heart-o"))
-  //       pokemonData.addPokemonToFavoriteList(li.id);
-  //     else if (pokemonName.classList.contains("fa-heart"))
-  //       pokemonData.removePokemonFromFavoriteList(li.id);
+      const bin = targetEl.closest(".bin");
+      if (!bin) return;
 
-  //     pokemonName.classList.toggle("fa-heart-o");
-  //     pokemonName.classList.toggle("fa-heart");
+      // const pokemonName = divName.firstElementChild;
+      // if (!pokemonName) return;
+      const numFavorite = select(".num_fav_pokemon");
 
-  //     updateFavoritePokemon(
-  //       pokemonData.favoritePokemonsArr,
-  //       `#${SideFavoritePokemons.sectionID}`
-  //     );
+      const liFavPokemon = targetEl.closest("li") as HTMLElement;
 
-  //     const numFavoriteClass = numFavorite.classList;
+      const liPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
 
-  //     numFavoriteClass.add("scale-up-down");
-  //     delayFunction(() => numFavoriteClass.remove("scale-up-down"), 1200);
+      liPokemon.classList.toggle("fa-heart");
+      pokemonData.removePokemonFromFavoriteList(liFavPokemon.id);
+      // if (pokemonName.classList.contains("fa-heart-o"))
+      // pokemonData.handlePokemonFavoriteListEvent(li.id);
+      // else if (pokemonName.classList.contains("fa-heart"))
+      //   pokemonData.removePokemonFromFavoriteList(li.id);
 
-  //     numFavorite.textContent = String(pokemonData.favoritePokemonsArr.length);
-  //   });
-  // }
+      // pokemonName.classList.toggle("fa-heart-o");
+      // pokemonName.classList.toggle("fa-heart");
+      updateFavoritePokemon(
+        pokemonData.favoritePokemonsArr,
+        `#${SideFavoritePokemons.sectionID}`,
+        pokemonData
+      );
+      const numFavoriteClass = numFavorite.classList;
+      numFavoriteClass.add("scale-up-down");
+      delayFunction(() => numFavoriteClass.remove("scale-up-down"), 1200);
+      numFavorite.textContent = String(pokemonData.favoritePokemonsArr.length);
+    });
+  }
 }

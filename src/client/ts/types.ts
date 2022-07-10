@@ -24,5 +24,6 @@ export interface FavoritePokemon {
 
 export type UpdateFavoritePokemonListFun = (
   favoritePokemonArr: FavoritePokemon[],
-  parentQuery: string
+  parentQuery: string,
+  pokemonsData: TPokemonsDataClient
 ) => void;

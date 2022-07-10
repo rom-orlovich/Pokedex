@@ -113,7 +113,7 @@ export class PokemonsList {
     const start = 1;
     const end = 2;
     PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr, pokemonData);
-    PokemonsList.addPokemonToFavoriteList(
+    PokemonsList.handlePokemonFavoriteListEvent(
       pokemonData,
       FavoritePokemonsList.update
     );
@@ -172,7 +172,7 @@ export class PokemonsList {
     if (spinner) observer.observe(spinner);
   }
 
-  static addPokemonToFavoriteList(
+  static handlePokemonFavoriteListEvent(
     pokemonData: TPokemonsDataClient,
     updateFavoritePokemon: UpdateFavoritePokemonListFun
   ) {
@@ -191,7 +191,7 @@ export class PokemonsList {
       const numFavorite = select(".num_fav_pokemon");
       const li = targetEl.closest("li") as HTMLElement;
       if (heartIcon.classList.contains("fa-heart-o"))
-        pokemonData.addPokemonToFavoriteList(li.id);
+        pokemonData.handlePokemonFavoriteListEvent(li.id);
       else if (heartIcon.classList.contains("fa-heart"))
         pokemonData.removePokemonFromFavoriteList(li.id);
 
@@ -200,7 +200,8 @@ export class PokemonsList {
 
       updateFavoritePokemon(
         pokemonData.favoritePokemonsArr,
-        `#${SideFavoritePokemons.sectionID}`
+        `#${SideFavoritePokemons.sectionID}`,
+        pokemonData
       );
 
       const numFavoriteClass = numFavorite.classList;
