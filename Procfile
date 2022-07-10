@@ -1,1 +1,1 @@
-web:npm build-client
+web: npm run production

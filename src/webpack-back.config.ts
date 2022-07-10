@@ -35,7 +35,7 @@ const config: webpack.Configuration = {
 
   resolve: {
     extensions: [".ts", ".js"],
-  },-
+  },
 
   plugins: [new ESLintPlugin()],
 };
