@@ -44,7 +44,7 @@ export const fetchData = async (
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await fetch(url, { ...options, ...moreOptions });
-
+    if (!response.ok) throw new Error(`Something is went wrong! `);
     const data = await response.json();
     return data;
   } catch (error) {
