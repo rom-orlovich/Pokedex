@@ -7,7 +7,7 @@ export enum EndPointsAPI {
   saveFavoritePokemons = "saveFavoritePokemons",
 }
 const CONFIG_URL = {
-  production: "https://agile-scrubland-36038.herokuapp.com",
+  production: "",
   development: "http://localhost:5000",
 };
 
