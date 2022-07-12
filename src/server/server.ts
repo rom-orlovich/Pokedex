@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import cors from "cors";
 import { express } from "./utlites/expressUtilites";
-import { pokemonsDataRoutes } from "./Routes/pokemonDataRoutes";
+import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { createDirectory, join } from "./utlites/fsHelpers";
 
 const port = process.env.PORT || 5000;
@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-app.use("/", pokemonsDataRoutes);
+app.use("/", pokemonsRoutes);
 createDirectory(join(__dirname, "db"));
 app.listen(port, () => {
   console.log(`listen port ${port}`);

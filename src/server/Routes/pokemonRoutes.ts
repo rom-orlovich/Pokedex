@@ -14,7 +14,7 @@ const pokemonsDataServer = new PokemonsDataServer();
 const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
 const pokemonsData: IPokemon[] = [];
 
-export const pokemonsDataRoutes = router();
+export const pokemonsRoutes = router();
 // If the pokemonsDB.json is not exist , activates the createDB function.
 console.log(pokemonsDataExist);
 if (pokemonsDataExist) {
@@ -25,7 +25,7 @@ if (pokemonsDataExist) {
   });
 } else createDB(pokemonsDataServer);
 
-pokemonsDataRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
+pokemonsRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
   const sendData = pokemonsData.length
     ? pokemonsData
     : pokemonsDataServer.pokemonsDataArr;
@@ -33,21 +33,15 @@ pokemonsDataRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
 });
 
 // Creates new favorite poekmons list .
-pokemonsDataRoutes.post(
-  "/saveFavoritePokemons",
-  (req: Request, res: Response) => {
-    createFile(FAVORITE_POKEMONS_PATH, req.body);
-    res.status(200).send("Data is added successfully");
-  }
-);
+pokemonsRoutes.post("/saveFavoritePokemons", (req: Request, res: Response) => {
+  createFile(FAVORITE_POKEMONS_PATH, req.body);
+  res.status(200).send("Data is added successfully");
+});
 
 // Get the favorite poekmons list from the database.
-pokemonsDataRoutes.get(
-  "/getFavoritePokemons",
-  (req: Request, res: Response) => {
-    readFile(FAVORITE_POKEMONS_PATH, "utf8", (err, data) => {
-      if (err) res.status(200).json([]);
-      res.status(200).send(data);
-    });
-  }
-);
+pokemonsRoutes.get("/getFavoritePokemons", (req: Request, res: Response) => {
+  readFile(FAVORITE_POKEMONS_PATH, "utf8", (err, data) => {
+    if (err) res.status(200).json([]);
+    res.status(200).send(data);
+  });
+});
