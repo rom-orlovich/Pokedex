@@ -32,7 +32,7 @@ export async function createDB(pokemonsDataServer: TPokemonsDataServer) {
       JSON.stringify(pokemonsDataServer.pokemonsDataArr),
 
       (err) => {
-        if (err) throw err;
+        if (err) console.log(err);
         console.log(`The creation of the ${POKEMONSDB_FILENAME} is completed!`);
       }
     );

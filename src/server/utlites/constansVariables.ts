@@ -1,10 +1,10 @@
-import { join } from "./fsHelpers";
+import { join, resolve } from "./fsHelpers";
 
 export const FAVORITE_POKEMONS_FILENAME = "favoritePokemons.json";
 
 const dbFolder =
   process.env.NODE_ENV === "production"
-    ? "./public/server/db"
+    ? resolve(__dirname, "db")
     : join(__dirname, "../", "db");
 
 export const FAVORITE_POKEMONS_PATH = join(

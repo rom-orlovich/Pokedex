@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { access, appendFile, mkdir, unlink, writeFile } from "fs";
-import { join, basename } from "path";
+import { join, basename, resolve } from "path";
 
-export { join, basename };
+export { join, basename, resolve };
 
 export const JSONData = (data: unknown) =>
   typeof data !== "string" ? JSON.stringify(data) : data;
