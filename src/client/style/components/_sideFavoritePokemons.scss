@@ -9,8 +9,7 @@
   background: white;
   position: fixed;
   z-index: 1000;
-  top: 0%;
-  left: 0%;
+  @include posAbs(0%, 0%, null, null);
   text-align: center;
   display: flex;
   flex-direction: column;
