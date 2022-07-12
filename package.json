@@ -6,13 +6,12 @@
     "test": "jest --watchAll --coverage --verbose",
     "lint": "eslint ./src --ext .js,.ts",
     "lint-fix": "eslint ./src --ext .js,.ts --fix",
-    "start-hero": "node ./public/server/*.js",
+    "start-hero": "node ./server/*.js",
     "build": "npm run build-server && npm run build-client",
     "server": "nodemon src/server/server.ts",
     "start": "webpack serve --config ./src/webpack-front.config.ts",
     "build-server": "set NODE_ENV=production && webpack --mode production --config ./src/webpack-back.config.ts",
-    "build-client": "set NODE_ENV=production && webpack --mode production --config ./src/webpack-front.config.ts",
-    "deploy": "node ./deployHeroku.js"
+    "build-client": "set NODE_ENV=production && webpack --mode production --config ./src/webpack-front.config.ts"
   },
   "keywords": [],
   "author": "",
