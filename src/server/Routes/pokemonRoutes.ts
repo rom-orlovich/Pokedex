@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { existsSync, readFile } from "fs";
-import { createDB } from "../createDB";
+import { createJsonDB } from "../createJsonDB";
 import { PokemonsDataServer } from "../PokemonsDataServer";
 import { IPokemon } from "../types";
 import {
@@ -23,7 +23,7 @@ if (pokemonsDataExist) {
     if (err) console.log(err);
     pokemonsData.push(...JSON.parse(data));
   });
-} else createDB(pokemonsDataServer);
+} else createJsonDB(pokemonsDataServer);
 
 pokemonsRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
   const sendData = pokemonsData.length

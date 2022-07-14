@@ -29,3 +29,7 @@ export interface IPokemon {
   height: number;
   img: string;
 }
+
+export interface InewPokemon extends IPokemon {
+  img2: string;
+}
