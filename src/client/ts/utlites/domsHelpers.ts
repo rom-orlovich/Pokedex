@@ -42,6 +42,9 @@ if(this.src!=='${imgs[0]}')
 this.src='${imgs[0]}';
 else
 if(this.src!=='${imgs[1]}')
-{this.src='${imgs[1]}';
+this.src='${imgs[1]}';
+else
+if(this.src!=='${imgs[2]}')
+{this.src='${imgs[2]}';
   this.onerror=null;}
   " />`;

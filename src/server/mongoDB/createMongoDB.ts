@@ -61,6 +61,4 @@ async function mongoSetDB() {
   console.log(res, err);
 }
 
-mongoSetDB();
-
-export const pokemons = [];
+// mongoSetDB();

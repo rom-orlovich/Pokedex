@@ -4,7 +4,7 @@ import { express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { createDirectory, join } from "./utlites/fsHelpers";
 import { clientDB } from "./mongoDB/mongoConnect";
-import { pokemons } from "./mongoDB/createMongoDB";
+// import { pokemons } from "./mongoDB/createMongoDB";
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -24,7 +24,7 @@ clientDB.connect((err) => {
     });
   }
 });
-console.log(pokemons);
+// console.log(pokemons);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client"));
 }

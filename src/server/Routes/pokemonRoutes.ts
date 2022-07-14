@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { existsSync, readFile } from "fs";
 import { createJsonDB } from "../createJsonDB";
+import { dbCollection } from "../mongoDB/mongoConnect";
 import { PokemonsDataServer } from "../PokemonsDataServer";
 import { IPokemon } from "../types";
 import {
@@ -9,12 +10,14 @@ import {
 } from "../utlites/constansVariables";
 import { Request, Response, router } from "../utlites/expressUtilites";
 import { createFile } from "../utlites/fsHelpers";
+import { promiseHandler } from "../utlites/helpers";
 
 const pokemonsDataServer = new PokemonsDataServer();
 const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
 const pokemonsData: IPokemon[] = [];
 
 export const pokemonsRoutes = router();
+
 // If the pokemonsDB.json is not exist , activates the createDB function.
 console.log(pokemonsDataExist);
 if (pokemonsDataExist) {
@@ -30,6 +33,21 @@ pokemonsRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
     ? pokemonsData
     : pokemonsDataServer.pokemonsDataArr;
   res.status(200).json(sendData);
+});
+const curser = dbCollection.find({}).batchSize(20);
+pokemonsRoutes.get("/getPokemons", async (req: Request, res: Response) => {
+  // dbCollection.find({})
+  // console.log(pokemonsMongoDB);
+  let data;
+  let err;
+
+  // [data, err] = await promiseHandler(curser.toArray());
+  // const promise = promiseHandler<boolean>(curser.hasNext());
+  // if (await curser.hasNext()) {
+  //   if (curser) curser = await curser.next();
+  // }
+
+  res.status(200).json([]);
 });
 
 // Creates new favorite poekmons list .
