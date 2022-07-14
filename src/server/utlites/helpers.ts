@@ -4,7 +4,7 @@ export const convertWeight = (weightInPound: number): number =>
 export const convertHeight = (heightInMeters: number): number =>
   Number((heightInMeters * 0.1).toFixed(2));
 
-export const promiseRes = async <T>(promise: Promise<T>) => {
+export const promiseHandler = async <T>(promise: Promise<T>) => {
   try {
     const res = await promise;
     return [res, undefined];

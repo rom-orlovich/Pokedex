@@ -35,6 +35,13 @@ export const createLink = (
 export const createImg = (
   src = "https://www.freeiconspng.com/uploads/no-image-icon-6.png",
   alt = "Image Not Found",
-  src2 = ""
+  imgs = [""]
 ) =>
-  `<img  src="${src}" alt="${alt}" onerror="this.onerror=null; this.src='${src2}'" />`;
+  `<img  src="${src}" alt="${alt}" onerror="
+if(this.src!=='${imgs[0]}')
+this.src='${imgs[0]}';
+else
+if(this.src!=='${imgs[1]}')
+{this.src='${imgs[1]}';
+  this.onerror=null;}
+  " />`;

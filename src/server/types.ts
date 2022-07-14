@@ -30,6 +30,11 @@ export interface IPokemon {
   img: string;
 }
 
-export interface InewPokemon extends IPokemon {
-  img2: string;
+export interface InewPokemon {
+  id: string;
+  name: string;
+  type: string[];
+  weight: number;
+  height: number;
+  img: string[];
 }

@@ -4,7 +4,7 @@ import { readFile } from "fs/promises";
 import { join, basename, resolve } from "path";
 import {} from "stream/consumers";
 
-import { promiseRes } from "./helpers";
+import { promiseHandler } from "./helpers";
 
 export { join, basename, resolve };
 
@@ -43,7 +43,7 @@ export function addDataFile(path: string, data: unknown) {
 }
 
 export async function readFileRes<T>(path: string) {
-  const [res, err] = await promiseRes(readFile(path, "utf8"));
+  const [res, err] = await promiseHandler(readFile(path, "utf8"));
 
   const data = (typeof res === "string" ? JSON.parse(res) : res) as T;
   return [data, err] as const;
