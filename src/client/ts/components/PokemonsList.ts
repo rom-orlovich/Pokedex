@@ -56,6 +56,7 @@ export class PokemonsList {
       PokemonsList.createListPokemons(pokemonsData, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
+    console.log(options, pokemonsData);
     PokemonsList.initEvents(pokemonsData, options);
   }
 
@@ -76,7 +77,7 @@ export class PokemonsList {
       pokemonsData.curserDataPokemonArr.length === 0 ||
       pokemonsData.pokemonsDataArr.length === 0
     ) {
-      ul.append(Spinner.render(), this.setNoResultsFoundMessage(query));
+      ul.append(this.setNoResultsFoundMessage(query));
     } else {
       if (noResult) noResult.remove();
       ul.append(Spinner.render());
@@ -99,9 +100,12 @@ export class PokemonsList {
     // const last = options.search ? page * this.numResults : end;
 
     const arrayData = options.search
-      ? pokemonsData.curserDataPokemonArr
+      ? //  && pokemonsData.curserDataPokemonArr.length > 0
+        pokemonsData.curserDataPokemonArr
       : pokemonsData.pokemonsDataArr;
 
+    console.log(arrayData);
+    console.log(options);
     arrayData.slice(start, end).forEach((pokemonData) => {
       const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
         (pokemon) => pokemon.id === pokemonData.id
@@ -151,7 +155,7 @@ export class PokemonsList {
 
     const optionsIntersaction = {
       root: null,
-      rootMargin: "100px",
+      rootMargin: "50px",
       threshold: 0,
     };
     // const dataFromFetch: IPokemon[] = [];
@@ -187,7 +191,7 @@ export class PokemonsList {
             ul,
             // configAddPokemons.data,
             pokemonData,
-            undefined,
+            options,
             configAddPokemons.start,
             configAddPokemons.end
           );
@@ -201,8 +205,9 @@ export class PokemonsList {
         };
         // addNewPokemonsTolist();
         // // Delay the addNewPokemonsTolist by 2 seconds.
-        if (pokemonData.curserDataPokemonArr.length > 0) addNewPokemonsTolist();
-        else spinner.classList.remove("addRoateSpinner");
+
+        addNewPokemonsTolist();
+
         // delayFunction(addNewPokemonsTolist, 1000);
       }
     }, optionsIntersaction);

@@ -60,12 +60,13 @@ export class SearchBar {
           GET_POKEMONS_URL,
           options
         );
-      }
+      } else pokemonsData.curserDataPokemonArr = filterPokemons;
 
+      console.log(pokemonsData.curserDataPokemonArr);
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
-        page: 2,
+        page: pokemonsData.pokemonsDataArr.length / 12,
       });
     };
 
