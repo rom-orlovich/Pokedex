@@ -72,6 +72,7 @@ export class PokemonsDataClient {
         name: pokemonData.name,
         img: pokemonData.img,
       });
+    console.log(this.favoritePokemonsArr);
   }
 
   // Gets id of pokemon ,find his data from favoritePokemonsArr

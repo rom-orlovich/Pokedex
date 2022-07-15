@@ -2,7 +2,7 @@
 import cors from "cors";
 import { express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
-import { createDirectory, join } from "./utlites/fsHelpers";
+// import { createDirectory, join } from "./utlites/fsHelpers";
 import { clientDB, clientDBLocal } from "./mongoDB/mongoConnect";
 // import createMongoDB from "./mongoDB/createMongoDB";
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", pokemonsRoutes);
-createDirectory(join(__dirname, "db"));
+// createDirectory(join(__dirname, "db"));
 
 clientDB.connect(async (err) => {
   if (err) console.log(err);

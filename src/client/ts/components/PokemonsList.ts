@@ -95,7 +95,7 @@ export class PokemonsList {
     if (pokemonsDataArr.length > 0) {
       ul.append(Spinner.render());
       this.addPokemonsToList(ul, pokemonsDataArr, pokemonsData);
-    } else ul.appendChild(this.setNoResultsFoundMessage(query));
+    } else ul.append(Spinner.render(), this.setNoResultsFoundMessage(query));
     return ul;
   }
 
@@ -153,7 +153,7 @@ export class PokemonsList {
 
         // Adds the rotated spinner to the loading spinner
         spinner.classList.add("addRoateSpinner");
-
+        console.log(options);
         const data = await pokemonData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           { ...options, page: endLocal }
@@ -165,9 +165,7 @@ export class PokemonsList {
           PokemonsList.addPokemonsToList(
             ul,
             data.length === 0 ? pokemonDataArr : data,
-
             pokemonData,
-
             startLocal * this.numResults,
             endLocal * this.numResults
           );

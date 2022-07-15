@@ -45,14 +45,13 @@ pokemonsRoutes.get(
   async (req: Request, res: Response) => {
     const pageRes = Number(req.params.page);
     const queryName = req.query.name;
-
     const curser = pokemonsCollection
       .find(queryName ? { name: { $regex: `^${queryName}` } } : {})
       .limit(12)
       .skip((pageRes - 1) * 12);
     const [data, err] = await promiseHandler(curser.toArray());
-    if (err) res.status(400).json([]);
-    else res.status(200).json(data);
+    if (err) return res.status(400).json([]);
+    return res.status(200).json(data);
   }
 );
 
@@ -60,14 +59,13 @@ pokemonsRoutes.get(
 pokemonsRoutes.post(
   "/saveFavoritePokemons",
   async (req: Request, res: Response) => {
-    const errDrop = (await promiseHandler(favPokemonsCollection.drop()))[1];
-    if (errDrop) res.status(400).send("The Data is not added");
+    favPokemonsCollection.drop();
     const [data, err] = await promiseHandler(
       favPokemonsCollection.insertMany(req.body)
     );
-
-    if (err) res.status(400).send("The Data is not added");
-    else res.status(200).send("Data is added successfully");
+    console.log(req.body);
+    if (err) return res.status(400).send("The data is not added");
+    return res.status(200).send("The data is added successfully");
   }
 );
 
@@ -82,7 +80,7 @@ pokemonsRoutes.get(
     const curser = favPokemonsCollection.find({}).limit(100);
     const [data, err] = await promiseHandler(curser.toArray());
 
-    if (err) res.status(400).json([]);
-    else res.status(200).json(data);
+    if (err) return res.status(400).json([]);
+    return res.status(200).json(data);
   }
 );

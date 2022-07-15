@@ -59,3 +59,17 @@ export const promiseHandler = async <T>(promise: Promise<T>) => {
     return [undefined, error] as const;
   }
 };
+
+export const debounce = <F extends (...args: any) => any>(
+  func: F,
+  waitFor: number
+) => {
+  let timeout: ReturnType<typeof setTimeout>;
+
+  const debounced = (...args: any) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), waitFor);
+  };
+
+  return debounced as (...args: Parameters<F>) => ReturnType<F>;
+};

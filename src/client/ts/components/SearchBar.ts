@@ -1,4 +1,5 @@
 import { TPokemonsDataClient, TUpdatePokemonsList } from "../types";
+import { GET_POKEMONS_URL } from "../utlites/constantVariables";
 import { createElement, createImg, select } from "../utlites/domsHelpers";
 import { PokemonsList } from "./PokemonsList";
 
@@ -33,26 +34,56 @@ export class SearchBar {
   ) {
     // Searchs the input element.
     const input = select(".search_field");
-    input.addEventListener("input", (e) => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
-      const inputEl = e.currentTarget as HTMLInputElement;
+      const spinner = select(".spinner");
+
+      const inputEl = e.target as HTMLInputElement;
+
       if (!inputEl) return;
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
-      const filterPokemons = DataPokemons.filterPokemonsByQuery(
+      let filterPokemons = DataPokemons.filterPokemonsByQuery(
         "name",
         inputEl.value
       );
+      const options = {
+        query: inputEl.value,
+        page: 1,
+        search: true,
+      };
+      spinner.classList.add("addRoateSpinner");
+      if (filterPokemons.length === 0) {
+        filterPokemons = await DataPokemons.fetchPokemonsDataFromServer(
+          GET_POKEMONS_URL,
+          options
+        );
+      }
+      spinner.classList.remove("addRoateSpinner");
+
       // Updates the list of pokemons with the new array.
       updatePokemonsList(
         filterPokemons,
         "#pokemons_list_section",
         DataPokemons,
         {
-          query: inputEl.value,
+          ...options,
         }
       );
+    };
+
+    input.addEventListener("keyup", (e: Event) => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        await searchPokemonsFun(e);
+      }, 1000);
+    });
+
+    input.addEventListener("keydown", () => {
+      clearTimeout(timer);
     });
   }
 }
