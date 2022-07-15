@@ -52,16 +52,14 @@ export class SearchBar {
       const options = {
         query: inputEl.value,
         page: 1,
-        search: true,
+        search: !!inputEl.value.length,
       };
 
-      if (filterPokemons.length < 2) {
+      if (filterPokemons.length === 0) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
         );
-      } else {
-        pokemonsData.setNewPokemonsCurser(filterPokemons);
       }
 
       // Updates the list of pokemons with the new array.

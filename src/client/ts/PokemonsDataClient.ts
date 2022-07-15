@@ -1,4 +1,9 @@
-import { promiseHandler, fetchData, findElById } from "./utlites/helpers";
+import {
+  promiseHandler,
+  fetchData,
+  findElById,
+  getUniqueListBy,
+} from "./utlites/helpers";
 import { FavoritePokemon, IPokemon } from "./types";
 import {
   GET_POKEMONS_URL,
@@ -23,16 +28,17 @@ export class PokemonsDataClient {
     URL = GET_POKEMONS_URL,
     options = optionsRender
   ) {
-    const { page, query, search } = options;
+    const { page, query } = options;
     const [res, err] = await promiseHandler<IPokemon[]>(
       fetchData(`${URL}/${page}?name=${query}`)
     );
 
     const dataPokemons = res || [];
     if (err) console.log(err);
-    else if (!search) this.pokemonsDataArr.push(...dataPokemons);
+    else this.pokemonsDataArr.push(...dataPokemons);
 
     this.curserDataPokemonArr = dataPokemons;
+    this.pokemonsDataArr = getUniqueListBy(this.pokemonsDataArr, "_id");
   }
 
   // Fetches the favorite pokemons data from the Express server
@@ -63,8 +69,7 @@ export class PokemonsDataClient {
   // Gets id of pokemon ,find his data from pokemonsDataArr
   // and add his relvant data to favoritePokemonArr.
   handlePokemonFavoriteListEvent(id: string) {
-    console.log(this.curserDataPokemonArr);
-    const pokemonData = findElById(id, this.curserDataPokemonArr);
+    const pokemonData = findElById(id, this.pokemonsDataArr);
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         // eslint-disable-next-line no-underscore-dangle
@@ -91,9 +96,5 @@ export class PokemonsDataClient {
   // Sets a new array of favorite pokemons.
   setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
     this.favoritePokemonsArr = favoritePokemonsArr;
-  }
-
-  setNewPokemonsCurser(pokemonsDataArr: IPokemon[]) {
-    this.curserDataPokemonArr = pokemonsDataArr;
   }
 }
