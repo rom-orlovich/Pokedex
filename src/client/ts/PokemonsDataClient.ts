@@ -61,6 +61,7 @@ export class PokemonsDataClient {
   // Gets id of pokemon ,find his data from favoritePokemonsArr
   // and remove him.
   removePokemonFromFavoriteList(id: string) {
+    console.log(id);
     this.favoritePokemonsArr = this.favoritePokemonsArr.filter(
       (favoritePokemon) => id.trim() !== favoritePokemon.id.trim()
     );
