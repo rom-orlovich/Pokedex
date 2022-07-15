@@ -29,7 +29,7 @@ export class PokemonsDataClient {
     options = optionsRender
   ) {
     const { page, query } = options;
-    console.log(`${URL}/${page}?name=${query}`);
+
     const [res, err] = await promiseHandler<IPokemon[]>(
       fetchData(`${URL}/${page}?name=${query}`)
     );
@@ -97,5 +97,10 @@ export class PokemonsDataClient {
   // Sets a new array of favorite pokemons.
   setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
     this.favoritePokemonsArr = favoritePokemonsArr;
+  }
+
+  // Sets a new curser of favorite pokemons.
+  setCurserDataArr(dataArr: IPokemon[]) {
+    this.curserDataPokemonArr = dataArr;
   }
 }

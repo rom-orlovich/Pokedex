@@ -67,7 +67,7 @@ export class SearchBar {
           GET_POKEMONS_URL,
           options
         );
-      } else pokemonsData.curserDataPokemonArr = filterPokemons;
+      } else pokemonsData.setCurserDataArr(filterPokemons);
 
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
