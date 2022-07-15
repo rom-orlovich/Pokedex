@@ -1,3 +1,5 @@
+// NOTE : this file is deprecated
+
 /* eslint-disable no-console */
 import { writeFile } from "fs";
 // import { dbCollection } from "./mongoDB";

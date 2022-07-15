@@ -60,9 +60,8 @@ pokemonsRoutes.get(
 pokemonsRoutes.post(
   "/saveFavoritePokemons",
   async (req: Request, res: Response) => {
-    // const errDrop = (await promiseHandler(favPokemonsCollection.drop()))[1];
-    // if (errDrop) res.status(400).send("The Data is not added");
-    favPokemonsCollection.drop();
+    const errDrop = (await promiseHandler(favPokemonsCollection.drop()))[1];
+    if (errDrop) res.status(400).send("The Data is not added");
     const [data, err] = await promiseHandler(
       favPokemonsCollection.insertMany(req.body)
     );

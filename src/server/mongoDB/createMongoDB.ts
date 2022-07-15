@@ -58,7 +58,7 @@ async function mergePokemons() {
   return mergeArr;
 }
 
-async function mongoSetDB() {
+export async function mongoSetDB() {
   console.log("start sending the pokemons to the DB...");
   pokemonsCollection.drop();
   const [res, err] = await promiseHandler(
@@ -68,5 +68,5 @@ async function mongoSetDB() {
   console.log(res, err);
 }
 
+// NOTE : uncomment this line will upload the DB to mongoDB atlas.
 // mongoSetDB();
-export default [];

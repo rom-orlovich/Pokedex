@@ -4,7 +4,7 @@ import { express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { createDirectory, join } from "./utlites/fsHelpers";
 import { clientDB, clientDBLocal } from "./mongoDB/mongoConnect";
-import p from "./mongoDB/createMongoDB";
+// import createMongoDB from "./mongoDB/createMongoDB";
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -27,7 +27,7 @@ clientDB.connect(async (err) => {
     });
   }
 });
-console.log(p);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client"));
 }
