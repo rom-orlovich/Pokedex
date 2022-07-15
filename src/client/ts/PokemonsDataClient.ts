@@ -29,6 +29,7 @@ export class PokemonsDataClient {
     options = optionsRender
   ) {
     const { page, query } = options;
+    console.log(`${URL}/${page}?name=${query}`);
     const [res, err] = await promiseHandler<IPokemon[]>(
       fetchData(`${URL}/${page}?name=${query}`)
     );

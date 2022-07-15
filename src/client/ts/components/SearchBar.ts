@@ -1,6 +1,11 @@
 import { TPokemonsDataClient, TUpdatePokemonsList } from "../types";
 import { GET_POKEMONS_URL } from "../utlites/constantVariables";
-import { createElement, createImg, select } from "../utlites/domsHelpers";
+import {
+  createElement,
+  createImg,
+  sanitizeHTML,
+  select,
+} from "../utlites/domsHelpers";
 import { PokemonsList } from "./PokemonsList";
 
 export class SearchBar {
@@ -35,33 +40,35 @@ export class SearchBar {
     // Searchs the input element.
     const input = select(".search_field");
     let timer: ReturnType<typeof setTimeout>;
-    const spinner = select(".spinner");
+    // const spinner = select(".spinner");
     const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
 
       const inputEl = e.target as HTMLInputElement;
 
       if (!inputEl) return;
-      const { value } = inputEl;
+      const valueTrim = sanitizeHTML(inputEl.value);
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
 
-      const filterPokemons = pokemonsData.filterPokemonsByQuery("name", value);
+      const filterPokemons = pokemonsData.filterPokemonsByQuery(
+        "name",
+        valueTrim
+      );
       const options = {
-        query: value.toLowerCase(),
+        query: valueTrim.toLowerCase(),
         page: 1,
-        search: !!value.length,
+        search: !!valueTrim.length,
       };
 
-      if (filterPokemons.length === 0) {
+      if (filterPokemons.length < 10) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
         );
       } else pokemonsData.curserDataPokemonArr = filterPokemons;
 
-      console.log(pokemonsData.curserDataPokemonArr);
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,

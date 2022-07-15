@@ -54,3 +54,9 @@ if(this.src!=='${
 {this.src='${imgs[2]}';
   this.onerror=null;}
   " />`;
+
+export const sanitizeHTML = function (str: string) {
+  const temp = document.createElement("div");
+  temp.textContent = str;
+  return temp.innerHTML;
+};
