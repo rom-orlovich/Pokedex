@@ -19,7 +19,7 @@ export type TUpdatePokemonsList = (
 export interface FavoritePokemon {
   id: string;
   name: string;
-  img: string;
+  img: string[];
 }
 
 export type UpdateFavoritePokemonListFun = (
