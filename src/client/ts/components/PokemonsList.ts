@@ -43,6 +43,7 @@ export class PokemonsList {
     start = 0,
     end = this.numResults
   ) {
+    console.log(pokemonsData.curserDataPokemonArr);
     pokemonsData.curserDataPokemonArr
       .slice(start, end)
       .forEach((pokemonData) => {
@@ -104,7 +105,7 @@ export class PokemonsList {
   // Displays "result not found" massage.
   static setNoResultsFoundMessage(query: string) {
     const h2 = createElement(
-      `<h2 class="result_not_found"> The pokémon "${query}" has not discoverd yet...</h2>`
+      `<h2 id="pokemon_list_no_result" class="result_not_found"> The pokémon "${query}" has not discoverd yet...</h2>`
     );
     return h2;
   }
@@ -144,7 +145,7 @@ export class PokemonsList {
 
     const optionsIntersaction = {
       root: null,
-      rootMargin: "200px",
+      rootMargin: "100px",
       threshold: 0,
     };
     // const dataFromFetch: IPokemon[] = [];
@@ -196,7 +197,8 @@ export class PokemonsList {
         };
         // addNewPokemonsTolist();
         // // Delay the addNewPokemonsTolist by 2 seconds.
-        delayFunction(addNewPokemonsTolist, 1000);
+        addNewPokemonsTolist();
+        // delayFunction(addNewPokemonsTolist, 1000);
       }
     }, optionsIntersaction);
 

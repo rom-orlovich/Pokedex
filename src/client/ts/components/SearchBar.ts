@@ -24,12 +24,12 @@ export class SearchBar {
     return section;
   }
 
-  static initEvents(DataPokemons: TPokemonsDataClient) {
-    this.onInputChangeEvent(DataPokemons, PokemonsList.update);
+  static initEvents(pokemonsData: TPokemonsDataClient) {
+    this.onInputChangeEvent(pokemonsData, PokemonsList.update);
   }
 
   static onInputChangeEvent(
-    DataPokemons: TPokemonsDataClient,
+    pokemonsData: TPokemonsDataClient,
     updatePokemonsList: TUpdatePokemonsList
   ) {
     // Searchs the input element.
@@ -45,7 +45,7 @@ export class SearchBar {
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
-      const filterPokemons = DataPokemons.filterPokemonsByQuery(
+      const filterPokemons = pokemonsData.filterPokemonsByQuery(
         "name",
         inputEl.value
       );
@@ -56,16 +56,16 @@ export class SearchBar {
       };
 
       if (filterPokemons.length < 10) {
-        await DataPokemons.fetchPokemonsDataFromServer(
+        await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
         );
       } else {
-        DataPokemons.setNewPokemonsCurser(filterPokemons);
+        pokemonsData.setNewPokemonsCurser(filterPokemons);
       }
 
       // Updates the list of pokemons with the new array.
-      updatePokemonsList("#pokemons_list_section", DataPokemons, {
+      updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
         page: 2,
       });
@@ -77,7 +77,7 @@ export class SearchBar {
       timer = setTimeout(async () => {
         await searchPokemonsFun(e);
         // spinner.classList.remove("addRoateSpinner");
-      }, 2000);
+      }, 1000);
     });
     // spinner.classList.add("addRoateSpinner");
     input.addEventListener("keydown", () => {
