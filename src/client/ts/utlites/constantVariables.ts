@@ -20,9 +20,13 @@ export const EXPRESS_SERVER_URL =
     ? CONFIG_URL.production
     : CONFIG_URL.development;
 
+// export const GET_ALL_POKEMONS_URL = createApiEndPoint(
+//   EXPRESS_SERVER_URL,
+//   EndPointsAPI.getAllPokemons
+// );
 export const GET_ALL_POKEMONS_URL = createApiEndPoint(
   EXPRESS_SERVER_URL,
-  EndPointsAPI.getAllPokemons
+  EndPointsAPI.getPokemons
 );
 export const GET_FAVORITE_POKEMONS_URL = createApiEndPoint(
   EXPRESS_SERVER_URL,
