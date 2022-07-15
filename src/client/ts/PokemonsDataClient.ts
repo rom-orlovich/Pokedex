@@ -1,6 +1,6 @@
 import { FavoritePokemon, IPokemon } from "./types";
 import {
-  GET_ALL_POKEMONS_URL,
+  GET_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
   SAVE_FAVORITE_POKEMONS_URL,
 } from "./utlites/constantVariables";
@@ -17,7 +17,7 @@ export class PokemonsDataClient {
 
   // Fetches the pokemons data from the Express server
   async fetchPokemonsDataFromServer() {
-    this.pokemonsDataArr.push(...(await fetchData(GET_ALL_POKEMONS_URL)));
+    this.pokemonsDataArr.push(...(await fetchData(GET_POKEMONS_URL)));
   }
 
   // Fetches the favorite pokemons data from the Express server

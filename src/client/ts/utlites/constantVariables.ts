@@ -24,7 +24,7 @@ export const EXPRESS_SERVER_URL =
 //   EXPRESS_SERVER_URL,
 //   EndPointsAPI.getAllPokemons
 // );
-export const GET_ALL_POKEMONS_URL = createApiEndPoint(
+export const GET_POKEMONS_URL = createApiEndPoint(
   EXPRESS_SERVER_URL,
   EndPointsAPI.getPokemons
 );
