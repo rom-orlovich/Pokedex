@@ -43,7 +43,7 @@ export const pokemonsRoutes = router();
 pokemonsRoutes.get(
   "/getPokemons/:page",
   async (req: Request, res: Response) => {
-    const pageRes = req.params.page;
+    const pageRes = Number(req.params.page) || 1;
     const queryName = req.query.name;
 
     const curser = pokemonsCollection
