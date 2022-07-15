@@ -42,17 +42,16 @@ export class SearchBar {
       const inputEl = e.target as HTMLInputElement;
 
       if (!inputEl) return;
+      const { value } = inputEl;
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
-      const filterPokemons = pokemonsData.filterPokemonsByQuery(
-        "name",
-        inputEl.value
-      );
+
+      const filterPokemons = pokemonsData.filterPokemonsByQuery("name", value);
       const options = {
-        query: inputEl.value,
+        query: value.toLowerCase(),
         page: 1,
-        search: !!inputEl.value.length,
+        search: !!value.length,
       };
 
       if (filterPokemons.length === 0) {
@@ -66,7 +65,7 @@ export class SearchBar {
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
-        page: pokemonsData.pokemonsDataArr.length / 12,
+        page: 1,
       });
     };
 
