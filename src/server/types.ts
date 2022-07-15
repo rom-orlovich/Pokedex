@@ -27,7 +27,7 @@ export interface IPokemon {
   type: string[];
   weight: number;
   height: number;
-  img: string;
+  img: string[];
 }
 
 export interface InewPokemon {
