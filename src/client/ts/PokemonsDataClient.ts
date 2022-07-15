@@ -51,6 +51,8 @@ export class PokemonsDataClient {
     const pokemonData = findElById(id, this.pokemonsDataArr);
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
+        // eslint-disable-next-line no-underscore-dangle
+        _id: pokemonData._id,
         id,
         name: pokemonData.name,
         img: pokemonData.img,
@@ -61,9 +63,11 @@ export class PokemonsDataClient {
   // Gets id of pokemon ,find his data from favoritePokemonsArr
   // and remove him.
   removePokemonFromFavoriteList(id: string) {
-    console.log(id);
     this.favoritePokemonsArr = this.favoritePokemonsArr.filter(
-      (favoritePokemon) => id.trim() !== favoritePokemon.id.trim()
+      (favoritePokemon) => {
+        console.log(favoritePokemon.id);
+        return id.trim() !== favoritePokemon.id.trim();
+      }
     );
   }
 

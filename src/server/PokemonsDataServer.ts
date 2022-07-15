@@ -43,6 +43,7 @@ export class PokemonsDataServer {
   // Format the data of pokemon from the API.
   static formatPokemonObj(pokemon: IPokemonApi) {
     const pokemonDetails = {
+      _id: "",
       id: String(pokemon.id),
       img: [pokemon.sprites.other["official-artwork"].front_default],
       name: pokemon.name,

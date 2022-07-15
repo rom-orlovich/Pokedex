@@ -43,10 +43,10 @@ export class FavoritePokemonsList {
 
   static update(
     favoritePokemonArr: FavoritePokemon[],
-
     parentQuery: string,
     pokemonsData: TPokemonsDataClient
   ) {
+    console.log(favoritePokemonArr);
     // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
     if (!parentEl) return;

@@ -22,6 +22,7 @@ export interface IPokemonApi {
 }
 
 export interface IPokemon {
+  _id: string;
   id: string;
   name: string;
   type: string[];
