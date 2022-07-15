@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import {
   IPokemon,
   IPokemonsListRenderOptions,
@@ -47,6 +48,7 @@ export class PokemonsList {
     start = 0,
     end = this.numResults
   ) {
+    console.log(pokemonsDataArr);
     pokemonsDataArr.slice(start, end).forEach((pokemonData) => {
       const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
         (pokemon) => pokemon.id === pokemonData.id
@@ -112,9 +114,12 @@ export class PokemonsList {
     pokemonData: TPokemonsDataClient,
     options = optionsRender
   ) {
-    const start = 1;
-    const end = 2;
-    PokemonsList.infinteScrollEvent(
+    const page = options.page ? options.page : 1;
+
+    const start = page;
+    const end = page + 1;
+    console.log(start, end);
+    const dataFromFetch = PokemonsList.infinteScrollEvent(
       start,
       end,
       pokemonsDataArr,
@@ -123,6 +128,7 @@ export class PokemonsList {
     );
     PokemonsList.handlePokemonFavoriteListEvent(
       pokemonData,
+      dataFromFetch,
       FavoritePokemonsList.update
     );
   }
@@ -145,6 +151,7 @@ export class PokemonsList {
       rootMargin: "200px",
       threshold: 0,
     };
+    let dataFromFetch: IPokemon[] = [];
 
     const observer = new IntersectionObserver(async (enteries) => {
       // Check if the root is intersect with the spinner.
@@ -153,21 +160,33 @@ export class PokemonsList {
 
         // Adds the rotated spinner to the loading spinner
         spinner.classList.add("addRoateSpinner");
-        console.log(options);
-        const data = await pokemonData.fetchPokemonsDataFromServer(
+
+        dataFromFetch = await pokemonData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
-          { ...options, page: endLocal }
+          {
+            ...options,
+            page: endLocal,
+          }
         );
-        console.log(data);
+
+        const configAddPokemons =
+          dataFromFetch.length === 0
+            ? {
+                data: pokemonDataArr,
+                start: startLocal * this.numResults,
+                end: endLocal * this.numResults,
+              }
+            : { data: dataFromFetch, start: 0, end: this.numResults };
+
         // Add new item to the pokemons list.
         // Takes the start and end postions and multiply by the defined numResults (12).
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
-            data.length === 0 ? pokemonDataArr : data,
+            configAddPokemons.data,
             pokemonData,
-            startLocal * this.numResults,
-            endLocal * this.numResults
+            configAddPokemons.start,
+            configAddPokemons.end
           );
 
           // Increase the start and end local by one.
@@ -185,10 +204,12 @@ export class PokemonsList {
 
     // Activate the observition of the spinner element.
     if (spinner) observer.observe(spinner);
+    return dataFromFetch;
   }
 
   static handlePokemonFavoriteListEvent(
     pokemonData: TPokemonsDataClient,
+    dataFromFetch: IPokemon[],
     updateFavoritePokemon: UpdateFavoritePokemonListFun
   ) {
     const pokemonList = selectByID(this.listID);

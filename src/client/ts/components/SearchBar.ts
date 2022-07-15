@@ -56,7 +56,7 @@ export class SearchBar {
         search: true,
       };
       spinner.classList.add("addRoateSpinner");
-      if (filterPokemons.length === 0) {
+      if (filterPokemons.length < 10) {
         filterPokemons = await DataPokemons.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
@@ -71,6 +71,7 @@ export class SearchBar {
         DataPokemons,
         {
           ...options,
+          page: 2,
         }
       );
     };
