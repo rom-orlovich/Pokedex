@@ -1,9 +1,10 @@
 import { promiseHandler, fetchData, findElById } from "./utlites/helpers";
-import { FavoritePokemon, IPokemon, IPokemonsListRenderOptions } from "./types";
+import { FavoritePokemon, IPokemon } from "./types";
 import {
   GET_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
   SAVE_FAVORITE_POKEMONS_URL,
+  optionsRender,
 } from "./utlites/constantVariables";
 
 // Class PokemonsData deals with the data of the pokemons
@@ -18,15 +19,19 @@ export class PokemonsDataClient {
   // Fetches the pokemons data from the Express server
   async fetchPokemonsDataFromServer(
     URL = GET_POKEMONS_URL,
-    options: IPokemonsListRenderOptions = { page: 1, search: false, query: "" }
+    options = optionsRender
   ) {
     const { page, query, search } = options;
     const [res, err] = await promiseHandler<IPokemon[]>(
       fetchData(`${URL}/${page}?name=${query}`)
     );
+
     const dataPokemons = res || [];
     if (err) console.log(err);
-    else if (!search) this.pokemonsDataArr.push(...dataPokemons);
+    else if (!search) {
+      this.pokemonsDataArr.push(...dataPokemons);
+      return [];
+    }
     return dataPokemons;
   }
 

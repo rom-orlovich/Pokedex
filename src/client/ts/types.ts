@@ -7,7 +7,7 @@ export type TPokemonsDataClient = InstanceType<typeof PokemonsDataClient>;
 export interface IPokemonsListRenderOptions {
   search?: boolean;
   query?: string;
-  page?: 1;
+  page?: number;
 }
 export type TUpdatePokemonsList = (
   pokemonsDataArr: IPokemon[],

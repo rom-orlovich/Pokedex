@@ -48,8 +48,8 @@ pokemonsRoutes.get(
 
     const curser = pokemonsCollection
       .find(queryName ? { name: { $regex: `^${queryName}` } } : {})
-      .limit(24)
-      .skip((pageRes - 1) * 24);
+      .limit(12)
+      .skip((pageRes - 1) * 12);
     const [data, err] = await promiseHandler(curser.toArray());
     if (err) res.status(400).json([]);
     else res.status(200).json(data);
@@ -65,7 +65,7 @@ pokemonsRoutes.post(
     const [data, err] = await promiseHandler(
       favPokemonsCollection.insertMany(req.body)
     );
-    console.log(data, err);
+
     if (err) res.status(400).send("The Data is not added");
     else res.status(200).send("Data is added successfully");
   }

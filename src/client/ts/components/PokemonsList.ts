@@ -4,6 +4,7 @@ import {
   TPokemonsDataClient,
   UpdateFavoritePokemonListFun,
 } from "../types";
+import { GET_POKEMONS_URL, optionsRender } from "../utlites/constantVariables";
 import { createElement, select, selectByID } from "../utlites/domsHelpers";
 import { delayFunction } from "../utlites/helpers";
 import { FavoritePokemonsList } from "./FavoritePokemonsList";
@@ -60,7 +61,7 @@ export class PokemonsList {
     pokemonsDataArr: IPokemon[],
     parentQuery: string,
     pokemonsData: TPokemonsDataClient,
-    options?: IPokemonsListRenderOptions
+    options = optionsRender
   ) {
     // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
@@ -77,7 +78,7 @@ export class PokemonsList {
       PokemonsList.createListPokemons(pokemonsDataArr, pokemonsData, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
-    PokemonsList.initEvents(pokemonsDataArr, pokemonsData);
+    PokemonsList.initEvents(pokemonsDataArr, pokemonsData, options);
   }
 
   static createListPokemons(
@@ -108,11 +109,18 @@ export class PokemonsList {
 
   static initEvents(
     pokemonsDataArr: IPokemon[],
-    pokemonData: TPokemonsDataClient
+    pokemonData: TPokemonsDataClient,
+    options = optionsRender
   ) {
     const start = 1;
     const end = 2;
-    PokemonsList.infinteScrollEvent(start, end, pokemonsDataArr, pokemonData);
+    PokemonsList.infinteScrollEvent(
+      start,
+      end,
+      pokemonsDataArr,
+      pokemonData,
+      options
+    );
     PokemonsList.handlePokemonFavoriteListEvent(
       pokemonData,
       FavoritePokemonsList.update
@@ -124,20 +132,21 @@ export class PokemonsList {
     start: number,
     end: number,
     pokemonDataArr: IPokemon[],
-    pokemonData: TPokemonsDataClient
+    pokemonData: TPokemonsDataClient,
+    options = optionsRender
   ) {
     // Search the spinner element in order to observe him.
     const spinner = select(".spinner");
     let startLocal = start;
     let endLocal = end;
 
-    const options = {
+    const optionsIntersaction = {
       root: null,
       rootMargin: "200px",
       threshold: 0,
     };
 
-    const observer = new IntersectionObserver((enteries) => {
+    const observer = new IntersectionObserver(async (enteries) => {
       // Check if the root is intersect with the spinner.
       if (enteries[0].isIntersecting) {
         const ul = select("#pokemons_list");
@@ -145,13 +154,20 @@ export class PokemonsList {
         // Adds the rotated spinner to the loading spinner
         spinner.classList.add("addRoateSpinner");
 
+        const data = await pokemonData.fetchPokemonsDataFromServer(
+          GET_POKEMONS_URL,
+          { ...options, page: endLocal }
+        );
+        console.log(data);
         // Add new item to the pokemons list.
         // Takes the start and end postions and multiply by the defined numResults (12).
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
-            pokemonDataArr,
+            data.length === 0 ? pokemonDataArr : data,
+
             pokemonData,
+
             startLocal * this.numResults,
             endLocal * this.numResults
           );
@@ -163,10 +179,11 @@ export class PokemonsList {
           // After loading the list, removes the spinner.
           spinner.classList.remove("addRoateSpinner");
         };
-        // Delay the addNewPokemonsTolist by 2 seconds.
-        delayFunction(addNewPokemonsTolist, 1000);
+        addNewPokemonsTolist();
+        // // Delay the addNewPokemonsTolist by 2 seconds.
+        // delayFunction(addNewPokemonsTolist, 1000);
       }
-    }, options);
+    }, optionsIntersaction);
 
     // Activate the observition of the spinner element.
     if (spinner) observer.observe(spinner);
