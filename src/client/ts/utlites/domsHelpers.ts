@@ -39,12 +39,18 @@ export const createImg = (
 ) =>
   `<img  src="${src}" alt="${alt}" onerror="
 if(this.src!=='${imgs[0]}')
-this.src='${imgs[0]}';
+this.src='${
+    imgs[0] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
+  }';
 else
-if(this.src!=='${imgs[1]}')
+if(this.src!=='${
+    imgs[1] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
+  }')
 this.src='${imgs[1]}';
 else
-if(this.src!=='${imgs[2]}')
+if(this.src!=='${
+    imgs[2] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
+  }')
 {this.src='${imgs[2]}';
   this.onerror=null;}
   " />`;

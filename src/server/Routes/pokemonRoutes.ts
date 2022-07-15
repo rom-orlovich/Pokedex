@@ -49,7 +49,7 @@ pokemonsRoutes.get(
     const curser = pokemonsCollection
       .find(queryName ? { name: { $regex: `^${queryName}` } } : {})
       .limit(24)
-      .skip((Number(pageRes) - 1) * 24);
+      .skip((pageRes - 1) * 24);
     const [data, err] = await promiseHandler(curser.toArray());
     if (err) res.status(400).json([]);
     else res.status(200).json(data);
