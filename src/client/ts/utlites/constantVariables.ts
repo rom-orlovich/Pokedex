@@ -1,8 +1,10 @@
 import { createApiEndPoint } from "./helpers";
 
 /* eslint-disable no-unused-vars */
+// getPokemons/:page
 export enum EndPointsAPI {
-  getAllPokemons = "getAllPokemons",
+  // getAllPokemons = "getAllPokemons",
+  getPokemons = "getPokemons",
   getFavoritePokemons = "getFavoritePokemons",
   saveFavoritePokemons = "saveFavoritePokemons",
 }

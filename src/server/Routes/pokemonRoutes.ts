@@ -45,6 +45,7 @@ pokemonsRoutes.get(
   async (req: Request, res: Response) => {
     const pageRes = req.params.page;
     const queryName = req.query.name;
+
     const curser = pokemonsCollection
       .find(queryName ? { name: { $regex: `^${queryName}` } } : {})
       .limit(24)
