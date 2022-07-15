@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import { makeUniqeArr } from "../../client/ts/utlites/helpers";
 import { InewPokemon, IPokemon } from "../types";
 import { POKEMONS_DB_PATH } from "../utlites/constansVariables";
 import { readFileRes } from "../utlites/fsHelpers";
 import { promiseHandler } from "../utlites/helpers";
-import { dbCollection } from "./mongoConnect";
+import { pokemonsCollection } from "./mongoConnect";
 
 function concatTheBiggerFIrst(first: string, sec: string) {
   return first > sec ? first + sec : sec + first;
@@ -17,7 +19,7 @@ function formatNewPokemon(
   const firstFusionImg = `https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/${firstPokemon.id}.${secPokemon.id}.png`;
   const srcFusionImg = `https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/${firstPokemon.id}/${firstPokemon.id}.${secPokemon.id}.png`;
   const newPokemon: InewPokemon = {
-    id: String(mergePokemonID),
+    id: mergePokemonID,
     name: firstPokemon.name.slice(0, 3) + secPokemon.name.slice(-3),
     height: (firstPokemon.height + secPokemon.height) / 2,
     weight: (firstPokemon.weight + secPokemon.weight) / 2,
@@ -35,7 +37,7 @@ async function mergePokemons() {
   let mergeArr: InewPokemon[] = [];
   const idCachedArr: string[] = [];
 
-  const data = res.sort((pok1, pok2) => pok1.weight - pok2.weight);
+  const data = res.slice().sort((pok1, pok2) => pok1.weight - pok2.weight);
 
   for (let i = 0; i < res.length; i++) {
     const pokemon1 = data[i];
@@ -48,17 +50,23 @@ async function mergePokemons() {
       }
     }
   }
-  mergeArr = [...res.map((pok) => ({ ...pok, img: [pok.img] })), ...mergeArr];
+  mergeArr = [
+    ...res.map((pok) => ({ ...pok, id: Number(pok.id), img: [pok.img] })),
+    ...mergeArr,
+  ];
+
   return mergeArr;
 }
 
 async function mongoSetDB() {
   console.log("start sending the pokemons to the DB...");
+  pokemonsCollection.drop();
   const [res, err] = await promiseHandler(
-    dbCollection.insertMany(await mergePokemons())
+    pokemonsCollection.insertMany(await mergePokemons())
   );
   console.log("finish sending the pokemons to the DB!");
   console.log(res, err);
 }
 
 // mongoSetDB();
+export default [];
