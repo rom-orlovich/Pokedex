@@ -58,7 +58,6 @@ export class PokemonsDataClient {
         img: pokemonData.img,
       });
   }
-  //
 
   // Gets id of pokemon ,find his data from favoritePokemonsArr
   // and remove him.

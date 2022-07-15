@@ -5,6 +5,7 @@ import { PokemonsDataClient } from "./PokemonsDataClient";
 export type { IPokemon };
 export type TPokemonsDataClient = InstanceType<typeof PokemonsDataClient>;
 export interface IPokemonsListRenderOptions {
+  search?: boolean;
   query?: string;
   start?: 0;
   end?: 20;
