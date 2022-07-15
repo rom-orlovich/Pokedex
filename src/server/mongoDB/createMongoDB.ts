@@ -24,7 +24,7 @@ function formatNewPokemon(
     height: (firstPokemon.height + secPokemon.height) / 2,
     weight: (firstPokemon.weight + secPokemon.weight) / 2,
     type: makeUniqeArr([...firstPokemon.type, ...secPokemon.type]),
-    img: [firstFusionImg, srcFusionImg, firstPokemon.img],
+    img: [firstFusionImg, srcFusionImg, ...firstPokemon.img],
   };
 
   return newPokemon;
@@ -51,7 +51,7 @@ async function mergePokemons() {
     }
   }
   mergeArr = [
-    ...res.map((pok) => ({ ...pok, id: pok.id, img: [pok.img] })),
+    ...res.map((pok) => ({ ...pok, id: pok.id, img: pok.img })),
     ...mergeArr,
   ];
 
