@@ -190,6 +190,7 @@ export class PokemonsList {
       if (!heartIcon) return;
       const numFavorite = select(".num_fav_pokemon");
       const li = targetEl.closest("li") as HTMLElement;
+
       if (heartIcon.classList.contains("fa-heart-o"))
         pokemonData.handlePokemonFavoriteListEvent(li.id);
       else if (heartIcon.classList.contains("fa-heart"))
