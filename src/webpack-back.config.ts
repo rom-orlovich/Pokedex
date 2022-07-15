@@ -30,6 +30,14 @@ const config: webpack.Configuration = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
+      {
+        test: /mongodb\/lib\/core\/((connection\/)?utils|index)\.js$/,
+        loader: "string-replace-loader",
+        options: {
+          search: "(require)",
+          replace: "(__non_webpack_require__)",
+        },
+      },
     ],
   },
 

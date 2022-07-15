@@ -36,24 +36,22 @@ export const createImg = (
   src = "https://www.freeiconspng.com/uploads/no-image-icon-6.png",
   imgs = [""],
   alt = "Image Not Found"
-) =>
-  `<img  src="${src}" alt="${alt}" onerror="
+) => {
+  const imgDefault = (img: string) =>
+    img || "https://www.freeiconspng.com/uploads/no-image-icon-6.png";
+
+  return `<img  src="${src}" alt="${alt}" onerror="
 if(this.src!=='${imgs[0]}')
-this.src='${
-    imgs[0] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
-  }';
+this.src='${imgDefault(imgs[0])}';
 else
-if(this.src!=='${
-    imgs[1] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
-  }')
-this.src='${imgs[1]}';
+if(this.src!=='${imgs[1]}')
+this.src='${imgDefault(imgs[1])}';
 else
-if(this.src!=='${
-    imgs[2] || "https://www.freeiconspng.com/uploads/no-image-icon-6.png"
-  }')
-{this.src='${imgs[2]}';
+if(this.src!=='${imgs[2]}')
+{this.src='${imgDefault(imgs[2])}';
   this.onerror=null;}
   " />`;
+};
 
 export const sanitizeHTML = function (str: string) {
   const temp = document.createElement("div");

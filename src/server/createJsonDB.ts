@@ -43,3 +43,25 @@ export async function createJsonDB(pokemonsDataServer: TPokemonsDataServer) {
     console.log(error);
   }
 }
+
+// NOTE: we may have that if we want to create pokemonDB.json
+
+// const pokemonsDataServer = new PokemonsDataServer();
+// const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
+// const pokemonsData: IPokemon[] = [];
+// If the pokemonsDB.json is not exist , activates the createDB function.
+// console.log(pokemonsDataExist);
+// if (pokemonsDataExist) {
+//   console.log("The database is exist!");
+//   readFile(POKEMONS_DB_PATH, "utf8", (err, data) => {
+//     if (err) console.log(err);
+//     pokemonsData.push(...JSON.parse(data));
+//   });
+// } else createJsonDB(pokemonsDataServer);
+
+// pokemonsRoutes.get("/getAllPokemons", (req: Request, res: Response) => {
+//   const sendData = pokemonsData.length
+//     ? pokemonsData
+//     : pokemonsDataServer.pokemonsDataArr;
+//   res.status(200).json(sendData);
+// });
