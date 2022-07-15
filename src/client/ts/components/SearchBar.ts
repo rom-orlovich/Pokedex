@@ -35,10 +35,9 @@ export class SearchBar {
     // Searchs the input element.
     const input = select(".search_field");
     let timer: ReturnType<typeof setTimeout>;
-
+    const spinner = select(".spinner");
     const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
-      const spinner = select(".spinner");
 
       const inputEl = e.target as HTMLInputElement;
 
@@ -46,7 +45,7 @@ export class SearchBar {
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
-      let filterPokemons = DataPokemons.filterPokemonsByQuery(
+      const filterPokemons = DataPokemons.filterPokemonsByQuery(
         "name",
         inputEl.value
       );
@@ -55,34 +54,32 @@ export class SearchBar {
         page: 1,
         search: true,
       };
-      spinner.classList.add("addRoateSpinner");
+
       if (filterPokemons.length < 10) {
-        filterPokemons = await DataPokemons.fetchPokemonsDataFromServer(
+        await DataPokemons.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
         );
+      } else {
+        DataPokemons.setNewPokemonsCurser(filterPokemons);
       }
-      spinner.classList.remove("addRoateSpinner");
 
       // Updates the list of pokemons with the new array.
-      updatePokemonsList(
-        filterPokemons,
-        "#pokemons_list_section",
-        DataPokemons,
-        {
-          ...options,
-          page: 2,
-        }
-      );
+      updatePokemonsList("#pokemons_list_section", DataPokemons, {
+        ...options,
+        page: 2,
+      });
     };
 
     input.addEventListener("keyup", (e: Event) => {
       clearTimeout(timer);
+
       timer = setTimeout(async () => {
         await searchPokemonsFun(e);
-      }, 1000);
+        // spinner.classList.remove("addRoateSpinner");
+      }, 2000);
     });
-
+    // spinner.classList.add("addRoateSpinner");
     input.addEventListener("keydown", () => {
       clearTimeout(timer);
     });

@@ -10,10 +10,12 @@ import {
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
   pokemonsDataArr: IPokemon[];
+  curserDataPokemonArr: IPokemon[];
   favoritePokemonsArr: FavoritePokemon[];
   constructor() {
     this.pokemonsDataArr = [];
     this.favoritePokemonsArr = [];
+    this.curserDataPokemonArr = [];
   }
 
   // Fetches the pokemons data from the Express server
@@ -28,11 +30,9 @@ export class PokemonsDataClient {
 
     const dataPokemons = res || [];
     if (err) console.log(err);
-    else if (!search) {
-      this.pokemonsDataArr.push(...dataPokemons);
-      return [];
-    }
-    return dataPokemons;
+    else if (!search) this.pokemonsDataArr.push(...dataPokemons);
+
+    this.curserDataPokemonArr = dataPokemons;
   }
 
   // Fetches the favorite pokemons data from the Express server
@@ -63,7 +63,7 @@ export class PokemonsDataClient {
   // Gets id of pokemon ,find his data from pokemonsDataArr
   // and add his relvant data to favoritePokemonArr.
   handlePokemonFavoriteListEvent(id: string) {
-    const pokemonData = findElById(id, this.pokemonsDataArr);
+    const pokemonData = findElById(id, this.curserDataPokemonArr);
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         // eslint-disable-next-line no-underscore-dangle
@@ -72,7 +72,6 @@ export class PokemonsDataClient {
         name: pokemonData.name,
         img: pokemonData.img,
       });
-    console.log(this.favoritePokemonsArr);
   }
 
   // Gets id of pokemon ,find his data from favoritePokemonsArr
@@ -91,5 +90,9 @@ export class PokemonsDataClient {
   // Sets a new array of favorite pokemons.
   setFavoritePokemonsData(favoritePokemonsArr: FavoritePokemon[]) {
     this.favoritePokemonsArr = favoritePokemonsArr;
+  }
+
+  setNewPokemonsCurser(pokemonsDataArr: IPokemon[]) {
+    this.curserDataPokemonArr = pokemonsDataArr;
   }
 }

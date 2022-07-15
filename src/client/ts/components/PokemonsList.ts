@@ -1,6 +1,5 @@
-import { config } from "dotenv";
 import {
-  IPokemon,
+  // IPokemon,
   IPokemonsListRenderOptions,
   TPokemonsDataClient,
   UpdateFavoritePokemonListFun,
@@ -17,25 +16,21 @@ export class PokemonsList {
   static listID = "pokemons_list";
   static sectionID = "pokemons_list_section";
   static numResults = 12;
-  static render(pokemonsData: TPokemonsDataClient) {
-    return PokemonsList.createUI(pokemonsData);
+  static render() {
+    // pokemonsData: TPokemonsDataClient
+    return PokemonsList
+      .createUI
+      // pokemonsData
+      ();
   }
 
-  static createUI(
-    pokemonsData: TPokemonsDataClient,
-    options?: IPokemonsListRenderOptions
-  ) {
+  static createUI() {
+    // options?: IPokemonsListRenderOptions // pokemonsData: TPokemonsDataClient,
     const section = createElement(
       `<section id="pokemons_list_section"></section>`
     );
 
-    section.append(
-      this.createListPokemons(
-        pokemonsData.pokemonsDataArr,
-        pokemonsData,
-        options
-      )
-    );
+    // section.append(this.createListPokemons(pokemonsData, options));
     return section;
   }
 
@@ -43,24 +38,26 @@ export class PokemonsList {
   // and for each data, append new pokemon details to the parent element
   static addPokemonsToList(
     parentEl: HTMLElement,
-    pokemonsDataArr: IPokemon[],
+
     pokemonsData: TPokemonsDataClient,
     start = 0,
     end = this.numResults
   ) {
-    console.log(pokemonsDataArr);
-    pokemonsDataArr.slice(start, end).forEach((pokemonData) => {
-      const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
-        (pokemon) => pokemon.id === pokemonData.id
-      );
-      parentEl.appendChild(
-        PokemonsDetails.render(pokemonData, !!isFavoritePokemon)
-      );
-    });
+    pokemonsData.curserDataPokemonArr
+      .slice(start, end)
+      .forEach((pokemonData) => {
+        const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
+          (pokemon) => pokemon.id === pokemonData.id
+        );
+
+        parentEl.appendChild(
+          PokemonsDetails.render(pokemonData, !!isFavoritePokemon)
+        );
+      });
   }
 
   static update(
-    pokemonsDataArr: IPokemon[],
+    // pokemonsDataArr: IPokemon[],
     parentQuery: string,
     pokemonsData: TPokemonsDataClient,
     options = optionsRender
@@ -77,14 +74,13 @@ export class PokemonsList {
 
     // Appends the new list with new pokemons data.
     parentEl.appendChild(
-      PokemonsList.createListPokemons(pokemonsDataArr, pokemonsData, options)
+      PokemonsList.createListPokemons(pokemonsData, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
-    PokemonsList.initEvents(pokemonsDataArr, pokemonsData, options);
+    PokemonsList.initEvents(pokemonsData, options);
   }
 
   static createListPokemons(
-    pokemonsDataArr: IPokemon[],
     pokemonsData: TPokemonsDataClient,
     options?: IPokemonsListRenderOptions
   ) {
@@ -92,11 +88,15 @@ export class PokemonsList {
     const query = options ? options.query || "Pokemon" : "Pokemon";
 
     const ul = createElement(`<ul id="pokemons_list"></ul>`);
+    const noResult = select(".result_not_found");
+
     // If the pokemons data length is bigger than 0 , append spinner and load the pokemons list.
     // Else display not found message.
-    if (pokemonsDataArr.length > 0) {
+
+    if (pokemonsData.curserDataPokemonArr.length > 0) {
+      if (noResult) noResult.remove();
       ul.append(Spinner.render());
-      this.addPokemonsToList(ul, pokemonsDataArr, pokemonsData);
+      this.addPokemonsToList(ul, pokemonsData);
     } else ul.append(Spinner.render(), this.setNoResultsFoundMessage(query));
     return ul;
   }
@@ -109,26 +109,22 @@ export class PokemonsList {
     return h2;
   }
 
-  static initEvents(
-    pokemonsDataArr: IPokemon[],
-    pokemonData: TPokemonsDataClient,
-    options = optionsRender
-  ) {
+  static initEvents(pokemonData: TPokemonsDataClient, options = optionsRender) {
     const page = options.page ? options.page : 1;
 
     const start = page;
     const end = page + 1;
-    console.log(start, end);
-    const dataFromFetch = PokemonsList.infinteScrollEvent(
+
+    PokemonsList.infinteScrollEvent(
       start,
       end,
-      pokemonsDataArr,
+
       pokemonData,
       options
     );
     PokemonsList.handlePokemonFavoriteListEvent(
       pokemonData,
-      dataFromFetch,
+
       FavoritePokemonsList.update
     );
   }
@@ -137,7 +133,7 @@ export class PokemonsList {
   static infinteScrollEvent(
     start: number,
     end: number,
-    pokemonDataArr: IPokemon[],
+
     pokemonData: TPokemonsDataClient,
     options = optionsRender
   ) {
@@ -151,7 +147,7 @@ export class PokemonsList {
       rootMargin: "200px",
       threshold: 0,
     };
-    let dataFromFetch: IPokemon[] = [];
+    // const dataFromFetch: IPokemon[] = [];
 
     const observer = new IntersectionObserver(async (enteries) => {
       // Check if the root is intersect with the spinner.
@@ -161,29 +157,31 @@ export class PokemonsList {
         // Adds the rotated spinner to the loading spinner
         spinner.classList.add("addRoateSpinner");
 
-        dataFromFetch = await pokemonData.fetchPokemonsDataFromServer(
-          GET_POKEMONS_URL,
-          {
-            ...options,
-            page: endLocal,
-          }
-        );
+        await pokemonData.fetchPokemonsDataFromServer(GET_POKEMONS_URL, {
+          ...options,
+          page: endLocal,
+        });
 
         const configAddPokemons =
-          dataFromFetch.length === 0
+          pokemonData.curserDataPokemonArr.length === 0
             ? {
-                data: pokemonDataArr,
+                data: pokemonData.pokemonsDataArr,
                 start: startLocal * this.numResults,
                 end: endLocal * this.numResults,
               }
-            : { data: dataFromFetch, start: 0, end: this.numResults };
+            : {
+                data: pokemonData.curserDataPokemonArr,
+                start: 0,
+                end: this.numResults,
+              };
 
+        pokemonData.setNewPokemonsCurser(configAddPokemons.data);
         // Add new item to the pokemons list.
         // Takes the start and end postions and multiply by the defined numResults (12).
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
-            configAddPokemons.data,
+            // configAddPokemons.data,
             pokemonData,
             configAddPokemons.start,
             configAddPokemons.end
@@ -196,20 +194,20 @@ export class PokemonsList {
           // After loading the list, removes the spinner.
           spinner.classList.remove("addRoateSpinner");
         };
-        addNewPokemonsTolist();
+        // addNewPokemonsTolist();
         // // Delay the addNewPokemonsTolist by 2 seconds.
-        // delayFunction(addNewPokemonsTolist, 1000);
+        delayFunction(addNewPokemonsTolist, 1000);
       }
     }, optionsIntersaction);
 
     // Activate the observition of the spinner element.
+
     if (spinner) observer.observe(spinner);
-    return dataFromFetch;
+    // return dataFromFetch;
   }
 
   static handlePokemonFavoriteListEvent(
     pokemonData: TPokemonsDataClient,
-    dataFromFetch: IPokemon[],
     updateFavoritePokemon: UpdateFavoritePokemonListFun
   ) {
     const pokemonList = selectByID(this.listID);

@@ -10,7 +10,7 @@ export interface IPokemonsListRenderOptions {
   page?: number;
 }
 export type TUpdatePokemonsList = (
-  pokemonsDataArr: IPokemon[],
+  // pokemonsDataArr: IPokemon[],
   parentEl: string,
   pokemonsData: TPokemonsDataClient,
   options?: IPokemonsListRenderOptions

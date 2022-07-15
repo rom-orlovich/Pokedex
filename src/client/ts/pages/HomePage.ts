@@ -39,7 +39,7 @@ export class HomePage {
     HomePage.audioActive();
     await this.initData();
     PokemonsList.update(
-      this.pokemonsData.pokemonsDataArr,
+      // this.pokemonsData.pokemonsDataArr,
       "#pokemons_list_section",
       this.pokemonsData
     );
@@ -57,10 +57,16 @@ export class HomePage {
   // Fetches the data of the pokemons while display spinner until the data is done fetching.
   async initData() {
     if (this.pokemonsData.pokemonsDataArr.length === 0) {
-      const spinner = Spinner.addSpinnerToElement("#pokemons_list_section");
-      spinner.classList.add("center-abs");
-      await DataStorage.initEvent(this.pokemonsData);
-      spinner.remove();
+      await Spinner.addSpinnerToElement(
+        "#pokemons_list_section",
+        async () => {
+          await DataStorage.initEvent(this.pokemonsData);
+        },
+        1000
+      );
+      // spinner.classList.add("center-abs");
+      // await DataStorage.initEvent(this.pokemonsData);
+      // spinner.remove();
     }
   }
 
