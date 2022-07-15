@@ -63,6 +63,7 @@ export class PokemonsDataClient {
   // Gets id of pokemon ,find his data from pokemonsDataArr
   // and add his relvant data to favoritePokemonArr.
   handlePokemonFavoriteListEvent(id: string) {
+    console.log(this.curserDataPokemonArr);
     const pokemonData = findElById(id, this.curserDataPokemonArr);
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({

@@ -115,10 +115,11 @@ export class FavoritePokemonsList {
       const liFavPokemon = targetEl.closest("li") as HTMLElement;
 
       const liPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
-
-      const heart = select(".fa", liPokemon);
-      heart.classList.toggle("fa-heart");
-      heart.classList.toggle("fa-heart-o");
+      if (liPokemon) {
+        const heart = select(".fa", liPokemon);
+        heart.classList.toggle("fa-heart");
+        heart.classList.toggle("fa-heart-o");
+      }
       pokemonData.removePokemonFromFavoriteList(liFavPokemon.id);
 
       updateFavoritePokemon(

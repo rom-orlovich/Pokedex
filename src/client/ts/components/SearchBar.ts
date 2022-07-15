@@ -55,7 +55,7 @@ export class SearchBar {
         search: true,
       };
 
-      if (filterPokemons.length < 10) {
+      if (filterPokemons.length < 2) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options

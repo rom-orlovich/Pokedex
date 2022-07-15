@@ -60,16 +60,6 @@ export const promiseHandler = async <T>(promise: Promise<T>) => {
   }
 };
 
-export const debounce = <F extends (...args: any) => any>(
-  func: F,
-  waitFor: number
-) => {
-  let timeout: ReturnType<typeof setTimeout>;
-
-  const debounced = (...args: any) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), waitFor);
-  };
-
-  return debounced as (...args: Parameters<F>) => ReturnType<F>;
-};
+export function getUniqueListBy<T>(arr: T[], key: keyof T) {
+  return [...new Map(arr.map((item) => [item[key], item])).values()];
+}
