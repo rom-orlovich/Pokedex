@@ -172,6 +172,7 @@ export class PokemonsList {
           page: endLocal,
         });
 
+        // console.log(pokemonData);
         const configAddPokemons = !options.search
           ? {
               data: pokemonData.pokemonsDataArr,
