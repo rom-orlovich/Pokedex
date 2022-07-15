@@ -23,11 +23,11 @@ export class DataStorage {
   }
 
   // Checkes if the local storage exist, if not, the method fetches the data from the API.
-  static async loadDataEvent(
+  static async loadDataEvent<T>(
     key: string,
     // eslint-disable-next-line no-unused-vars
     setDataFun: (arr: any[]) => void,
-    fetchFun: () => Promise<void>
+    fetchFun: () => Promise<T | void[]>
   ) {
     const localStorageData = DataStorage.checkLocalStorageExist(key);
 

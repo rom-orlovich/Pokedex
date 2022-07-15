@@ -15,7 +15,7 @@ import {
 } from "../utlites/constansVariables";
 import { Request, Response, router } from "../utlites/expressUtilites";
 import { createFile } from "../utlites/fsHelpers";
-import { promiseHandler } from "../utlites/helpers";
+import { promiseHandler } from "../../client/ts/utlites/helpers";
 
 const pokemonsDataServer = new PokemonsDataServer();
 const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);

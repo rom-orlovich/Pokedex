@@ -51,3 +51,11 @@ export const fetchData = async (
     throw error;
   }
 };
+export const promiseHandler = async <T>(promise: Promise<T>) => {
+  try {
+    const res = await promise;
+    return [res, undefined] as const;
+  } catch (error) {
+    return [undefined, error] as const;
+  }
+};
