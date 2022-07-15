@@ -19,7 +19,7 @@ function formatNewPokemon(
   const firstFusionImg = `https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/${firstPokemon.id}.${secPokemon.id}.png`;
   const srcFusionImg = `https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/${firstPokemon.id}/${firstPokemon.id}.${secPokemon.id}.png`;
   const newPokemon: InewPokemon = {
-    id: mergePokemonID,
+    id: String(mergePokemonID),
     name: firstPokemon.name.slice(0, 3) + secPokemon.name.slice(-3),
     height: (firstPokemon.height + secPokemon.height) / 2,
     weight: (firstPokemon.weight + secPokemon.weight) / 2,
@@ -51,7 +51,7 @@ async function mergePokemons() {
     }
   }
   mergeArr = [
-    ...res.map((pok) => ({ ...pok, id: Number(pok.id), img: [pok.img] })),
+    ...res.map((pok) => ({ ...pok, id: pok.id, img: [pok.img] })),
     ...mergeArr,
   ];
 

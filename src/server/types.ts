@@ -31,7 +31,7 @@ export interface IPokemon {
 }
 
 export interface InewPokemon {
-  id: number;
+  id: string;
   name: string;
   type: string[];
   weight: number;
