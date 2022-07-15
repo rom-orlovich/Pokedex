@@ -8,12 +8,13 @@ export class FavoritePokemonsDetails {
   }
 
   static createUI(favoritePokemon: FavoritePokemon) {
+    const [firstImg, ...resetImg] = favoritePokemon.img;
     const li = `<li id="${favoritePokemon.id}" >
     <span>
     <i  class="fa fa-minus-circle bin"></i>  
     </span>
     <div class="fav_pokemon_div">
-    <div class="pokemon_img">${createImg(favoritePokemon.img)}</div>
+    <div class="pokemon_img">${createImg(firstImg, [...resetImg])}</div>
     
      <div id="name">
          <span>${capatialFirstLetter(favoritePokemon.name)}</span>

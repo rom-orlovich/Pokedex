@@ -8,13 +8,14 @@ export class PokemonsDetails {
   }
 
   static createUI(pokemonData: IPokemon, favorite = false) {
+    const [firstImg, ...resetImg] = pokemonData.img;
     const li = createElement(`<li id="${
       pokemonData.id
     }" class="pokemon_details">
     <span id = "heart"><i class="fa ${
       favorite ? "fa-heart" : "fa-heart-o"
     }" aria-hidden="true" ></i> </span>
-     <div class="pokemon_img">${createImg(pokemonData.img)}</div>
+     <div class="pokemon_img">${createImg(firstImg, [...resetImg])}</div>
      <div class="type_span">
      <span class="${pokemonData.type[0]}">${capatialFirstLetter(
       pokemonData.type[0]
