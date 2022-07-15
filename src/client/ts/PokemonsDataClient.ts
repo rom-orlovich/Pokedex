@@ -1,4 +1,5 @@
-import { FavoritePokemon, IPokemon } from "./types";
+import { promiseHandler } from "../../server/utlites/helpers";
+import { FavoritePokemon, IPokemon, IPokemonsListRenderOptions } from "./types";
 import {
   GET_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
@@ -16,8 +17,16 @@ export class PokemonsDataClient {
   }
 
   // Fetches the pokemons data from the Express server
-  async fetchPokemonsDataFromServer() {
-    this.pokemonsDataArr.push(...(await fetchData(GET_POKEMONS_URL)));
+  async fetchPokemonsDataFromServer(
+    URL = GET_POKEMONS_URL,
+    options: IPokemonsListRenderOptions = { page: 1, search: false, query: "" }
+  ) {
+    const { page, query, search } = options;
+    const [data, err] = await promiseHandler(
+      fetchData(`${URL}/${page}?name=${query}`)
+    );
+    if (err) console.log(err);
+    else if (!search) this.pokemonsDataArr.push(...data);
   }
 
   // Fetches the favorite pokemons data from the Express server

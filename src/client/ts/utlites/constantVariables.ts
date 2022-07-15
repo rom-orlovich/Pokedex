@@ -4,7 +4,7 @@ import { createApiEndPoint } from "./helpers";
 // getPokemons/:page
 export enum EndPointsAPI {
   // getAllPokemons = "getAllPokemons",
-  getPokemons = "getPokemons/1",
+  getPokemons = "getPokemons",
   getFavoritePokemons = "getFavoritePokemons",
   saveFavoritePokemons = "saveFavoritePokemons",
 }

@@ -7,8 +7,8 @@ export const convertHeight = (heightInMeters: number): number =>
 export const promiseHandler = async <T>(promise: Promise<T>) => {
   try {
     const res = await promise;
-    return [res, undefined];
+    return [res, undefined] as const;
   } catch (error) {
-    return [undefined, error];
+    return [undefined, error] as const;
   }
 };
