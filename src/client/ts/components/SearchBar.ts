@@ -5,8 +5,10 @@ import {
   createImg,
   sanitizeHTML,
   select,
+  selectByID,
 } from "../utlites/domsHelpers";
 import { PokemonsList } from "./PokemonsList";
+import { Spinner } from "./Spinner";
 
 export class SearchBar {
   static render() {
@@ -40,14 +42,19 @@ export class SearchBar {
     // Searchs the input element.
     const input = select(".search_field");
     let timer: ReturnType<typeof setTimeout>;
-    const spinner = select(".spinner");
+    // const spinner = select("#pokemons_list_spinner");
     const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
 
       const inputEl = e.target as HTMLInputElement;
-
+      const sectionPokemonList = selectByID(PokemonsList.sectionID);
       if (!inputEl) return;
       const valueTrim = sanitizeHTML(inputEl.value);
+      const spinner = Spinner.render("pokemons_seacrh_spinner");
+      spinner.classList.add("addRoateSpinner");
+      spinner.classList.add("center-abs-top");
+      sectionPokemonList.append(spinner);
+      // console.log(spinner);
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
@@ -61,8 +68,9 @@ export class SearchBar {
         page: 1,
         search: !!valueTrim.length,
       };
-      spinner.classList.add("addRoateSpinner");
-      spinner.classList.add("center-abs");
+      // spinner.classList.add("addRoateSpinner");
+      // spinner.classList.add("center-abs-top");
+
       if (filterPokemons.length < 10) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
@@ -70,6 +78,7 @@ export class SearchBar {
         );
       } else pokemonsData.setCurserDataArr(filterPokemons);
 
+      spinner.remove();
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
@@ -82,7 +91,6 @@ export class SearchBar {
 
       timer = setTimeout(async () => {
         await searchPokemonsFun(e);
-        // spinner.classList.remove("addRoateSpinner");
       }, 1000);
     });
     // spinner.classList.add("addRoateSpinner");

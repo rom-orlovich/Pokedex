@@ -56,7 +56,7 @@ export class PokemonsList {
       PokemonsList.createListPokemons(pokemonsData, options)
     );
     // Inits the events of the pokemons list - infinate scrolling.
-    console.log(options, pokemonsData);
+
     PokemonsList.initEvents(pokemonsData, options);
   }
 
@@ -80,7 +80,7 @@ export class PokemonsList {
       ul.append(this.setNoResultsFoundMessage(query));
     } else {
       if (noResult) noResult.remove();
-      ul.append(Spinner.render());
+      ul.append(Spinner.render("pokemons_list_spinner"));
       this.addPokemonsToList(ul, pokemonsData, options);
     }
     return ul;
@@ -104,8 +104,6 @@ export class PokemonsList {
         pokemonsData.curserDataPokemonArr
       : pokemonsData.pokemonsDataArr;
 
-    console.log(arrayData);
-    console.log(options);
     arrayData.slice(start, end).forEach((pokemonData) => {
       const isFavoritePokemon = pokemonsData.favoritePokemonsArr.find(
         (pokemon) => pokemon.id === pokemonData.id
@@ -172,7 +170,6 @@ export class PokemonsList {
           page: endLocal,
         });
 
-        // console.log(pokemonData);
         const configAddPokemons = !options.search
           ? {
               data: pokemonData.pokemonsDataArr,

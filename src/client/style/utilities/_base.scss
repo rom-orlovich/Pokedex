@@ -43,6 +43,11 @@ img {
   @include centerAbs();
 }
 
+.center-abs-top {
+  @include posAbs(0%, 50%, null, null);
+  transform: translate(0%, -50%);
+}
+
 .transform-left-right {
   transform: translateX(0%) !important;
   transition: transform 1s ease-out;

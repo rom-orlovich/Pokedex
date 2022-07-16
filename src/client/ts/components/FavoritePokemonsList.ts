@@ -75,7 +75,7 @@ export class FavoritePokemonsList {
     // If the pokemons data length is bigger than 0 , append spinner and load the pokemons list.
     // Else display not found message.
     if (favoritePokemonArr.length > 0) {
-      ul.append(Spinner.render());
+      ul.append(Spinner.render("fav_spinner"));
       this.addPokemonsToList(ul, favoritePokemonArr);
     } else ul.appendChild(this.setNoResultsFoundMessage(query));
     return ul;

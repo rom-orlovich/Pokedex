@@ -5,7 +5,6 @@ import { createElement, select } from "../utlites/domsHelpers";
 import { Header } from "../components/Heading";
 import { FloatMenu } from "../components/FloatMenu";
 import { DataStorage } from "../DataStorage";
-import { Spinner } from "../components/Spinner";
 
 import { SideFavoritePokemons } from "../components/SideFavoritePokemons";
 import { FavoritePokemonsList } from "../components/FavoritePokemonsList";
@@ -57,11 +56,6 @@ export class HomePage {
   // Fetches the data of the pokemons while display spinner until the data is done fetching.
   async initData() {
     if (this.pokemonsData.pokemonsDataArr.length === 0) {
-      await Spinner.addSpinnerToElement(
-        "#pokemons_list_section",
-        async () => {},
-        1000
-      );
       await DataStorage.initEvent(this.pokemonsData);
       // spinner.classList.add("center-abs");
       // await DataStorage.initEvent(this.pokemonsData);
