@@ -39,7 +39,7 @@ export class PokemonsDataClient {
     else this.pokemonsDataArr.push(...dataPokemons);
 
     this.curserDataPokemonArr = dataPokemons;
-    this.pokemonsDataArr = getUniqueListBy(this.pokemonsDataArr, "_id");
+    this.pokemonsDataArr = getUniqueListBy(this.pokemonsDataArr, "id");
   }
 
   // Fetches the favorite pokemons data from the Express server
@@ -74,7 +74,7 @@ export class PokemonsDataClient {
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         // eslint-disable-next-line no-underscore-dangle
-        _id: pokemonData._id,
+        // _id: pokemonData._id,
         id,
         name: pokemonData.name,
         img: pokemonData.img,

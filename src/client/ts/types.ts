@@ -17,7 +17,7 @@ export type TUpdatePokemonsList = (
 ) => void;
 
 export interface FavoritePokemon {
-  _id: string;
+  // _id: string;
   id: string;
   name: string;
   img: string[];
