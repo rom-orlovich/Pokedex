@@ -33,7 +33,7 @@ export interface IoldPokemon extends IbasicPokemon {
 }
 
 export interface InewPokemon extends IbasicPokemon {
-  _id: string;
+  // _id: string;
   img: string[];
 }
 

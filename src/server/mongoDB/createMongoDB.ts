@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { makeUniqeArr, promiseHandler } from "../utlites/helpers";
-import { InewPokemon, InewPokemon } from "../types";
+import { InewPokemon, IoldPokemon } from "../types";
 import { POKEMONS_DB_PATH } from "../utlites/constansVariables";
 import { readFileRes } from "../utlites/fsHelpers";
 
@@ -12,8 +12,8 @@ function concatTheBiggerFirstID(first: string, sec: string) {
 }
 
 function formatNewPokemon(
-  firstPokemon: InewPokemon,
-  secPokemon: InewPokemon,
+  firstPokemon: IoldPokemon,
+  secPokemon: IoldPokemon,
   mergePokemonID: number
 ) {
   const firstFusionImg = `https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/${firstPokemon.id}.${secPokemon.id}.png`;
@@ -34,7 +34,7 @@ function formatNewPokemon(
 async function mergePokemons() {
   // eslint-disable-next-line no-unused-vars
   // Read from pokemonsDB.json file
-  const [res, _] = await readFileRes<InewPokemon[]>(POKEMONS_DB_PATH);
+  const [res, _] = await readFileRes<IoldPokemon[]>(POKEMONS_DB_PATH);
   let mergeArr: InewPokemon[] = [];
   const idCachedArr: string[] = [];
   let mergePokemonID = 10249;
@@ -57,7 +57,7 @@ async function mergePokemons() {
     }
   }
   mergeArr = [
-    ...res.map((pok) => ({ ...pok, id: pok.id, img: pok.img })),
+    ...res.map((pok) => ({ ...pok, id: pok.id, img: [pok.img] })),
     ...mergeArr,
   ];
 
