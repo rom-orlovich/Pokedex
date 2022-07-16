@@ -10,14 +10,12 @@ export interface InewPokemonsListRenderOptions {
   page?: number;
 }
 export type TUpdatePokemonsList = (
-  // pokemonsDataArr: InewPokemon[],
   parentEl: string,
   pokemonsData: TPokemonsDataClient,
   options?: InewPokemonsListRenderOptions
 ) => void;
 
 export interface FavoritePokemon {
-  // _id: string;
   id: string;
   name: string;
   img: string[];

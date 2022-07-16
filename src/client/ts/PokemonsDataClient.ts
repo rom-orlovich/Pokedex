@@ -74,7 +74,7 @@ export class PokemonsDataClient {
     if (pokemonData && !findElById(id, this.favoritePokemonsArr))
       this.favoritePokemonsArr.push({
         // eslint-disable-next-line no-underscore-dangle
-        // _id: pokemonData._id,
+
         id,
         name: pokemonData.name,
         img: pokemonData.img,

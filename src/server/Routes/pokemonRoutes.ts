@@ -9,6 +9,7 @@ import { promiseHandler } from "../utlites/helpers";
 
 export const pokemonsRoutes = router();
 
+// Get num page to show to client and name query.
 pokemonsRoutes.get(
   "/getPokemons/:page",
   async (req: Request, res: Response) => {

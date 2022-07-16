@@ -23,7 +23,10 @@ if (process.env.NODE_ENV === "production") {
 clientDB.connect(async (err) => {
   if (err) console.log(err);
   else {
-    console.log("Connected mongoDB atlas");
+    console.log(`Connected Mongodb`);
+    // NOTE : uncomment this line will upload the DB to mongoDB atlas.
+    // await createMongoDB();
+
     app.listen(port, () => {
       console.log(`listen port ${port}`);
     });

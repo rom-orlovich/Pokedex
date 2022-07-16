@@ -18,13 +18,17 @@ function formatNewPokemon(
 ) {
   const firstFusionImg = `https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/${firstPokemon.id}.${secPokemon.id}.png`;
   const srcFusionImg = `https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/${firstPokemon.id}/${firstPokemon.id}.${secPokemon.id}.png`;
+  const pokemonImgDefault =
+    firstPokemon.img ||
+    secPokemon.img ||
+    "https://c.neh.tw/thumb/f/720/m2i8i8K9Z5K9b1i8.jpg";
   const newPokemon: InewPokemon = {
     id: String(mergePokemonID),
     name: firstPokemon.name.slice(0, 3) + secPokemon.name.slice(-3),
     height: (firstPokemon.height + secPokemon.height) / 2,
     weight: (firstPokemon.weight + secPokemon.weight) / 2,
     type: makeUniqeArr([...firstPokemon.type, ...secPokemon.type]),
-    img: [firstFusionImg, srcFusionImg, ...firstPokemon.img],
+    img: [firstFusionImg, srcFusionImg, pokemonImgDefault],
   };
 
   return newPokemon;
@@ -35,6 +39,7 @@ async function mergePokemons() {
   // eslint-disable-next-line no-unused-vars
   // Read from pokemonsDB.json file
   const [res, _] = await readFileRes<IoldPokemon[]>(POKEMONS_DB_PATH);
+
   let mergeArr: InewPokemon[] = [];
   const idCachedArr: string[] = [];
   let mergePokemonID = 10249;
@@ -52,10 +57,13 @@ async function mergePokemons() {
       if (!idCachedArr.includes(mergeID)) {
         mergeArr.push(formatNewPokemon(pokemon1, pokemon2, mergePokemonID));
         mergePokemonID++;
-        idCachedArr.push(mergeID);
+        // Uncommentthis line make the merge pokemons array unique.
+        // idCachedArr.push(mergeID);
+        console.log(mergePokemonID);
       }
     }
   }
+
   mergeArr = [
     ...res.map((pok) => ({ ...pok, id: pok.id, img: [pok.img] })),
     ...mergeArr,
@@ -64,15 +72,18 @@ async function mergePokemons() {
   return mergeArr;
 }
 
-export async function mongoSetDB() {
-  console.log("start sending the pokemons to the DB...");
-  pokemonsCollection.drop();
-  const [res, err] = await promiseHandler(
-    pokemonsCollection.insertMany(await mergePokemons())
-  );
-  console.log("finish sending the pokemons to the DB!");
-  console.log(res, err);
+export default async function mongoSetDB() {
+  try {
+    await pokemonsCollection.drop();
+  } catch (error) {
+    console.log("Starts merging between the pokemons...");
+    const createMergeArr = await mergePokemons();
+    console.log("Finsih merging between the pokemons!");
+    console.log("Start sending the data to the mongoDB... ");
+    const [res, err] = await promiseHandler(
+      pokemonsCollection.insertMany(createMergeArr)
+    );
+    console.log("Finish sending the data to the mongoDB!");
+    console.log(res, err);
+  }
 }
-
-// NOTE : uncomment this line will upload the DB to mongoDB atlas.
-// mongoSetDB();
