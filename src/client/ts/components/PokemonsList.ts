@@ -187,7 +187,6 @@ export class PokemonsList {
         const addNewPokemonsTolist = () => {
           PokemonsList.addPokemonsToList(
             ul,
-            // configAddPokemons.data,
             pokemonData,
             options,
             configAddPokemons.start,
@@ -201,19 +200,13 @@ export class PokemonsList {
           // After loading the list, removes the spinner.
           spinner.classList.remove("addRoateSpinner");
         };
-        // addNewPokemonsTolist();
-        // // Delay the addNewPokemonsTolist by 2 seconds.
 
         addNewPokemonsTolist();
-
-        // delayFunction(addNewPokemonsTolist, 1000);
       }
     }, optionsIntersaction);
 
     // Activate the observition of the spinner element.
-
     if (spinner) observer.observe(spinner);
-    // return dataFromFetch;
   }
 
   static handlePokemonFavoriteListEvent(
@@ -227,14 +220,20 @@ export class PokemonsList {
     pokemonList.addEventListener("click", (e) => {
       const targetEl = e.target as HTMLElement;
 
+      // If the user doesn't click on heart the function return.
       const heartSpan = targetEl.closest("#heart");
       if (!heartSpan) return;
 
+      // If there is not heart icon , the function return.
       const heartIcon = heartSpan.firstElementChild;
       if (!heartIcon) return;
       const numFavorite = select(".num_fav_pokemon");
       const li = targetEl.closest("li") as HTMLElement;
 
+      // Check the current state of the heart.
+      // If the heart is empty so  the pokemons will add to the favList
+      // and their heart icon will change to full heart and undo for pokemons
+      // with full heart.
       if (heartIcon.classList.contains("fa-heart-o"))
         pokemonData.handlePokemonFavoriteListEvent(li.id);
       else if (heartIcon.classList.contains("fa-heart"))
@@ -243,12 +242,15 @@ export class PokemonsList {
       heartIcon.classList.toggle("fa-heart-o");
       heartIcon.classList.toggle("fa-heart");
 
+      // Update the favorite pokemon list.
       updateFavoritePokemon(
         pokemonData.favoritePokemonsArr,
         `#${SideFavoritePokemons.sectionID}`,
         pokemonData
       );
 
+      // Change the amount of the favorite pokemon list
+      // and make scale up and down effect.
       const numFavoriteClass = numFavorite.classList;
 
       numFavoriteClass.add("scale-up-down");

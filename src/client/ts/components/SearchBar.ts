@@ -39,16 +39,18 @@ export class SearchBar {
     updatePokemonsList: TUpdatePokemonsList
   ) {
     // Searchs the input element.
-    const input = select(".search_field");
+    const input = select(".search_field") as HTMLInputElement;
     let timer: ReturnType<typeof setTimeout>;
-    // const spinner = select("#pokemons_list_spinner");
+
+    // This function is activated on keyup event.
     const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
-
       const inputEl = e.target as HTMLInputElement;
 
       if (!inputEl) return;
+      // Check if the input is sanitized.
       const valueTrim = sanitizeHTML(inputEl.value);
+      // Actives the spinner loading.
       Spinner.addLoadingSpinner(
         `#${PokemonsList.sectionID}`,
         "pokemons_seacrh_spinner",
@@ -57,18 +59,21 @@ export class SearchBar {
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
-
       const filterPokemons = pokemonsData.filterPokemonsByQuery(
         "name",
         valueTrim
       );
+
+      // Options that are send to the update list function.
       const options = {
         query: valueTrim.toLowerCase(),
         page: 1,
         search: !!valueTrim.length,
       };
 
-      if (filterPokemons.length < 10) {
+      // If there are less than 10 result in the filter function
+      // The app will fetch new result.
+      if (filterPokemons.length < 11) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,
           options
@@ -76,6 +81,7 @@ export class SearchBar {
       } else pokemonsData.setCurserDataArr(filterPokemons);
 
       Spinner.removeLoadingSpinner("pokemons_seacrh_spinner");
+
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
@@ -83,6 +89,8 @@ export class SearchBar {
       });
     };
 
+    // When the user types the timeout of the function is reset.
+    // When he stops to types the timer is begin again.
     input.addEventListener("keyup", (e: Event) => {
       clearTimeout(timer);
 

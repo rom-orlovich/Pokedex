@@ -24,9 +24,9 @@ export class FavoritePokemonsList {
     </ul>
     `);
 
-    favoritePokemonsArr.forEach((favPokemons) => {
-      ul.appendChild(FavoritePokemonsDetails.render(favPokemons));
-    });
+    // favoritePokemonsArr.forEach((favPokemons) => {
+    //   ul.appendChild(FavoritePokemonsDetails.render(favPokemons));
+    // });
     return ul;
   }
 
