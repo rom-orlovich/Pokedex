@@ -61,10 +61,10 @@ writeFileSync("./public/Procfile", `web: npm run start`);
 console.log("Check git exist");
 if (!existsSync("./public/.git")) {
   console.log(
-    "Git is not exist , init git repo and depoly to heroku. PLease wait..."
+    "Git is not exist , init git repo and depoly to heroku. Please wait..."
   );
   execSync(
-    "cd ./public && git init  && git add . && git commit -m 'init public' && cd ./public && heroku create && git push heroku master -f"
+    "cd ./public/ && git init  && git add . && git commit -m 'init public' && cd ./public && heroku create && git push heroku master -f"
   );
   console.log("Finish deploy the project to heroku!");
 } else {
