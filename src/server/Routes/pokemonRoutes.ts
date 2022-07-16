@@ -28,11 +28,11 @@ pokemonsRoutes.get(
 pokemonsRoutes.post(
   "/saveFavoritePokemons",
   async (req: Request, res: Response) => {
-    favPokemonsCollection.deleteMany({});
+    await favPokemonsCollection.deleteMany({});
     const [data, err] = await promiseHandler(
       favPokemonsCollection.insertMany(req.body)
     );
-    console.log(req.body);
+
     if (err) return res.status(400).send("The data is not added");
     return res.status(200).send("The data is added successfully");
   }
