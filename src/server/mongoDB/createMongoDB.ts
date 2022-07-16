@@ -18,10 +18,11 @@ function formatNewPokemon(
 ) {
   const firstFusionImg = `https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/${firstPokemon.id}.${secPokemon.id}.png`;
   const srcFusionImg = `https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/${firstPokemon.id}/${firstPokemon.id}.${secPokemon.id}.png`;
-  const pokemonImgDefault =
-    firstPokemon.img ||
-    secPokemon.img ||
-    "https://c.neh.tw/thumb/f/720/m2i8i8K9Z5K9b1i8.jpg";
+  const openPokeball = "https://c.neh.tw/thumb/f/720/m2i8i8K9Z5K9b1i8.jpg";
+  const pokemonImgDefault = Math.round(Math.random())
+    ? firstPokemon.img || openPokeball
+    : secPokemon.img || openPokeball;
+
   const newPokemon: InewPokemon = {
     id: String(mergePokemonID),
     name: firstPokemon.name.slice(0, 3) + secPokemon.name.slice(-3),

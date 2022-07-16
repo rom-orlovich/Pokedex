@@ -243,11 +243,7 @@ export class PokemonsList {
       heartIcon.classList.toggle("fa-heart");
 
       // Update the favorite pokemon list.
-      updateFavoritePokemon(
-        // pokemonData.favoritePokemonsArr,
-        `#${SideFavoritePokemons.sectionID}`,
-        pokemonData
-      );
+      updateFavoritePokemon(`#${SideFavoritePokemons.sectionID}`, pokemonData);
 
       // Change the amount of the favorite pokemon list
       // and make scale up and down effect.

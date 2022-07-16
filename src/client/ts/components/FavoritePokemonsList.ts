@@ -38,11 +38,7 @@ export class FavoritePokemonsList {
     });
   }
 
-  static update(
-    // favoritePokemonArr: FavoritePokemon[],
-    parentQuery: string,
-    pokemonsData: TPokemonsDataClient
-  ) {
+  static update(parentQuery: string, pokemonsData: TPokemonsDataClient) {
     // Searches the parent, if not exist, return.
     const parentEl = select(parentQuery);
     if (!parentEl) return;
@@ -102,26 +98,34 @@ export class FavoritePokemonsList {
     favPokemonsList.addEventListener("click", (e) => {
       const targetEl = e.target as HTMLElement;
 
+      // Click on bin icon , if it is not exist return from the function.
       const bin = targetEl.closest(".bin");
       if (!bin) return;
 
-      const numFavorite = select(".num_fav_pokemon");
-
       const liFavPokemon = targetEl.closest("li") as HTMLElement;
 
-      const lInewPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
-      if (lInewPokemon) {
-        const heart = select(".fa", lInewPokemon);
+      // Take the id of the parent li of the bin icon and
+      // search for the match li in the pokemon list.
+      const liFromPokemonList = select(
+        `#pokemons_list li[id="${liFavPokemon.id}"]`
+      );
+
+      // Toggle the heart icon class of the matched pokemon.
+      if (liFromPokemonList) {
+        const heart = select(".fa", liFromPokemonList);
         heart.classList.toggle("fa-heart");
         heart.classList.toggle("fa-heart-o");
       }
+
+      // Remove this pokemon from the fav list.
       pokemonData.removePokemonFromFavoriteList(liFavPokemon.id);
 
-      updateFavoritePokemon(
-        // pokemonData.favoritePokemonsArr,
-        `#${SideFavoritePokemons.sectionID}`,
-        pokemonData
-      );
+      // Update the favorite pokemons list.
+      updateFavoritePokemon(`#${SideFavoritePokemons.sectionID}`, pokemonData);
+
+      // Update the amount of pokemons number in favorite list.
+      // and add some effects to the float button  element.
+      const numFavorite = select(".num_fav_pokemon");
       const numFavoriteClass = numFavorite.classList;
       numFavoriteClass.add("scale-up-down");
       delayFunction(() => numFavoriteClass.remove("scale-up-down"), 1200);

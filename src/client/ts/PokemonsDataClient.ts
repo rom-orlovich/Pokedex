@@ -24,6 +24,7 @@ export class PokemonsDataClient {
   }
 
   // Fetches the pokemons data from the Express server
+  // Gets obj options of page  and query of name.
   async fetchPokemonsDataFromServer(
     URL = GET_POKEMONS_URL,
     options = optionsRender
