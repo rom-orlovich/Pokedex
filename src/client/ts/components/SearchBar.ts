@@ -40,7 +40,7 @@ export class SearchBar {
     // Searchs the input element.
     const input = select(".search_field");
     let timer: ReturnType<typeof setTimeout>;
-    // const spinner = select(".spinner");
+    const spinner = select(".spinner");
     const searchPokemonsFun = async (e: Event) => {
       // If the input is not exist , return .
 
@@ -61,7 +61,8 @@ export class SearchBar {
         page: 1,
         search: !!valueTrim.length,
       };
-
+      spinner.classList.add("addRoateSpinner");
+      spinner.classList.add("center-abs");
       if (filterPokemons.length < 10) {
         await pokemonsData.fetchPokemonsDataFromServer(
           GET_POKEMONS_URL,

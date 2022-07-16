@@ -1,3 +1,4 @@
+import { InsertManyResult } from "mongodb";
 import {
   favPokemonsCollection,
   pokemonsCollection,
@@ -9,7 +10,8 @@ import { promiseHandler } from "../utlites/helpers";
 
 export const pokemonsRoutes = router();
 
-// Get num page to show to client and name query.
+// Gets the num page to show to client and  the pokemon name query "?name=''".
+// Each page display 12 results.
 pokemonsRoutes.get(
   "/getPokemons/:page",
   async (req: Request, res: Response) => {
@@ -30,11 +32,12 @@ pokemonsRoutes.post(
   "/saveFavoritePokemons",
   async (req: Request, res: Response) => {
     await favPokemonsCollection.deleteMany({});
-    const [data, err] = await promiseHandler(
+
+    const err = await promiseHandler<InsertManyResult<Document>>(
       favPokemonsCollection.insertMany(req.body)
     );
 
-    if (err) return res.status(400).send("The data is not added");
+    if (err[1]) return res.status(400).send("The data is not added");
     return res.status(200).send("The data is added successfully");
   }
 );
