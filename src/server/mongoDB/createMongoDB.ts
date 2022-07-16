@@ -7,7 +7,7 @@ import { readFileRes } from "../utlites/fsHelpers";
 
 import { pokemonsCollection } from "./mongoConnect";
 
-function concatTheBiggerFIrst(first: string, sec: string) {
+function concatTheBiggerFirstID(first: string, sec: string) {
   return first > sec ? first + sec : sec + first;
 }
 
@@ -30,23 +30,29 @@ function formatNewPokemon(
   return newPokemon;
 }
 
+// Creates new merge pokemon array.
 async function mergePokemons() {
-  let mergePokemonID = 1155;
   // eslint-disable-next-line no-unused-vars
+  // Read from pokemonsDB.json file
   const [res, _] = await readFileRes<IPokemon[]>(POKEMONS_DB_PATH);
   let mergeArr: InewPokemon[] = [];
   const idCachedArr: string[] = [];
-
+  let mergePokemonID = 10249;
+  // Makes the res array sort different from the sort of id.
+  // For  randomness purpose.
   const data = res.slice().sort((pok1, pok2) => pok1.weight - pok2.weight);
 
   for (let i = 0; i < res.length; i++) {
     const pokemon1 = data[i];
     for (let j = 1; j < res.length; j++) {
       const pokemon2 = data[j];
-      const mergeID = concatTheBiggerFIrst(pokemon1.id, pokemon2.id);
+      // Creates new ID from 2 pokemons and the bigger id is the first,
+      // For the caching array. In order to prevent duplicated merged.
+      const mergeID = concatTheBiggerFirstID(pokemon1.id, pokemon2.id);
       if (!idCachedArr.includes(mergeID)) {
         mergeArr.push(formatNewPokemon(pokemon1, pokemon2, mergePokemonID));
         mergePokemonID++;
+        idCachedArr.push(mergeID);
       }
     }
   }
