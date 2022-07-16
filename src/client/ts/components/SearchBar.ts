@@ -5,7 +5,6 @@ import {
   createImg,
   sanitizeHTML,
   select,
-  selectByID,
 } from "../utlites/domsHelpers";
 import { PokemonsList } from "./PokemonsList";
 import { Spinner } from "./Spinner";
@@ -47,14 +46,14 @@ export class SearchBar {
       // If the input is not exist , return .
 
       const inputEl = e.target as HTMLInputElement;
-      const sectionPokemonList = selectByID(PokemonsList.sectionID);
+
       if (!inputEl) return;
       const valueTrim = sanitizeHTML(inputEl.value);
-      const spinner = Spinner.render("pokemons_seacrh_spinner");
-      spinner.classList.add("addRoateSpinner");
-      spinner.classList.add("center-abs-top");
-      sectionPokemonList.append(spinner);
-      // console.log(spinner);
+      Spinner.addLoadingSpinner(
+        `#${PokemonsList.sectionID}`,
+        "pokemons_seacrh_spinner",
+        "top"
+      );
 
       // Filters by name parmater and by the value of the input.
       // and return  new array.
@@ -68,8 +67,6 @@ export class SearchBar {
         page: 1,
         search: !!valueTrim.length,
       };
-      // spinner.classList.add("addRoateSpinner");
-      // spinner.classList.add("center-abs-top");
 
       if (filterPokemons.length < 10) {
         await pokemonsData.fetchPokemonsDataFromServer(
@@ -78,7 +75,7 @@ export class SearchBar {
         );
       } else pokemonsData.setCurserDataArr(filterPokemons);
 
-      spinner.remove();
+      Spinner.removeLoadingSpinner("pokemons_seacrh_spinner");
       // Updates the list of pokemons with the new array.
       updatePokemonsList("#pokemons_list_section", pokemonsData, {
         ...options,
@@ -93,7 +90,7 @@ export class SearchBar {
         await searchPokemonsFun(e);
       }, 1000);
     });
-    // spinner.classList.add("addRoateSpinner");
+
     input.addEventListener("keydown", () => {
       clearTimeout(timer);
     });

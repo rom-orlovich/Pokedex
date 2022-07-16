@@ -43,8 +43,12 @@ img {
   @include centerAbs();
 }
 
-.center-abs-top {
+.center-top-abs {
   @include posAbs(0%, 50%, null, null);
+  transform: translate(0%, -50%);
+}
+.center-bottom-abs {
+  @include posAbs(null, 50%, null, 0%);
   transform: translate(0%, -50%);
 }
 

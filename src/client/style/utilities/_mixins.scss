@@ -17,9 +17,13 @@
 }
 @mixin centerAbs() {
   position: absolute;
-  top: 50%;
-  left: 50%;
 
+  @include posAbs(
+    50% !important,
+    50% !important,
+    auto !important,
+    auto !important
+  );
   transform: translate(-50%, -50%);
 }
 
