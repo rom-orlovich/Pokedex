@@ -5,6 +5,6 @@ import { HomePage } from "./pages/HomePage";
 export function initApp() {
   const dataPokemons = new PokemonsDataClient();
   const homePage = new HomePage(dataPokemons);
-  document.body.appendChild(homePage.render());
+  document.body.appendChild(HomePage.render());
   homePage.initEvents();
 }

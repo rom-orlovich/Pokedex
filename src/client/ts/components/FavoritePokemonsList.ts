@@ -13,20 +13,17 @@ import { delayFunction } from "../utlites/helpers";
 
 export class FavoritePokemonsList {
   static listID = "fav_pokemons_list";
-  static render(favoritePokemonsArr: FavoritePokemon[]) {
-    return this.createUI(favoritePokemonsArr);
+  static render() {
+    return this.createUI();
   }
 
-  static createUI(favoritePokemonsArr: FavoritePokemon[]) {
+  static createUI() {
     const ul = createElement(`
     <ul id="${this.listID}">
     
     </ul>
     `);
 
-    // favoritePokemonsArr.forEach((favPokemons) => {
-    //   ul.appendChild(FavoritePokemonsDetails.render(favPokemons));
-    // });
     return ul;
   }
 

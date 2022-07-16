@@ -16,17 +16,17 @@ export class HomePage {
     this.pokemonsData = PokemonsData;
   }
 
-  render() {
-    return HomePage.createUI(this.pokemonsData);
+  static render() {
+    return HomePage.createUI();
   }
 
-  static createUI(pokemonsData: TPokemonsDataClient) {
+  static createUI() {
     const main = createElement(`<main id="home_page"></main>`);
 
     main.append(
       Header.render(),
       SearchBar.render(),
-      SideFavoritePokemons.render(pokemonsData),
+      SideFavoritePokemons.render(),
       PokemonsList.render(),
       FloatMenu.render()
     );
@@ -37,11 +37,7 @@ export class HomePage {
   async initEvents() {
     HomePage.audioActive();
     await this.initData();
-    PokemonsList.update(
-      // this.pokemonsData.pokemonsDataArr,
-      "#pokemons_list_section",
-      this.pokemonsData
-    );
+    PokemonsList.update("#pokemons_list_section", this.pokemonsData);
     FavoritePokemonsList.update(
       this.pokemonsData.favoritePokemonsArr,
       `#${SideFavoritePokemons.sectionID}`,
