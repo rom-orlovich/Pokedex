@@ -3,7 +3,7 @@ import {} from "module";
 import { FavoritePokemonsDetails } from "./FavoritePokemonsDetails";
 import {
   FavoritePokemon,
-  IPokemonsListRenderOptions,
+  InewPokemonsListRenderOptions,
   TPokemonsDataClient,
   UpdateFavoritePokemonListFun,
 } from "../types";
@@ -66,7 +66,7 @@ export class FavoritePokemonsList {
   static createListPokemons(
     favoritePokemonArr: FavoritePokemon[],
 
-    options?: IPokemonsListRenderOptions
+    options?: InewPokemonsListRenderOptions
   ) {
     // The options has props of query if, is not exist it will be "Pokemons"
     const query = options ? options.query || "Pokemon" : "Pokemon";
@@ -114,9 +114,9 @@ export class FavoritePokemonsList {
 
       const liFavPokemon = targetEl.closest("li") as HTMLElement;
 
-      const liPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
-      if (liPokemon) {
-        const heart = select(".fa", liPokemon);
+      const lInewPokemon = select(`#pokemons_list li[id="${liFavPokemon.id}"]`);
+      if (lInewPokemon) {
+        const heart = select(".fa", lInewPokemon);
         heart.classList.toggle("fa-heart");
         heart.classList.toggle("fa-heart-o");
       }

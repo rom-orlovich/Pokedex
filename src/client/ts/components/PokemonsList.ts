@@ -1,6 +1,6 @@
 import {
-  // IPokemon,
-  IPokemonsListRenderOptions,
+  // InewPokemon,
+  InewPokemonsListRenderOptions,
   TPokemonsDataClient,
   UpdateFavoritePokemonListFun,
 } from "../types";
@@ -25,7 +25,7 @@ export class PokemonsList {
   }
 
   static createUI() {
-    // options?: IPokemonsListRenderOptions // pokemonsData: TPokemonsDataClient,
+    // options?: InewPokemonsListRenderOptions // pokemonsData: TPokemonsDataClient,
     const section = createElement(
       `<section id="pokemons_list_section"></section>`
     );
@@ -35,7 +35,7 @@ export class PokemonsList {
   }
 
   static update(
-    // pokemonsDataArr: IPokemon[],
+    // pokemonsDataArr: InewPokemon[],
     parentQuery: string,
     pokemonsData: TPokemonsDataClient,
     options = optionsRender
@@ -62,7 +62,7 @@ export class PokemonsList {
 
   static createListPokemons(
     pokemonsData: TPokemonsDataClient,
-    options?: IPokemonsListRenderOptions
+    options?: InewPokemonsListRenderOptions
   ) {
     // The options has props of query if, is not exist it will be "Pokemons"
     const query = options ? options.query || "Pokemon" : "Pokemon";
@@ -158,7 +158,7 @@ export class PokemonsList {
       rootMargin: "50px",
       threshold: 0,
     };
-    // const dataFromFetch: IPokemon[] = [];
+    // const dataFromFetch: InewPokemon[] = [];
 
     const observer = new IntersectionObserver(async (enteries) => {
       // Check if the root is intersect with the spinner.

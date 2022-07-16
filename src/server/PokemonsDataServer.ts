@@ -1,10 +1,10 @@
 import axios from "axios";
-// import { IPokemon } from "../client/ts/types";
-import { IPokemonApi, IPokemon } from "./types";
+// import { InewPokemon } from "../client/ts/types";
+import { InewPokemonApi, InewPokemon } from "./types";
 import { convertHeight, convertWeight } from "./utlites/helpers";
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataServer {
-  pokemonsDataArr: IPokemon[];
+  pokemonsDataArr: InewPokemon[];
 
   constructor() {
     this.pokemonsDataArr = [];
@@ -14,7 +14,7 @@ export class PokemonsDataServer {
   async fetchPokemonsDataFromServer(start = 1, end = 51) {
     // eslint-disable-next-line no-useless-catch
     try {
-      const promiseArr: Promise<IPokemonApi>[] = [];
+      const promiseArr: Promise<InewPokemonApi>[] = [];
       for (let i = start; i < end; i++) {
         if (i < 906 || i > 10000)
           promiseArr.push(PokemonsDataServer.fetchPokemonByQuery(String(i)));
@@ -37,11 +37,11 @@ export class PokemonsDataServer {
     const response = await axios(urlPokemon);
     const { data } = response;
 
-    return data as IPokemonApi;
+    return data as InewPokemonApi;
   }
 
   // Format the data of pokemon from the API.
-  static formatPokemonObj(pokemon: IPokemonApi) {
+  static formatPokemonObj(pokemon: InewPokemonApi) {
     const pokemonDetails = {
       _id: "",
       id: String(pokemon.id),

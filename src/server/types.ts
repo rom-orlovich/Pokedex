@@ -1,7 +1,7 @@
 import { PokemonsDataServer } from "./PokemonsDataServer";
 
 export type TPokemonsDataServer = InstanceType<typeof PokemonsDataServer>;
-export interface IPokemonApi {
+export interface InewPokemonApi {
   id: number;
   name: string;
   height: number;
@@ -21,21 +21,27 @@ export interface IPokemonApi {
   }[];
 }
 
-export interface IPokemon {
-  _id: string;
+export interface IbasicPokemon {
   id: string;
   name: string;
   type: string[];
   weight: number;
   height: number;
+}
+export interface IoldPokemon extends IbasicPokemon {
+  img: string;
+}
+
+export interface InewPokemon extends IbasicPokemon {
+  _id: string;
   img: string[];
 }
 
-export interface InewPokemon {
-  id: string;
-  name: string;
-  type: string[];
-  weight: number;
-  height: number;
-  img: string[];
-}
+// export interface InewPokemon {
+//   id: string;
+//   name: string;
+//   type: string[];
+//   weight: number;
+//   height: number;
+//   img: string[];
+// }

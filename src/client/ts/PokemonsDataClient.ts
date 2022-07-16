@@ -4,7 +4,7 @@ import {
   findElById,
   getUniqueListBy,
 } from "./utlites/helpers";
-import { FavoritePokemon, IPokemon } from "./types";
+import { FavoritePokemon, InewPokemon } from "./types";
 import {
   GET_POKEMONS_URL,
   GET_FAVORITE_POKEMONS_URL,
@@ -14,8 +14,8 @@ import {
 
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataClient {
-  pokemonsDataArr: IPokemon[];
-  curserDataPokemonArr: IPokemon[];
+  pokemonsDataArr: InewPokemon[];
+  curserDataPokemonArr: InewPokemon[];
   favoritePokemonsArr: FavoritePokemon[];
   constructor() {
     this.pokemonsDataArr = [];
@@ -30,7 +30,7 @@ export class PokemonsDataClient {
   ) {
     const { page, query } = options;
 
-    const [res, err] = await promiseHandler<IPokemon[]>(
+    const [res, err] = await promiseHandler<InewPokemon[]>(
       fetchData(`${URL}/${page}?name=${query}`)
     );
 
@@ -59,7 +59,7 @@ export class PokemonsDataClient {
   }
 
   // Filters all the pokemons that stand the condtion of given query and value.
-  filterPokemonsByQuery = (query: keyof IPokemon, value: string) =>
+  filterPokemonsByQuery = (query: keyof InewPokemon, value: string) =>
     this.pokemonsDataArr.filter((pokemon) =>
       pokemon[query]
         .toString()
@@ -90,7 +90,7 @@ export class PokemonsDataClient {
   }
 
   // Sets a new array of pokemon.
-  setPokemonsData(pokemonsDataArr: IPokemon[]) {
+  setPokemonsData(pokemonsDataArr: InewPokemon[]) {
     this.pokemonsDataArr = pokemonsDataArr;
   }
 
@@ -100,7 +100,7 @@ export class PokemonsDataClient {
   }
 
   // Sets a new curser of favorite pokemons.
-  setCurserDataArr(dataArr: IPokemon[]) {
+  setCurserDataArr(dataArr: InewPokemon[]) {
     this.curserDataPokemonArr = dataArr;
   }
 }

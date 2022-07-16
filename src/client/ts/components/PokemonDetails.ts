@@ -1,13 +1,13 @@
-import { IPokemon } from "../types";
+import { InewPokemon } from "../types";
 import { createElement, createImg } from "../utlites/domsHelpers";
 import { capatialFirstLetter } from "../utlites/helpers";
 
 export class PokemonsDetails {
-  static render(pokemonData: IPokemon, favorite = false) {
+  static render(pokemonData: InewPokemon, favorite = false) {
     return this.createUI(pokemonData, favorite);
   }
 
-  static createUI(pokemonData: IPokemon, favorite = false) {
+  static createUI(pokemonData: InewPokemon, favorite = false) {
     const [firstImg, ...resetImg] = pokemonData.img;
     const li = createElement(`<li id="${
       pokemonData.id

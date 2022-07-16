@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { IPokemon } from "../../server/types";
+import { InewPokemon } from "../../server/types";
 import { PokemonsDataClient } from "./PokemonsDataClient";
 
-export type { IPokemon };
+export type { InewPokemon };
 export type TPokemonsDataClient = InstanceType<typeof PokemonsDataClient>;
-export interface IPokemonsListRenderOptions {
+export interface InewPokemonsListRenderOptions {
   search?: boolean;
   query?: string;
   page?: number;
 }
 export type TUpdatePokemonsList = (
-  // pokemonsDataArr: IPokemon[],
+  // pokemonsDataArr: InewPokemon[],
   parentEl: string,
   pokemonsData: TPokemonsDataClient,
-  options?: IPokemonsListRenderOptions
+  options?: InewPokemonsListRenderOptions
 ) => void;
 
 export interface FavoritePokemon {

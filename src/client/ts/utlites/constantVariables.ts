@@ -1,4 +1,4 @@
-import { IPokemonsListRenderOptions } from "../types";
+import { InewPokemonsListRenderOptions } from "../types";
 import { createApiEndPoint } from "./helpers";
 
 /* eslint-disable no-unused-vars */
@@ -39,7 +39,7 @@ export const SAVE_FAVORITE_POKEMONS_URL = createApiEndPoint(
   EndPointsAPI.saveFavoritePokemons
 );
 
-export const optionsRender: IPokemonsListRenderOptions = {
+export const optionsRender: InewPokemonsListRenderOptions = {
   page: 1,
   search: false,
   query: "",

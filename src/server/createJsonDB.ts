@@ -50,7 +50,7 @@ export async function createJsonDB(pokemonsDataServer: TPokemonsDataServer) {
 // });
 // const pokemonsDataServer = new PokemonsDataServer();
 // const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
-// const pokemonsData: IPokemon[] = [];
+// const pokemonsData: InewPokemon[] = [];
 // If the pokemonsDB.json is not exist , activates the createDB function.
 // console.log(pokemonsDataExist);
 // if (pokemonsDataExist) {
