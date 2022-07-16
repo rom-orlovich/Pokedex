@@ -3,7 +3,7 @@ import cors from "cors";
 import { express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 // import { createDirectory, join } from "./utlites/fsHelpers";
-import { clientDB, clientDBLocal } from "./mongoDB/mongoConnect";
+import { clientDB } from "./mongoDB/mongoConnect";
 // import createMongoDB from "./mongoDB/createMongoDB";
 
 const port = process.env.PORT || 5000;
@@ -20,8 +20,7 @@ clientDB.connect(async (err) => {
   if (err) console.log(err);
   else {
     console.log("Connected mongoDB atlas");
-    await clientDBLocal.connect();
-    console.log("Connected mongoDB local");
+
     app.listen(port, () => {
       console.log(`listen port ${port}`);
     });

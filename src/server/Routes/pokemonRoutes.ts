@@ -5,7 +5,7 @@ import {
 
 import { Request, Response, router } from "../utlites/expressUtilites";
 
-import { promiseHandler } from "../../client/ts/utlites/helpers";
+import { promiseHandler } from "../utlites/helpers";
 
 export const pokemonsRoutes = router();
 
@@ -28,7 +28,7 @@ pokemonsRoutes.get(
 pokemonsRoutes.post(
   "/saveFavoritePokemons",
   async (req: Request, res: Response) => {
-    favPokemonsCollection.drop();
+    favPokemonsCollection.deleteMany({});
     const [data, err] = await promiseHandler(
       favPokemonsCollection.insertMany(req.body)
     );
@@ -42,10 +42,6 @@ pokemonsRoutes.post(
 pokemonsRoutes.get(
   "/getFavoritePokemons",
   async (req: Request, res: Response) => {
-    // readFile(FAVORITE_POKEMONS_PATH, "utf8", (err, data) => {
-    //   if (err) res.status(200).json([]);
-    //   res.status(200).send(data);
-    // });
     const curser = favPokemonsCollection.find({}).limit(100);
     const [data, err] = await promiseHandler(curser.toArray());
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IPokemon } from "../client/ts/types";
-import { IPokemonApi } from "./types";
+// import { IPokemon } from "../client/ts/types";
+import { IPokemonApi, IPokemon } from "./types";
 import { convertHeight, convertWeight } from "./utlites/helpers";
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataServer {

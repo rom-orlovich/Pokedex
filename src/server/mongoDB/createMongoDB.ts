@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import { makeUniqeArr, promiseHandler } from "../../client/ts/utlites/helpers";
+import { makeUniqeArr, promiseHandler } from "../utlites/helpers";
 import { InewPokemon, IPokemon } from "../types";
 import { POKEMONS_DB_PATH } from "../utlites/constansVariables";
 import { readFileRes } from "../utlites/fsHelpers";

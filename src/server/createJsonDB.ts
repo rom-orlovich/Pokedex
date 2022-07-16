@@ -2,7 +2,6 @@
 
 /* eslint-disable no-console */
 import { writeFile } from "fs";
-// import { dbCollection } from "./mongoDB";
 
 import { TPokemonsDataServer } from "./types";
 import {
@@ -45,7 +44,10 @@ export async function createJsonDB(pokemonsDataServer: TPokemonsDataServer) {
 }
 
 // NOTE: we may have that if we want to create pokemonDB.json
-
+// readFile(FAVORITE_POKEMONS_PATH, "utf8", (err, data) => {
+//   if (err) res.status(200).json([]);
+//   res.status(200).send(data);
+// });
 // const pokemonsDataServer = new PokemonsDataServer();
 // const pokemonsDataExist = existsSync(POKEMONS_DB_PATH);
 // const pokemonsData: IPokemon[] = [];
