@@ -45,4 +45,3 @@ if (!existsSync("./public/.git")) {
     console.log("Finish deploy the project to heroku!");
   } else console.log("Please add commit message!");
 }
-

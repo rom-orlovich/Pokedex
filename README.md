@@ -16,7 +16,8 @@
 
 ```
 1.Change the url in mongoConnect.
-2.Uncomment the line 28 in server.ts will create the DB in mongoDB.
-3.npm run server in CLI.
-4.npm run start to open the client.
+2.Uncomment the line 7 and line 29 in "server.ts" in order to create the DB in mongoDB.
+3.After MongoDB has at least 250,000 documents in pokemons collections, comment back lines 7 and 29 in "server.ts"
+4.npm run server in CLI.
+5.npm run start to open the client.
 ```

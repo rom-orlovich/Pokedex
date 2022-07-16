@@ -3,6 +3,7 @@ import cors from "cors";
 import { express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { clientDB } from "./mongoDB/mongoConnect";
+// NOTE: Uncomment this line in order to execute this function :
 // import createMongoDB from "./mongoDB/createMongoDB";
 
 const port = process.env.PORT || 5000;
