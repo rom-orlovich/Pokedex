@@ -39,7 +39,7 @@ export class HomePage {
     await this.initData();
     PokemonsList.update("#pokemons_list_section", this.pokemonsData);
     FavoritePokemonsList.update(
-      this.pokemonsData.favoritePokemonsArr,
+      // this.pokemonsData.favoritePokemonsArr,
       `#${SideFavoritePokemons.sectionID}`,
       this.pokemonsData
     );

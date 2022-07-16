@@ -22,7 +22,7 @@ export interface FavoritePokemon {
 }
 
 export type UpdateFavoritePokemonListFun = (
-  favoritePokemonArr: FavoritePokemon[],
+  // favoritePokemonArr: FavoritePokemon[],
   parentQuery: string,
   pokemonsData: TPokemonsDataClient
 ) => void;

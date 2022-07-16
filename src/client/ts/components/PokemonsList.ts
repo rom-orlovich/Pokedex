@@ -244,7 +244,7 @@ export class PokemonsList {
 
       // Update the favorite pokemon list.
       updateFavoritePokemon(
-        pokemonData.favoritePokemonsArr,
+        // pokemonData.favoritePokemonsArr,
         `#${SideFavoritePokemons.sectionID}`,
         pokemonData
       );

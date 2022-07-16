@@ -39,7 +39,7 @@ export class FavoritePokemonsList {
   }
 
   static update(
-    favoritePokemonArr: FavoritePokemon[],
+    // favoritePokemonArr: FavoritePokemon[],
     parentQuery: string,
     pokemonsData: TPokemonsDataClient
   ) {
@@ -55,14 +55,13 @@ export class FavoritePokemonsList {
 
     // Appends the new list with new pokemons data.
     parentEl.appendChild(
-      FavoritePokemonsList.createListPokemons(favoritePokemonArr)
+      FavoritePokemonsList.createListPokemons(pokemonsData.favoritePokemonsArr)
     );
     FavoritePokemonsList.initEvents(pokemonsData);
   }
 
   static createListPokemons(
     favoritePokemonArr: FavoritePokemon[],
-
     options?: InewPokemonsListRenderOptions
   ) {
     // The options has props of query if, is not exist it will be "Pokemons"
@@ -119,7 +118,7 @@ export class FavoritePokemonsList {
       pokemonData.removePokemonFromFavoriteList(liFavPokemon.id);
 
       updateFavoritePokemon(
-        pokemonData.favoritePokemonsArr,
+        // pokemonData.favoritePokemonsArr,
         `#${SideFavoritePokemons.sectionID}`,
         pokemonData
       );
