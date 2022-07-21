@@ -66,7 +66,7 @@ export async function connectPGSqlDB() {
 
       // eslint-disable-next-line no-unused-vars
       const [res, err] = await createPokemonsDBsql();
-      if (!err) throw err;
+      if (err) throw err;
       app.listen(PORT, () => {
         console.log(`listen port ${PORT}`);
       });
