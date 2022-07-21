@@ -14,3 +14,5 @@ export const FAVORITE_POKEMONS_PATH = join(
 
 export const POKEMONSDB_FILENAME = "pokemonsDB.json";
 export const POKEMONS_DB_PATH = join(dbFolder, POKEMONSDB_FILENAME);
+
+export const POKEMONS_TABLE_NAME = "pokemonsdata";

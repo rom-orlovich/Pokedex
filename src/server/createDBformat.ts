@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import { makeUniqeArr, promiseHandler } from "../utlites/helpers";
-import { InewPokemon, IoldPokemon } from "../types";
-import { POKEMONS_DB_PATH } from "../utlites/constansVariables";
-import { readFileRes } from "../utlites/fsHelpers";
+import { makeUniqeArr, promiseHandler } from "./utlites/helpers";
+import { InewPokemon, IoldPokemon } from "./types";
+import { POKEMONS_DB_PATH } from "./utlites/constansVariables";
+import { readFileRes } from "./utlites/fsHelpers";
 
-import { pokemonsCollection } from "./mongoConnect";
+import { pokemonsCollection } from "./mongoDB/mongoConnect";
 
 function formatNewPokemon(
   firstPokemon: IoldPokemon,
@@ -41,13 +41,13 @@ function formatNewPokemon(
 }
 
 // Creates new merge pokemon array.
-async function mergePokemons() {
+export async function mergePokemons(numPokemon?: number) {
   // eslint-disable-next-line no-unused-vars
   // Read from pokemonsDB.json file
   const [res, _] = await readFileRes<IoldPokemon[]>(POKEMONS_DB_PATH);
 
   let mergeArr: InewPokemon[] = [];
-
+  let stop = 1;
   let mergePokemonID = 10249;
   // Makes the res array sort different from the sort of id.
   // For  randomness purpose.
@@ -58,31 +58,17 @@ async function mergePokemons() {
       const pokemon2 = data[j];
       // Creates new ID from 2 pokemons and the bigger id is the first,
       // For the caching array. In order to prevent duplicated merged.
-
       mergeArr.push(formatNewPokemon(pokemon1, pokemon2, mergePokemonID));
       mergePokemonID++;
-
-      console.log(mergePokemonID);
+      // console.log(mergePokemonID);
+      if (stop === numPokemon) {
+        i = res.length;
+        j = res.length;
+      } else stop++;
     }
   }
 
   mergeArr = [...res.map((pok) => ({ ...pok, img: [pok.img] })), ...mergeArr];
 
   return mergeArr;
-}
-
-export default async function mongoSetDB() {
-  try {
-    await pokemonsCollection.drop();
-  } catch (error) {
-    console.log("Starts merging between the pokemons...");
-    const createMergeArr = await mergePokemons();
-    console.log("Finsih merging between the pokemons!");
-    console.log("Start sending the data to the mongoDB... ");
-    const [res, err] = await promiseHandler(
-      pokemonsCollection.insertMany(createMergeArr)
-    );
-    console.log("Finish sending the data to the mongoDB!");
-    console.log(res, err);
-  }
 }

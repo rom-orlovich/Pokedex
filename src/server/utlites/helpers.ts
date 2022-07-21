@@ -13,3 +13,11 @@ export const promiseHandler = async <T>(promise: Promise<T>) => {
   }
 };
 export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
+
+export const responseAsCosntConst = <T>(
+  response: T,
+  error: Error | undefined
+) => {
+  if (error) return [undefined, error] as const;
+  return [response as T, undefined] as const;
+};
