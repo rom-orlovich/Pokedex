@@ -15,6 +15,7 @@ import {
   insertTableData,
 } from "../utlites/pgSqlHelpers";
 
+// The config object below is for local development purpose.
 const configClient: ClientConfig = process.env.DATABASE_URL
   ? {
       connectionString: process.env.DATABASE_URL,
@@ -26,17 +27,20 @@ const configClient: ClientConfig = process.env.DATABASE_URL
       host: "localhost",
       database: "pokemondb",
       port: 5432,
-      user: "roch2807",
-      password: "8291113o",
+      user: "",
+      password: "",
     };
 
 export const client = new Client(configClient);
 
 async function createPokemonsDBsql() {
+  // Check if the table is exist. if not the function create the DB in postgres.
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);
   if (res?.rows[0].exists) return responseAsCosntConst(res, err);
+
   const numPokemon = 8000 - 1153;
   const data = await mergePokemons(numPokemon);
+
   const tableColumns: FieldName[] = [
     { nameField: "id", type: "TEXT", constraint: "PRIMARY KEY" },
     { nameField: "img", type: "JSONB" },
@@ -46,11 +50,15 @@ async function createPokemonsDBsql() {
     { nameField: "weight", type: "FLOAT" },
   ];
 
+  // Drop exist table and create new one.
   [res, err] = await createTableFun(POKEMONS_TABLE_NAME, tableColumns, {
     drop: true,
   });
 
+  // Create fields names array to pass insertTableData function.
   const fieldName = createFieldNames(data[0]);
+
+  // Create fields values array to pass insertTableData function.
   const fieldValueArr = data.map((value) => {
     const newObj = {
       id: value.id,

@@ -8,6 +8,7 @@ export async function createTableFun(
   fieldNamesArr: FieldName[],
   options?: OptionsCreateTable
 ) {
+  // If options.drop is exist the table will drop.
   if (options?.drop) {
     const [_, err] = await promiseHandler(
       client.query(`DROP TABLE IF EXISTS ${tableName}`)
@@ -21,6 +22,8 @@ export async function createTableFun(
     options?.existTable ? "IF NOT EXISTS" : ""
   }${tableName}`;
 
+  // Create string from the fields names array in order to pass to
+  // the statement query.
   const fieldsNamesStr = fieldNamesArr.reduce(
     (pre, cur) =>
       `${pre} ${cur.nameField} ${cur.type} ${cur.constraint || ""},`,
@@ -43,20 +46,21 @@ export async function insertTableData(
   // Create string of the name fields.
   const fieldsNamesStr = fieldsNamesArr.join(",");
 
-  let index = 1;
-  // Create place holders of ($1 ,$2) according to number of the values to insert..
+  let parmaterIndex = 1;
+  // Create placeholders of ($1 ,$2) according to number of the values to insert
+  // to the table.
   const fieldsValuesPlaceHolder = fieldValuesArr
     .reduce(
       (pre, cur) =>
         `${pre}(${cur
-          .reduce((sum: any, _: any) => `${sum}$${index++},`, "")
+          .reduce((str: any) => `${str}$${parmaterIndex++},`, "")
           .slice(0, -1)}),`,
       ""
     )
     .slice(0, -1);
 
   const statement = `${beginQuery} (${fieldsNamesStr}) 
-  VALUES ${fieldsValuesPlaceHolder}`;
+  VALUES ${fieldsValuesPlaceHolder}`; // $1,$2 ,$3 ...
 
   const [res, err] = await promiseHandler(
     client.query(statement, fieldValuesArr.flat(1))
@@ -65,6 +69,7 @@ export async function insertTableData(
   return responseAsCosntConst(res, err);
 }
 
+// Check if the table name is exist.
 export async function checkIfTableExist(nameTable: string) {
   const statement = `SELECT EXISTS (SELECT 1
     FROM information_schema.tables

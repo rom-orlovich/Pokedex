@@ -5,6 +5,8 @@ import { createTableFun, insertTableData } from "./pgSqlHelpers";
 
 export const FAVORITE_POKEMONS_TABLE_NAME = "favorite_pokemons_data";
 
+// Gets the num page to show to client and  the pokemon name query "?name=''".
+// Each page display 12 results.
 export async function getPokemonsDataByPageAndName(
   pageNumber: number,
   queryName: string | undefined
@@ -19,6 +21,8 @@ export async function getPokemonsDataByPageAndName(
 
   return responseAsCosntConst(data, err);
 }
+
+// Creates new favorite poekmons list .
 export async function createFavoritePokemonTable(data: object[]) {
   const fieldNames = [
     {
