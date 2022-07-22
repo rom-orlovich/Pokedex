@@ -1,7 +1,7 @@
 import { client } from "../pgSqlDB/pgSqlConnect";
-import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
-import { promiseHandler, responseAsCosntConst } from "../utlites/helpers";
-import { createTableFun, insertTableData } from "../utlites/pgSqlHelpers";
+import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "./constansVariables";
+import { promiseHandler, responseAsCosntConst } from "./helpers";
+import { createTableFun, insertTableData } from "./pgSqlHelpers";
 
 export const FAVORITE_POKEMONS_TABLE_NAME = "favorite_pokemons_data";
 
@@ -19,7 +19,7 @@ export async function getPokemonsDataByPageAndName(
 
   return responseAsCosntConst(data, err);
 }
-export async function createFavoritePokemonTable(data: any[]) {
+export async function createFavoritePokemonTable(data: object[]) {
   const fieldNames = [
     {
       nameField: "id",

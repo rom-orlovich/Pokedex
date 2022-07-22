@@ -7,7 +7,7 @@ import {
   createFavoritePokemonTable,
   FAVORITE_POKEMONS_TABLE_NAME,
   getPokemonsDataByPageAndName,
-} from "./helprsConrollers";
+} from "../utlites/helprsConrollers";
 
 export const getPokemonsPGSQL = async (req: Request, res: Response) => {
   const pageRes = (Number(req.params.page) - 1) * NUM_RESULTS;
@@ -33,7 +33,7 @@ export const saveFavoirtePokemonsPGSQL = async (
 export const getFavoritePokemonsPGSQL = async (req: Request, res: Response) => {
   const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME} `;
   const [data, err] = await promiseHandler(client.query(statement));
-  console.log(data, err);
+
   if (err) return res.status(200).json([]);
   return res.status(200).json(data?.rows[0].favorite_pokemons_list);
 };
