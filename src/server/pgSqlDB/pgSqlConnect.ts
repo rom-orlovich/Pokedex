@@ -1,6 +1,7 @@
 import { Client } from "pg";
+import { json } from "stream/consumers";
 import { mergePokemons } from "../createDBformat";
-import { InewPokemon } from "../types";
+import { FieldName, InewPokemon } from "../types";
 import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
 import { app, PORT } from "../utlites/expressUtilites";
 import { responseAsCosntConst } from "../utlites/helpers";
@@ -19,25 +20,25 @@ export const client = new Client({
   password: "8291113o",
 });
 
-function createFieldValues(obj: InewPokemon) {
+function createFieldValues(obj: any) {
   return Object.values(obj);
 }
-function createFieldNames(obj: InewPokemon) {
+function createFieldNames(obj: any) {
   return Object.keys(obj);
 }
 
 async function createPokemonsDBsql() {
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);
-  if (res?.rows[0].exists) return responseAsCosntConst(res, err);
-  const numPokemon = 8000 - 1154;
+  // if (res?.rows[0].exists) return responseAsCosntConst(res, err);
+  const numPokemon = 8000 - 1153;
   const data = await mergePokemons(numPokemon);
-  const tableColumns = [
+  const tableColumns: FieldName[] = [
     { nameField: "id", type: "TEXT", constraint: "PRIMARY KEY" },
-    { nameField: "img", type: "TEXT[]" },
+    { nameField: "img", type: "JSONB" },
     { nameField: "name", type: "TEXT" },
-    { nameField: "type", type: "TEXT[]" },
-    { nameField: "height", type: "TEXT" },
-    { nameField: "weight", type: "TEXT" },
+    { nameField: "type", type: "JSONB" },
+    { nameField: "height", type: "FLOAT" },
+    { nameField: "weight", type: "FLOAT" },
   ];
 
   [res, err] = await createTableFun(POKEMONS_TABLE_NAME, tableColumns, {
@@ -45,7 +46,18 @@ async function createPokemonsDBsql() {
   });
 
   const fieldName = createFieldNames(data[0]);
-  const fieldValueArr = data.slice(0, 100).map(createFieldValues);
+  const fieldValueArr = data.map((value) => {
+    const newObj = {
+      id: value.id,
+      img: JSON.stringify(value.img),
+      name: value.name,
+      type: JSON.stringify(value.type),
+      height: value.height,
+      weight: value.weight,
+    };
+
+    return createFieldValues(newObj);
+  });
 
   [res, err] = await insertTableData(
     POKEMONS_TABLE_NAME,
@@ -66,6 +78,7 @@ export async function connectPGSqlDB() {
 
       // eslint-disable-next-line no-unused-vars
       const [res, err] = await createPokemonsDBsql();
+
       if (err) throw err;
       app.listen(PORT, () => {
         console.log(`listen port ${PORT}`);

@@ -16,3 +16,5 @@ export const POKEMONSDB_FILENAME = "pokemonsDB.json";
 export const POKEMONS_DB_PATH = join(dbFolder, POKEMONSDB_FILENAME);
 
 export const POKEMONS_TABLE_NAME = "pokemonsdata";
+
+export const NUM_RESULTS = 12;

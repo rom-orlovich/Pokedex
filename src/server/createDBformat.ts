@@ -48,7 +48,7 @@ export async function mergePokemons(numPokemon?: number) {
 
   let mergeArr: InewPokemon[] = [];
   let stop = 1;
-  let mergePokemonID = 10249;
+  let mergePokemonID = 10250;
   // Makes the res array sort different from the sort of id.
   // For  randomness purpose.
   const data = res.slice().sort((pok1, pok2) => pok1.weight - pok2.weight);

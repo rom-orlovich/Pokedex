@@ -35,3 +35,14 @@ export interface IoldPokemon extends IbasicPokemon {
 export interface InewPokemon extends IbasicPokemon {
   img: string[];
 }
+
+export interface FieldName {
+  nameField: string;
+  type: string;
+  constraint?: string;
+}
+
+export interface OptionsCreateTable {
+  existTable?: boolean;
+  drop?: boolean;
+}

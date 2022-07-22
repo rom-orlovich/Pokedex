@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { client } from "../pgSqlDB/pgSqlConnect";
+import { FieldName, OptionsCreateTable } from "../types";
 import { promiseHandler, responseAsCosntConst } from "./helpers";
 
 export async function createTableFun(
   tableName: string,
-  fieldNamesArr: { nameField: string; type: string; constraint?: string }[],
-  options?: { existTable?: boolean; drop?: boolean }
+  fieldNamesArr: FieldName[],
+  options?: OptionsCreateTable
 ) {
   if (options?.drop) {
     const [_, err] = await promiseHandler(
@@ -41,6 +42,7 @@ export async function insertTableData(
 
   // Create string of the name fields.
   const fieldsNamesStr = fieldsNamesArr.join(",");
+
   let index = 1;
   // Create place holders of ($1 ,$2) according to number of the values to insert..
   const fieldsValuesPlaceHolder = fieldValuesArr
@@ -59,6 +61,7 @@ export async function insertTableData(
   const [res, err] = await promiseHandler(
     client.query(statement, fieldValuesArr.flat(1))
   );
+
   return responseAsCosntConst(res, err);
 }
 
