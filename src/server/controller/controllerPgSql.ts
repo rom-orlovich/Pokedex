@@ -1,18 +1,20 @@
 import { client } from "../pgSqlDB/pgSqlConnect";
-import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
+import { NUM_RESULTS } from "../utlites/constansVariables";
 import { Request, Response } from "../utlites/expressUtilites";
 import { promiseHandler } from "../utlites/helpers";
 
+import {
+  createFavoritePokemonTable,
+  FAVORITE_POKEMONS_TABLE_NAME,
+  getPokemonsDataByPageAndName,
+} from "./helprsConrollers";
+
 export const getPokemonsPGSQL = async (req: Request, res: Response) => {
   const pageRes = (Number(req.params.page) - 1) * NUM_RESULTS;
+  const queryName =
+    typeof req.query.name === "string" ? req.query.name : undefined;
 
-  const queryName = `${req.query.name}%`;
-  const statement = req.query.name
-    ? `SELECT * FROM ${POKEMONS_TABLE_NAME} WHERE name like $1 LIMIT ${NUM_RESULTS} OFFSET $2`
-    : `SELECT * FROM ${POKEMONS_TABLE_NAME} LIMIT ${NUM_RESULTS} OFFSET $1`;
-  const parmas = req.query.name ? [queryName, pageRes] : [pageRes];
-
-  const [data, err] = await promiseHandler(client.query(statement, parmas));
+  const [data, err] = await getPokemonsDataByPageAndName(pageRes, queryName);
 
   if (err) return res.status(404).json([]);
   return res.status(200).json(data?.rows);
@@ -22,11 +24,17 @@ export const saveFavoirtePokemonsPGSQL = async (
   req: Request,
   res: Response
 ) => {
-  //   if (err[1]) return res.status(400).send("The data is not added");
-  //   return res.status(200).send("The data is added successfully");
+  const { body } = req;
+  const [data, err] = await createFavoritePokemonTable(body);
+
+  if (err) return res.status(400).send("The data is not added");
+  return res.status(200).send("The data is added successfully");
 };
 
 export const getFavoritePokemonsPGSQL = async (req: Request, res: Response) => {
-  //   if (err) return res.status(400).json([]);
-  //   return res.status(200).json(data);
+  const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME} `;
+  const [data, err] = await promiseHandler(client.query(statement));
+
+  if (err) return res.status(400).send("The data is not found");
+  return res.status(200).json(data?.rows[0].favorite_pokemons_list);
 };

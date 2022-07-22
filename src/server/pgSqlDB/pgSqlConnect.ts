@@ -1,7 +1,7 @@
 import { Client } from "pg";
-import { json } from "stream/consumers";
+
 import { mergePokemons } from "../createDBformat";
-import { FieldName, InewPokemon } from "../types";
+import { FieldName } from "../types";
 import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
 import { app, PORT } from "../utlites/expressUtilites";
 import { responseAsCosntConst } from "../utlites/helpers";
@@ -29,7 +29,7 @@ function createFieldNames(obj: any) {
 
 async function createPokemonsDBsql() {
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);
-  // if (res?.rows[0].exists) return responseAsCosntConst(res, err);
+  if (res?.rows[0].exists) return responseAsCosntConst(res, err);
   const numPokemon = 8000 - 1153;
   const data = await mergePokemons(numPokemon);
   const tableColumns: FieldName[] = [
