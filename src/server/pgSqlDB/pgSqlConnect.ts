@@ -1,31 +1,36 @@
-import { Client } from "pg";
+import { Client, ClientConfig } from "pg";
 
 import { mergePokemons } from "../createDBformat";
 import { FieldName } from "../types";
 import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
 import { app, PORT } from "../utlites/expressUtilites";
-import { responseAsCosntConst } from "../utlites/helpers";
+import {
+  createFieldNames,
+  createFieldValues,
+  responseAsCosntConst,
+} from "../utlites/helpers";
 import {
   checkIfTableExist,
   createTableFun,
   insertTableData,
 } from "../utlites/pgSqlHelpers";
 
-export const client = new Client({
-  host: "localhost",
-  database: "pokemondb",
+const configClient: ClientConfig = process.env.DATABASE_URL
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }
+  : {
+      host: "localhost",
+      database: "pokemondb",
+      port: 5432,
+      user: "roch2807",
+      password: "8291113o",
+    };
 
-  port: 5432,
-  user: "roch2807",
-  password: "8291113o",
-});
-
-function createFieldValues(obj: any) {
-  return Object.values(obj);
-}
-function createFieldNames(obj: any) {
-  return Object.keys(obj);
-}
+export const client = new Client(configClient);
 
 async function createPokemonsDBsql() {
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);

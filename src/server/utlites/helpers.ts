@@ -21,3 +21,9 @@ export const responseAsCosntConst = <T>(
   if (error) return [undefined, error] as const;
   return [response as T, undefined] as const;
 };
+export function createFieldValues(obj: any) {
+  return Object.values(obj);
+}
+export function createFieldNames(obj: any) {
+  return Object.keys(obj);
+}

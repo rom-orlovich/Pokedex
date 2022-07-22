@@ -13,9 +13,7 @@ export const getPokemonsPGSQL = async (req: Request, res: Response) => {
   const pageRes = (Number(req.params.page) - 1) * NUM_RESULTS;
   const queryName =
     typeof req.query.name === "string" ? req.query.name : undefined;
-
   const [data, err] = await getPokemonsDataByPageAndName(pageRes, queryName);
-
   if (err) return res.status(404).json([]);
   return res.status(200).json(data?.rows);
 };
@@ -25,6 +23,7 @@ export const saveFavoirtePokemonsPGSQL = async (
   res: Response
 ) => {
   const { body } = req;
+  // eslint-disable-next-line no-unused-vars
   const [data, err] = await createFavoritePokemonTable(body);
 
   if (err) return res.status(400).send("The data is not added");
