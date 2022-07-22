@@ -4,9 +4,6 @@ import { app, express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { connectPGSqlDB } from "./pgSqlDB/pgSqlConnect";
 
-// NOTE: Uncomment this line in order to execute this function :
-// import createMongoDB from "./mongoDB/createMongoDB";
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());

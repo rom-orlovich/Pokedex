@@ -33,7 +33,7 @@ export const saveFavoirtePokemonsPGSQL = async (
 export const getFavoritePokemonsPGSQL = async (req: Request, res: Response) => {
   const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME} `;
   const [data, err] = await promiseHandler(client.query(statement));
-
-  if (err) return res.status(400).send("The data is not found");
+  console.log(data, err);
+  if (err) return res.status(200).json([]);
   return res.status(200).json(data?.rows[0].favorite_pokemons_list);
 };

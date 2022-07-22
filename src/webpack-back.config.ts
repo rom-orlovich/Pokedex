@@ -37,7 +37,7 @@ const config: webpack.Configuration = {
     extensions: [".ts", ".js"],
   },
 
-  externals: ["mongodb-client-encryption"],
+  externals: ["mongodb-client-encryption", "pg-native"],
   plugins: [new ESLintPlugin()],
 };
 
