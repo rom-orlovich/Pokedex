@@ -1,5 +1,5 @@
-import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "./constansVariables";
-import { promiseHandler, dataOrErrorResponeAsConst } from "./helpers";
+import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
+import { promiseHandler, dataOrErrorResponeAsConst } from "../utlites/helpers";
 import { createTableFun, insertTableData } from "../PGSqlDB/PGSqlHelpers";
 import { client } from "../PGSqlDB/PGSqlConfig";
 

@@ -9,13 +9,14 @@ import {
   createFavoritePokemonTable,
   FAVORITE_POKEMONS_TABLE_NAME,
   getPokemonsDataByPageAndName,
-} from "../utlites/helpersControllers";
+} from "./helpersControllers";
 
 // Controller to endpoint "/getPokemons/:page"
 export const getPokemonsPGSQL = async (req: Request, res: Response) => {
   const pageRes = (Number(req.params.page) - 1) * NUM_RESULTS;
   const queryName =
     typeof req.query.name === "string" ? req.query.name : undefined;
+
   // Execute the query logic of get pokemons data from the sql db.
   const [data, err] = await getPokemonsDataByPageAndName(pageRes, queryName);
   if (err) return res.status(404).json([]);
@@ -28,19 +29,17 @@ export const saveFavoirtePokemonsPGSQL = async (
   res: Response
 ) => {
   const { body } = req;
-  // eslint-disable-next-line no-unused-vars
   // Execute the query logic of create favoirte pokemons data in the sql db.
   const [data, err] = await createFavoritePokemonTable(body);
   if (err) return res.status(404).send("The data is not added");
   return res.status(200).send("The data is added successfully");
 };
 
-// Controller to endpoint "/getFavoritePokemons"
+// Controller to endpoint "/getFavoritePokemons".
 // Get the favorite poekmons list from the database.
 export const getFavoritePokemonsPGSQL = async (req: Request, res: Response) => {
   const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME}`;
   const [data, err] = await promiseHandler(client.query(statement));
-  console.log(data, err);
   if (err) return res.status(404).json([]);
 
   return res.status(200).json(data?.rows[0]?.favorite_pokemons_list || []);

@@ -1,9 +1,9 @@
-import {} from "../controller/controllerMongoDB";
+import {} from "../controllers/controllerMongoDB";
 import {
   getFavoritePokemonsPGSQL,
   getPokemonsPGSQL,
   saveFavoirtePokemonsPGSQL,
-} from "../controller/controllerPGSql";
+} from "../controllers/controllerPGSql";
 
 import { router } from "../utlites/expressUtilites";
 
