@@ -2,7 +2,7 @@
 import cors from "cors";
 import { app, express } from "./utlites/expressUtilites";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
-import { connectPGSqlDB } from "./pgSqlDB/pgSqlConnect";
+import { connectPGSqlDB } from "./PGSqlDB/PGSqlConnect";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

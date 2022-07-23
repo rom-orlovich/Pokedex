@@ -1,7 +1,7 @@
-import { client } from "../pgSqlDB/pgSqlConnect";
 import { NUM_RESULTS, POKEMONS_TABLE_NAME } from "./constansVariables";
-import { promiseHandler, responseAsCosntConst } from "./helpers";
-import { createTableFun, insertTableData } from "./pgSqlHelpers";
+import { promiseHandler, dataOrErrorResponeAsConst } from "./helpers";
+import { createTableFun, insertTableData } from "../PGSqlDB/PGSqlHelpers";
+import { client } from "../PGSqlDB/PGSqlConfig";
 
 export const FAVORITE_POKEMONS_TABLE_NAME = "favorite_pokemons_data";
 
@@ -19,7 +19,7 @@ export async function getPokemonsDataByPageAndName(
 
   const [data, err] = await promiseHandler(client.query(statement, parmas));
 
-  return responseAsCosntConst(data, err);
+  return dataOrErrorResponeAsConst(data, err);
 }
 
 // Creates new favorite poekmons list .
@@ -47,5 +47,5 @@ export async function createFavoritePokemonTable(data: object[]) {
     )
   );
 
-  return responseAsCosntConst(res, err);
+  return dataOrErrorResponeAsConst(res, err);
 }

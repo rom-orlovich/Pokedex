@@ -3,7 +3,7 @@ import {
   getFavoritePokemonsPGSQL,
   getPokemonsPGSQL,
   saveFavoirtePokemonsPGSQL,
-} from "../controller/controllerPgSql";
+} from "../controller/controllerPGSql";
 
 import { router } from "../utlites/expressUtilites";
 

@@ -1,8 +1,9 @@
 import { InsertManyResult } from "mongodb";
+import {} from "../mongoDB/mongoConnect";
 import {
   favPokemonsCollection,
   pokemonsCollection,
-} from "../mongoDB/mongoConnect";
+} from "../mongoDB/mongoDBConfig";
 import { Request, Response } from "../utlites/expressUtilites";
 import { promiseHandler } from "../utlites/helpers";
 

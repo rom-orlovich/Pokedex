@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { client } from "../pgSqlDB/pgSqlConnect";
+
+import { client } from "../PGSqlDB/PGSqlConfig";
 import { NUM_RESULTS } from "../utlites/constansVariables";
 import { Request, Response } from "../utlites/expressUtilites";
 import { promiseHandler } from "../utlites/helpers";
@@ -8,7 +9,7 @@ import {
   createFavoritePokemonTable,
   FAVORITE_POKEMONS_TABLE_NAME,
   getPokemonsDataByPageAndName,
-} from "../utlites/helprsConrollers";
+} from "../utlites/helpersControllers";
 
 // Controller to endpoint "/getPokemons/:page"
 export const getPokemonsPGSQL = async (req: Request, res: Response) => {
@@ -37,8 +38,10 @@ export const saveFavoirtePokemonsPGSQL = async (
 // Controller to endpoint "/getFavoritePokemons"
 // Get the favorite poekmons list from the database.
 export const getFavoritePokemonsPGSQL = async (req: Request, res: Response) => {
-  const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME} `;
+  const statement = `SELECT * FROM ${FAVORITE_POKEMONS_TABLE_NAME}`;
   const [data, err] = await promiseHandler(client.query(statement));
+  console.log(data, err);
   if (err) return res.status(404).json([]);
-  return res.status(200).json(data?.rows[0].favorite_pokemons_list);
+
+  return res.status(200).json(data?.rows[0]?.favorite_pokemons_list || []);
 };

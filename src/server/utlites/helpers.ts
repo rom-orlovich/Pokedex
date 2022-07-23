@@ -14,12 +14,12 @@ export const promiseHandler = async <T>(promise: Promise<T>) => {
 };
 export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
-export const responseAsCosntConst = <T>(
-  response: T,
+export const dataOrErrorResponeAsConst = <T>(
+  data: T,
   error: Error | undefined
 ) => {
   if (error) return [undefined, error] as const;
-  return [response as T, undefined] as const;
+  return [data as T, undefined] as const;
 };
 export function createFieldValues(obj: any) {
   return Object.values(obj);

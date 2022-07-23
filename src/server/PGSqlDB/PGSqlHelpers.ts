@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { client } from "../pgSqlDB/pgSqlConnect";
+
 import { FieldName, OptionsCreateTable } from "../types";
-import { promiseHandler, responseAsCosntConst } from "./helpers";
+import { promiseHandler, dataOrErrorResponeAsConst } from "../utlites/helpers";
+import { client } from "./PGSqlConfig";
 
 export async function createTableFun(
   tableName: string,
@@ -33,7 +34,7 @@ export async function createTableFun(
   const statement = `${beginQuery} (${fieldsNamesStr.slice(0, -1)})`;
 
   const [res, err] = await promiseHandler(client.query(statement));
-  return responseAsCosntConst(res, err);
+  return dataOrErrorResponeAsConst(res, err);
 }
 
 export async function insertTableData(
@@ -66,7 +67,7 @@ export async function insertTableData(
     client.query(statement, fieldValuesArr.flat(1))
   );
 
-  return responseAsCosntConst(res, err);
+  return dataOrErrorResponeAsConst(res, err);
 }
 
 // Check if the table name is exist.
@@ -75,5 +76,5 @@ export async function checkIfTableExist(nameTable: string) {
     FROM information_schema.tables
     WHERE table_name = $1)`;
   const [res, err] = await promiseHandler(client.query(statement, [nameTable]));
-  return responseAsCosntConst(res, err);
+  return dataOrErrorResponeAsConst(res, err);
 }

@@ -1,5 +1,3 @@
-import { Client, ClientConfig } from "pg";
-
 import { mergePokemons } from "../createDBformat";
 import { FieldName } from "../types";
 import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
@@ -7,36 +5,20 @@ import { app, PORT } from "../utlites/expressUtilites";
 import {
   createFieldNames,
   createFieldValues,
-  responseAsCosntConst,
+  dataOrErrorResponeAsConst,
 } from "../utlites/helpers";
+import { client } from "./PGSqlConfig";
+
 import {
   checkIfTableExist,
   createTableFun,
   insertTableData,
-} from "../utlites/pgSqlHelpers";
-
-// The config object below is for local development purpose.
-const configClient: ClientConfig = process.env.DATABASE_URL
-  ? {
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    }
-  : {
-      host: "localhost",
-      database: "pokemondb",
-      port: 5432,
-      user: "",
-      password: "",
-    };
-
-export const client = new Client(configClient);
+} from "./PGSqlHelpers";
 
 async function createPokemonsDBsql() {
   // Check if the table is exist. if not the function create the DB in postgres.
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);
-  if (res?.rows[0].exists) return responseAsCosntConst(res, err);
+  if (res?.rows[0].exists) return dataOrErrorResponeAsConst(res, err);
 
   const numPokemon = 8000 - 1153;
   const data = await mergePokemons(numPokemon);
@@ -78,7 +60,7 @@ async function createPokemonsDBsql() {
     fieldValueArr
   );
 
-  return responseAsCosntConst(res, err);
+  return dataOrErrorResponeAsConst(res, err);
 }
 
 export async function connectPGSqlDB() {
@@ -98,7 +80,6 @@ export async function connectPGSqlDB() {
       });
     })
     .catch((err) => {
-      // console.log("something went worng");
       console.log(err);
       client.end();
     });

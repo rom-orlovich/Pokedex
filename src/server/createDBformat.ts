@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import { makeUniqeArr, promiseHandler } from "./utlites/helpers";
+import { makeUniqeArr } from "./utlites/helpers";
 import { InewPokemon, IoldPokemon } from "./types";
 import { POKEMONS_DB_PATH } from "./utlites/constansVariables";
 import { readFileRes } from "./utlites/fsHelpers";
-
-import { pokemonsCollection } from "./mongoDB/mongoConnect";
 
 function formatNewPokemon(
   firstPokemon: IoldPokemon,
