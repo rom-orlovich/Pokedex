@@ -1,4 +1,4 @@
-import { mergePokemons } from "../createDBformat";
+import { mergePokemons } from "../createPokemonsMergingDB";
 import { app, PORT } from "../utlites/expressUtilites";
 import { promiseHandler } from "../utlites/helpers";
 import { clientDB, pokemonsCollection } from "./mongoDBConfig";

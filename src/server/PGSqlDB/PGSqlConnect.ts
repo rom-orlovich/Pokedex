@@ -1,4 +1,4 @@
-import { mergePokemons } from "../createDBformat";
+import { mergePokemons } from "../createPokemonsMergingDB";
 import { FieldName } from "../types";
 import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
 import { app, PORT } from "../utlites/expressUtilites";
