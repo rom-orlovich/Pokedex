@@ -13,6 +13,5 @@ app.use("/", pokemonsRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client"));
 }
-
 // Connect to the DB and listen to server.
 connectPGSqlDB();
