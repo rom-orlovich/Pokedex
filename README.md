@@ -5,7 +5,7 @@ We are Ash Ketchum from Palate town and our goal is to become a master pokemons!
 
 ## About
 This is Cyber4s middle program project. \
-The main goal of this project was to program a scalable web app that had a large database and could to serve many users. \
+The main goal of this project was to program a scalable web app that had a large database and could serve many users. \
 In the begining of this project we used a MongoDB database and we had to create a database of 1 million merged pokemons. \
 During the development process, we were asked to make a migration between MongoDB and PostgreSQL database and kept only 10,000 pokemons. 
 
@@ -63,9 +63,9 @@ The client get his data in chunks (by pagination approach) and not all at once.
 
 
 ## Images: 
-<img src="images/checkers-game-pic.png" width="300" hight="300">
-<img src="images/checkers-game-pic.png" width="300" hight="300">
-<img src="images/checkers-game-pic.png" width="300" hight="300">
+<img alt="Main page" src="./readme-images/main.png" width="300" hight="300">
+<img alt="Favorite pokemons list" src="./readme-images/favorites.png" width="300" hight="300">
+<img alt="Filter pokemons by their names" src="./readme-images/search.png" width="300" hight="300">
 
 
 
