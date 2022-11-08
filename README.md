@@ -63,9 +63,12 @@ The client get his data in chunks (by pagination approach) and not all at once.
 
 
 ## Images: 
-<img alt="Main page" src="./readme-images/main.png" width="300" hight="300">
-<img alt="Favorite pokemons list" src="./readme-images/favorites.png" width="300" hight="300">
-<img alt="Filter pokemons by their names" src="./readme-images/search.png" width="300" hight="300">
+<img alt="Filter pokemons by their names" src="./readme-images/search.png" width="600" hight="600">
+<img alt="Favorite pokemons list" src="./readme-images/favorites.png" width="600" hight="600">
+<img alt="Main page" src="./readme-images/main.png" width="600" hight="600">
+
+
+
 
 
 
