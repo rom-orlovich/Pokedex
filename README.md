@@ -3,7 +3,7 @@ We are Ash Ketchum from Palate town, and our goal is to become master Pokemons! 
 **Can you Catch'Em All?** -
 [Pokedex (Please click on the main site's title - it's a surprise)](https://aqueous-thicket-83962.herokuapp.com/):point_left:
 
-## About
+## About this project:
 This was a Cyber4s middle program project. \
 The main goal of this project was to program a scalable web app that had a large database and could serve many users. \
 At the beginning of this project, we used a MongoDB database and we had to create a database of 1 million merged Pokemons. \
