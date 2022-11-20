@@ -1,7 +1,7 @@
 # Pokedex
 We are Ash Ketchum from Palate town, and our goal is to become master Pokemons! \
 **Can you Catch'Em All?** -
-[Pokedex (Please click on the main site's title - it's a surprise)](https://aqueous-thicket-83962.herokuapp.com/):point_left:
+[Pokedex (Please click on the main site's title - it's a surprise)](https://pokedex-pro.onrender.com):point_left:
 
 ## About this project:
 This was a Cyber4s middle program project. \
