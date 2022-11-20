@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import { makeUniqeArr } from "./utlites/helpers";
+import { makeUniqeArr } from "./utilities/helpers";
 import { InewPokemon, IoldPokemon } from "./types";
-import { POKEMONS_DB_PATH } from "./utlites/constansVariables";
-import { readFileRes } from "./utlites/fsHelpers";
+import { POKEMONS_DB_PATH } from "./utilities/constansVariables";
+import { readFileRes } from "./utilities/fsHelpers";
 
 function formatNewPokemon(
   firstPokemon: IoldPokemon,

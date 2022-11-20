@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { InewPokemon } from "../client/ts/types";
 import { InewPokemonApi, InewPokemon } from "./types";
-import { convertHeight, convertWeight } from "./utlites/helpers";
+import { convertHeight, convertWeight } from "./utilities/helpers";
 // Class PokemonsData deals with the data of the pokemons
 export class PokemonsDataServer {
   pokemonsDataArr: InewPokemon[];

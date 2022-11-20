@@ -4,8 +4,8 @@ import {
   favPokemonsCollection,
   pokemonsCollection,
 } from "../mongoDB/mongoDBConfig";
-import { Request, Response } from "../utlites/expressUtilites";
-import { promiseHandler } from "../utlites/helpers";
+import { Request, Response } from "../utilities/expressutilities";
+import { promiseHandler } from "../utilities/helpers";
 
 export const getPokemonsMongoDB = async (req: Request, res: Response) => {
   const pageRes = Number(req.params.page);

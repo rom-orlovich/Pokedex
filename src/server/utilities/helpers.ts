@@ -14,7 +14,7 @@ export const promiseHandler = async <T>(promise: Promise<T>) => {
 };
 export const makeUniqeArr = (arr: any[]) => [...new Set(arr)];
 
-export const dataOrErrorResponeAsConst = <T>(
+export const dataOrErrorResponseAsConst = <T>(
   data: T,
   error: Error | undefined
 ) => {

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import { client } from "../PGSqlDB/PGSqlConfig";
-import { NUM_RESULTS } from "../utlites/constansVariables";
-import { Request, Response } from "../utlites/expressUtilites";
-import { promiseHandler } from "../utlites/helpers";
+import { NUM_RESULTS } from "../utilities/constansVariables";
+import { Request, Response } from "../utilities/expressutilities";
+import { promiseHandler } from "../utilities/helpers";
 
 import {
   createFavoritePokemonTable,

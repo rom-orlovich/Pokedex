@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 
 import { FieldName, OptionsCreateTable } from "../types";
-import { promiseHandler, dataOrErrorResponeAsConst } from "../utlites/helpers";
+import {
+  promiseHandler,
+  dataOrErrorResponseAsConst,
+} from "../utilities/helpers";
 import { client } from "./PGSqlConfig";
 
 export async function createTableFun(
@@ -34,7 +37,7 @@ export async function createTableFun(
   const statement = `${beginQuery} (${fieldsNamesStr.slice(0, -1)})`;
 
   const [res, err] = await promiseHandler(client.query(statement));
-  return dataOrErrorResponeAsConst(res, err);
+  return dataOrErrorResponseAsConst(res, err);
 }
 
 export async function insertTableData(
@@ -47,14 +50,14 @@ export async function insertTableData(
   // Create string of the name fields.
   const fieldsNamesStr = fieldsNamesArr.join(",");
 
-  let parmaterIndex = 1;
+  let paramIndex = 1;
   // Create placeholders of ($1 ,$2) according to number of the values to insert
   // to the table.
   const fieldsValuesPlaceHolder = fieldValuesArr
     .reduce(
       (pre, cur) =>
         `${pre}(${cur
-          .reduce((str: any) => `${str}$${parmaterIndex++},`, "")
+          .reduce((str: any) => `${str}$${paramIndex++},`, "")
           .slice(0, -1)}),`,
       ""
     )
@@ -67,7 +70,7 @@ export async function insertTableData(
     client.query(statement, fieldValuesArr.flat(1))
   );
 
-  return dataOrErrorResponeAsConst(res, err);
+  return dataOrErrorResponseAsConst(res, err);
 }
 
 // Check if the table name is exist.
@@ -76,5 +79,5 @@ export async function checkIfTableExist(nameTable: string) {
     FROM information_schema.tables
     WHERE table_name = $1)`;
   const [res, err] = await promiseHandler(client.query(statement, [nameTable]));
-  return dataOrErrorResponeAsConst(res, err);
+  return dataOrErrorResponseAsConst(res, err);
 }

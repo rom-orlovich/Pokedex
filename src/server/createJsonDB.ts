@@ -7,7 +7,7 @@ import { TPokemonsDataServer } from "./types";
 import {
   POKEMONSDB_FILENAME,
   POKEMONS_DB_PATH,
-} from "./utlites/constansVariables";
+} from "./utilities/constansVariables";
 
 // Gets the data from the api and writes the pokemonsDB.json file.
 export async function createJsonDB(pokemonsDataServer: TPokemonsDataServer) {

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import cors from "cors";
-import { app, express } from "./utlites/expressUtilites";
+import { app, express } from "./utilities/expressUtilities";
 import { pokemonsRoutes } from "./Routes/pokemonRoutes";
 import { connectPGSqlDB } from "./PGSqlDB/PGSqlConnect";
 

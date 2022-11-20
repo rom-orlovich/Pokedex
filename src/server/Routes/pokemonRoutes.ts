@@ -5,7 +5,7 @@ import {
   saveFavoirtePokemonsPGSQL,
 } from "../controllers/controllerPGSql";
 
-import { router } from "../utlites/expressUtilites";
+import { router } from "../utilities/expressutilities";
 
 export const pokemonsRoutes = router();
 

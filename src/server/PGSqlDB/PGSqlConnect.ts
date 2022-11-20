@@ -1,12 +1,12 @@
 import { mergePokemons } from "../createPokemonsMergingDB";
 import { FieldName } from "../types";
-import { POKEMONS_TABLE_NAME } from "../utlites/constansVariables";
-import { app, PORT } from "../utlites/expressUtilites";
+import { POKEMONS_TABLE_NAME } from "../utilities/constansVariables";
+import { app, PORT } from "../utilities/expressutilities";
 import {
   createFieldNames,
   createFieldValues,
-  dataOrErrorResponeAsConst,
-} from "../utlites/helpers";
+  dataOrErrorResponseAsConst,
+} from "../utilities/helpers";
 import { client } from "./PGSqlConfig";
 
 import {
@@ -18,7 +18,7 @@ import {
 async function createPokemonsDBsql() {
   // Check if the table is exist. if not the function create the DB in postgres.
   let [res, err] = await checkIfTableExist(POKEMONS_TABLE_NAME);
-  if (res?.rows[0].exists) return dataOrErrorResponeAsConst(res, err);
+  if (res?.rows[0].exists) return dataOrErrorResponseAsConst(res, err);
 
   const numPokemon = 8000 - 1153;
   const data = await mergePokemons(numPokemon);
@@ -60,7 +60,7 @@ async function createPokemonsDBsql() {
     fieldValueArr
   );
 
-  return dataOrErrorResponeAsConst(res, err);
+  return dataOrErrorResponseAsConst(res, err);
 }
 
 export async function connectPGSqlDB() {

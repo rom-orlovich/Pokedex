@@ -57,7 +57,7 @@ export class SearchBar {
         "top"
       );
 
-      // Filters by name parmater and by the value of the input.
+      // Filters by name param and by the value of the input.
       // and return  new array.
       const filterPokemons = pokemonsData.filterPokemonsByQuery(
         "name",
