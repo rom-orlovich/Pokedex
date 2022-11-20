@@ -1,7 +1,7 @@
 import {
   NUM_RESULTS,
   POKEMONS_TABLE_NAME,
-} from "../utilities/constansVariables";
+} from "../utilities/constantVariables";
 import {
   promiseHandler,
   dataOrErrorResponseAsConst,

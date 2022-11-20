@@ -1,7 +1,7 @@
 import { mergePokemons } from "../createPokemonsMergingDB";
 import { FieldName } from "../types";
-import { POKEMONS_TABLE_NAME } from "../utilities/constansVariables";
-import { app, PORT } from "../utilities/expressutilities";
+import { POKEMONS_TABLE_NAME } from "../utilities/constantVariables";
+import { app, PORT } from "../utilities/expressUtilities";
 import {
   createFieldNames,
   createFieldValues,

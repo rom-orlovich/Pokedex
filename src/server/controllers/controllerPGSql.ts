@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 
 import { client } from "../PGSqlDB/PGSqlConfig";
-import { NUM_RESULTS } from "../utilities/constansVariables";
-import { Request, Response } from "../utilities/expressutilities";
+import { NUM_RESULTS } from "../utilities/constantVariables";
+import { Request, Response } from "../utilities/expressUtilities";
 import { promiseHandler } from "../utilities/helpers";
 
 import {

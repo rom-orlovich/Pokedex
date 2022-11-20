@@ -10,13 +10,13 @@ const LOCAL_CONNECTION = {
 };
 
 const INTERNAL_RENDER_CONNECTION = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.INTERNAL_RENDER_DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 };
 const EXTERNAL_RENDER_CONNECTION = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.EXTERNAL_RENDER_DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },

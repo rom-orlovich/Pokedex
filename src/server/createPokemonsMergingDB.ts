@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { makeUniqeArr } from "./utilities/helpers";
 import { InewPokemon, IoldPokemon } from "./types";
-import { POKEMONS_DB_PATH } from "./utilities/constansVariables";
+import { POKEMONS_DB_PATH } from "./utilities/constantVariables";
 import { readFileRes } from "./utilities/fsHelpers";
 
 function formatNewPokemon(

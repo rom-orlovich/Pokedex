@@ -5,8 +5,9 @@ declare global {
     interface ProcessEnv {
       NODE_ENV: string;
       PORT: string;
-      MONGO_DB_URL: string;
-      DATABASE_URL: string;
+
+      INTERNAL_RENDER_DATABASE_URL: string;
+      EXTERNAL_RENDER_DATABASE_URL: string;
     }
   }
 }
