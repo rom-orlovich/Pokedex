@@ -45,12 +45,15 @@ export class PokemonsDataClient {
 
   // Fetches the favorite pokemons data from the Express server
   async fetchFavoritePokemonsDataFromServer() {
-    this.favoritePokemonsArr.push(
-      ...(await fetchData(GET_FAVORITE_POKEMONS_URL))
+    const [data, err] = await promiseHandler(
+      fetchData(GET_FAVORITE_POKEMONS_URL)
     );
+
+    if (data.length) this.favoritePokemonsArr.push(...data);
   }
 
   async saveFavoritePokemonsDataInServer() {
+    console.log(this.favoritePokemonsArr);
     await fetchData(
       SAVE_FAVORITE_POKEMONS_URL,
       "POST",

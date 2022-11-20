@@ -1,4 +1,3 @@
-import {} from "../controllers/controllerMongoDB";
 import {
   getFavoritePokemonsPGSQL,
   getPokemonsPGSQL,

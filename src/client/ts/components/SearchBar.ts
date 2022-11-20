@@ -20,9 +20,7 @@ export class SearchBar {
     <div><form class="form">
     <input type="search" placeholder="Search" class="search_field" />
     <button type="submit" class="search_button">
-      ${createImg(
-        "https://www.kindacode.com/wp-content/uploads/2020/12/search.png"
-      )}
+      ${createImg("https://cdn-icons-png.flaticon.com/512/149/149852.png")}
     </button>
   </form></div>
     </div>
